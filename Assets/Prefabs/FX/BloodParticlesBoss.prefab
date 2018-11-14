@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114165958366299350}
   - component: {fileID: 114852577400918754}
   m_Layer: 0
-  m_Name: BloodParticlesEnemy
+  m_Name: BloodParticlesBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1125210263508766}
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114165958366299350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f207b68e1ae1ab84c82bf51eaad9a8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 10
+  Time: 3
 --- !u!198 &198243956862812212
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -201,7 +201,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 80
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -639,7 +639,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 8
+      scalar: 12
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -723,7 +723,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 10
+      value: 5.0322824
       mode: 0
       spread: 0
       speed:
@@ -780,7 +780,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 90
+      value: 360
       mode: 0
       spread: 0
       speed:
@@ -952,7 +952,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 100
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -1003,7 +1003,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
       cycleCount: 1
-      repeatInterval: 0.01
+      repeatInterval: 0.02
   SizeModule:
     enabled: 0
     curve:
@@ -4693,9 +4693,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2105533965
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 924976035
+  m_SortingLayer: 5
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

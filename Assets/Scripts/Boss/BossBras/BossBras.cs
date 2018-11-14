@@ -13,14 +13,13 @@ public class BossBras : MonoBehaviour {
     public string Turn = "Smash";
     private BossBrasClap BossBrasClapScript;
     private BossBrasSmash BossBrasSmashScript;
-    private Popup PopupScript;
 
     private void Start() {
         BossBrasClapScript = BrasClap.GetComponent<BossBrasClap>();
         BossBrasSmashScript = BrasSmash.GetComponent<BossBrasSmash>();
-        PopupScript = Popup.GetComponent<Popup>();
+
         Popup.SetActive(true);
-        PopupScript.Pop();
+
         StartCoroutine("UpdateTurn");
         StartCoroutine("TurnSelector");
 

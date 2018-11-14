@@ -11,9 +11,10 @@ public class Popup : MonoBehaviour {
 
     private void OnEnable() {
         AnimatorComponent = GetComponent<Animator>();
+        Pop();
     }
 
-    public void Pop() {
+    private void Pop() {
        AnimatorComponent.Play("Pop");
         StartCoroutine("Kill");
     }

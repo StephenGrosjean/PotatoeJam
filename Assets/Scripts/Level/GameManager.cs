@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
     public bool BossLegsDead; //Get (yes)
 
     public int currentcheckpoint;
+    [SerializeField] private GameObject PowerScreen;
+    [SerializeField] private GameObject PopUpFirstBoss, PopUpSecondBoss;
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private float LimitBoss1, LimitBoss2;
     [SerializeField] private Transform CP0, CP1, CP2;
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject WallB1_1, WallB1_2, WallB2_1, WallB2_2;
     [SerializeField] private GameObject[] LifeBoss1;
     [SerializeField] private GameObject[] LifeBoss2;
+
     [Header("SmashPower")]
     [SerializeField] private GameObject UISmash;
 
@@ -31,7 +34,8 @@ public class GameManager : MonoBehaviour {
     private const int VolumeScale = 15;
 
     private GameObject Player;
-    
+
+    private Animator PowerScreenAnimator;
     private AudioSource CamAudioSource;
     private LifeSystem LifeSystemScript;
     private AnimatorNames AnimatorNamesScript;
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour {
         LifeSystemScript = Player.GetComponent<LifeSystem>();
         AnimatorNamesScript = Player.GetComponent<AnimatorNames>();
         SmashScript = Player.GetComponent<Smash>();
+        PowerScreenAnimator = PowerScreen.GetComponent<Animator>();
         CamCinemachineMain_VirtualCamera = CamCinemachineMain.GetComponent<CinemachineVirtualCamera>();
         CamCinemachineLock1_VirtualCamera = CamCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
         CamCinemachineLock2_VirtualCamera = CamCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
@@ -107,6 +112,8 @@ public class GameManager : MonoBehaviour {
         //Check if the Boss 1 is dead
         else if(BossArmsDead && PlayerPrefs.GetInt("CheckPoint") == 0) {
             Save(1); //Set the checkpoint 
+            PowerScreenAnimator.Play("PowerScreen");
+            PopUpFirstBoss.SetActive(true);
 
             UpgradePlayer(2);
 

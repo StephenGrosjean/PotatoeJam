@@ -16,12 +16,15 @@ public class SmashBall : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.tag == "Enemy") {
             collision.gameObject.GetComponent<Enemy>().Kill();
+
             Destroy(gameObject);
         }
         else if(collision.gameObject.tag == "Ground"){
-            Debug.Log("GT");
             Destroy(gameObject);
             
+        }else if(collision.gameObject.tag == "SpecialBrick") {
+            collision.gameObject.GetComponent<DestroyableBrick>().DestroySequenceSmash();
+            Destroy(gameObject);
         }
     }
 

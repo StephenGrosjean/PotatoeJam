@@ -39,7 +39,6 @@ public class LevelManager : MonoBehaviour {
         //Start the Tip PopUp
         if(PopUp != null) {
             PopUp.SetActive(true);
-            PopUp.GetComponent<Popup>().Pop();
         }
         
     }
