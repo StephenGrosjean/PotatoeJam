@@ -1,0 +1,13 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Sourir_Genant_niveau1
+  rotate: false
+  xy: 2, 2
+  size: 657, 1024
+  orig: 657, 1024
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bras_drpot
+  rotate: true
+  xy: 649, 1341
+  size: 679, 512
+  orig: 679, 512
+  offset: 0, 0
+  index: -1
+bras_gauche
+  rotate: false
+  xy: 1252, 4
+  size: 511, 883
+  orig: 511, 883
+  offset: 0, 0
+  index: -1
+jambe droite
+  rotate: false
+  xy: 1715, 902
+  size: 307, 1118
+  orig: 307, 1118
+  offset: 0, 0
+  index: -1
+jambe gauche
+  rotate: false
+  xy: 1252, 889
+  size: 461, 1131
+  orig: 461, 1131
+  offset: 0, 0
+  index: -1
+patate_short
+  rotate: false
+  xy: 2, 772
+  size: 645, 1248
+  orig: 645, 1248
+  offset: 0, 0
+  index: -1
+patate_short_boucheOuverte
+  rotate: true
+  xy: 2, 125
+  size: 645, 1248
+  orig: 645, 1248
+  offset: 0, 0
+  index: -1

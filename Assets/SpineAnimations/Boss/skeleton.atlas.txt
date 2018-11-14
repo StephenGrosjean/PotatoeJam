@@ -1,0 +1,34 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bras_droit
+  rotate: false
+  xy: 1333, 615
+  size: 308, 1024
+  orig: 308, 1024
+  offset: 0, 0
+  index: -1
+bras_gauche
+  rotate: false
+  xy: 1023, 615
+  size: 308, 1024
+  orig: 308, 1024
+  offset: 0, 0
+  index: -1
+bras_smash_droite
+  rotate: false
+  xy: 2, 1127
+  size: 1019, 512
+  orig: 1019, 512
+  offset: 0, 0
+  index: -1
+bras_smash_left
+  rotate: false
+  xy: 2, 613
+  size: 1019, 512
+  orig: 1019, 512
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+boss_legs.png
+size: 4096,4096
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+base
+  rotate: false
+  xy: 1930, 2921
+  size: 972, 456
+  orig: 972, 456
+  offset: 0, 0
+  index: -1
+calve_right_broken
+  rotate: true
+  xy: 790, 2872
+  size: 505, 1138
+  orig: 505, 1138
+  offset: 0, 0
+  index: -1
+calves_left
+  rotate: false
+  xy: 2, 1142
+  size: 510, 1138
+  orig: 510, 1138
+  offset: 0, 0
+  index: -1
+calves_right
+  rotate: false
+  xy: 2, 2
+  size: 462, 1138
+  orig: 462, 1138
+  offset: 0, 0
+  index: -1
+thigh left
+  rotate: true
+  xy: 790, 2356
+  size: 514, 1081
+  orig: 514, 1081
+  offset: 0, 0
+  index: -1
+thigh_right
+  rotate: false
+  xy: 2, 2282
+  size: 786, 1095
+  orig: 786, 1095
+  offset: 0, 0
+  index: -1

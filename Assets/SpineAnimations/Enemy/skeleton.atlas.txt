@@ -1,0 +1,13 @@
+
+skeleton.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+potatoes_mob
+  rotate: false
+  xy: 2, 2
+  size: 385, 512
+  orig: 385, 512
+  offset: 0, 0
+  index: -1

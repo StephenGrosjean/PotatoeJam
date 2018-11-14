@@ -1,0 +1,34 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Sourir_Genant_niveau1
+  rotate: false
+  xy: 2, 973
+  size: 657, 1024
+  orig: 657, 1024
+  offset: 0, 0
+  index: -1
+Sourir_genant_level2
+  rotate: false
+  xy: 661, 973
+  size: 657, 1024
+  orig: 657, 1024
+  offset: 0, 0
+  index: -1
+bras_drpot
+  rotate: false
+  xy: 1320, 1485
+  size: 679, 512
+  orig: 679, 512
+  offset: 0, 0
+  index: -1
+bras_gauche
+  rotate: false
+  xy: 2, 88
+  size: 511, 883
+  orig: 511, 883
+  offset: 0, 0
+  index: -1
