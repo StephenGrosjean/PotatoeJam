@@ -57,7 +57,7 @@ public class BossBrasSmash : MonoBehaviour {
         PosX = StartPosX;
 
         //Start the Boss sequence loop
-        StartCoroutine("States", "Start");
+        InvokeState("Start");
     }
 
     void Update() {
@@ -66,10 +66,15 @@ public class BossBrasSmash : MonoBehaviour {
         transform.position = Vector2.MoveTowards(transform.position, new Vector3(PosX, PosY, transform.position.z), BossSpeed); //Move the object to the player position
     }
 
-    public IEnumerator States(string State) {
+
+    public void InvokeState(string state) {
+        StartCoroutine("States", state);
+    }
+
+    IEnumerator States(string State) {
         switch (State) {
             case "Start":
-                StartCoroutine("States", "Idle");
+                InvokeState("Idle");
                 break;
 
             case "Exit":
@@ -83,27 +88,27 @@ public class BossBrasSmash : MonoBehaviour {
                 BossContainerAnimator.Play(Animation_Idle_Left);
                 //Wait some time
                 yield return new WaitForSeconds(WaitTime_Idle_State);
-                StartCoroutine("States", "Search");
+                InvokeState("Search");
                 break;
 
             case "Search":
                 //Go to the player position
                 PosX = PlayerPos.x;
                 yield return new WaitForSeconds(WaitTime_Search_State);
-                StartCoroutine("States", "Idle2");
+                InvokeState("Idle2");
                 break;
 
             case "Idle2":
                 //Wait some time
                 yield return new WaitForSeconds(WaitTime_Idle2_State);
-                StartCoroutine("States", "Search2");
+                InvokeState("Search2");
                 break;
 
             case "Search2":
                 //Go to player position
                 PosX = PlayerPos.x;
                 yield return new WaitForSeconds(WaitTime_Search2_State);
-                StartCoroutine("States", "Smash");
+                InvokeState("Smash");
                 break;
 
             case "Smash":
@@ -131,7 +136,7 @@ public class BossBrasSmash : MonoBehaviour {
 
                 yield return new WaitForSeconds(WaitTime_Smash_Action[2]);
                 //Restart the State Coroutine
-                StartCoroutine("States", "Idle");
+                InvokeState("Idle");
                 break;
         }
     }

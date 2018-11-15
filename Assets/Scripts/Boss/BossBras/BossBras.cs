@@ -20,9 +20,13 @@ public class BossBras : MonoBehaviour {
 
         Popup.SetActive(true);
 
+        TurnSequence();
+
+    }
+
+    void TurnSequence() {
         StartCoroutine("UpdateTurn");
         StartCoroutine("TurnSelector");
-
     }
 
     IEnumerator UpdateTurn () {
@@ -30,7 +34,7 @@ public class BossBras : MonoBehaviour {
             case "Smash":
 
                 if (BrasClap.activeSelf) {
-                    BossBrasClapScript.StartCoroutine("States", "Exit");
+                    BossBrasClapScript.InvokeState("Exit");
                 }
                 yield return new WaitForSeconds(1.5f);
 
@@ -39,7 +43,7 @@ public class BossBras : MonoBehaviour {
 
             case "Clap":
                 if (BrasSmash.activeSelf) {
-                    BossBrasSmashScript.StartCoroutine("States", "Exit");
+                    BossBrasSmashScript.InvokeState("Exit");
                 }
 
                 yield return new WaitForSeconds(1.5f);
@@ -55,15 +59,13 @@ public class BossBras : MonoBehaviour {
         switch (Turn) {
             case "Smash":
                 Turn = "Clap";
-                StartCoroutine("UpdateTurn");
-                StartCoroutine("TurnSelector");
+                TurnSequence();
                 break;
 
             case "Clap":
                 Turn = "Smash";
                 UpdateTurn();
-                StartCoroutine("UpdateTurn");
-                StartCoroutine("TurnSelector");
+                TurnSequence();
                 break;
         }
         

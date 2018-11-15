@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BossBrasClap : MonoBehaviour {
+
     [SerializeField] private AudioClip  ClapSound;
     [SerializeField] private GameObject FXPlayer;
     [SerializeField] private GameObject DamageZone;
@@ -43,7 +44,11 @@ public class BossBrasClap : MonoBehaviour {
 	}
 
     private void OnEnable() {
-        StartCoroutine("States", "Idle");
+        InvokeState("Idle");
+    }
+
+    public void InvokeState(string state) {
+        StartCoroutine("States", state);
     }
 
     // Update is called once per frame
@@ -52,7 +57,7 @@ public class BossBrasClap : MonoBehaviour {
         transform.position = Vector2.MoveTowards(transform.position, new Vector3(transform.position.x, PosY, transform.position.z), BossSpeed);
     }
 
-   public IEnumerator States(string State) {
+   IEnumerator States(string State) {
         switch (State) {
 
             case "Exit":
@@ -66,27 +71,27 @@ public class BossBrasClap : MonoBehaviour {
                 //Wait some time
   
                 yield return new WaitForSeconds(WaitTime_Idle_State);
-                StartCoroutine("States", "Search");
+                InvokeState("Search");
                 break;
 
             case "Search":
                 //Goto player position
                 PosY = PlayerPos.y;
                 yield return new WaitForSeconds(WaitTime_Search_State);
-                StartCoroutine("States", "Idle2");
+                InvokeState("Idle2");
                 break;
 
             case "Idle2":
                 //Wait some time
                 yield return new WaitForSeconds(WaitTime_Idle2_State);
-                StartCoroutine("States", "Search2");
+                InvokeState("Search2");
                 break;
 
             case "Search2":
                 //Goto player position
                 PosY = PlayerPos.y;
                 yield return new WaitForSeconds(WaitTime_Search2_State);
-                StartCoroutine("States", "Smash");
+                InvokeState("Smash");
                 break;
 
             case "Smash":
@@ -107,7 +112,7 @@ public class BossBrasClap : MonoBehaviour {
                 yield return new WaitForSeconds(WaitTime_Clap_Action[1]);
 
                 //Restart the sequence
-                StartCoroutine("States", "Idle");
+                InvokeState("Idle");
                 break;
         }
     }
