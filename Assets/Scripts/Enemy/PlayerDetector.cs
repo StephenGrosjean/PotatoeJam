@@ -8,7 +8,7 @@ using UnityEngine;
 
 
 public class PlayerDetector : MonoBehaviour {
-    public bool playerInRange;
+    private bool playerInRange;
 
     public bool PlayerInRange {
         get {

@@ -30,16 +30,16 @@ public class InputManager : MonoBehaviour {
 	}
 
     //Method to write the keys into a Json
-    public void WriteJson(string[] Key) {
+    public void WriteJson(string[] key) {
         Inputs = new Keys(); //Create a new instance Keys()
 
         //Asign key values
-        Inputs.Left = Key[0];
-        Inputs.Right = Key[1];
-        Inputs.Jump = Key[2];
-        Inputs.Dash = Key[3];
-        Inputs.Inhale = Key[4];
-        Inputs.Smash = Key[5];
+        Inputs.Left = key[0];
+        Inputs.Right = key[1];
+        Inputs.Jump = key[2];
+        Inputs.Dash = key[3];
+        Inputs.Inhale = key[4];
+        Inputs.Smash = key[5];
 
         //Write to Input.json
         json = JsonUtility.ToJson(Inputs);

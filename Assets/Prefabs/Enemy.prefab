@@ -441,20 +441,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b66f1c8de8bc714596eca5aff9b1f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.4
-  JumpForce: 60
-  HeadBumpForce: 100
-  CheckRadius: 0.1
+  speed: 0.4
+  jumpForce: 60
+  headBumpForce: 100
+  checkRadius: 0.1
   isGrounded: 0
-  GroundCheck: {fileID: 4122536409142202}
-  GroundLayer:
+  groundCheck: {fileID: 4122536409142202}
+  groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  PlayerDetector: {fileID: 1428510256800728}
-  LeftDetector: {fileID: 1167108336572244}
-  RightDetector: {fileID: 1859755662626456}
-  Poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
-  BloodParticles: {fileID: 1125210263508766, guid: 11d03cfc3e62e674f9d8b6279aae05e0,
+  playerDetector: {fileID: 1428510256800728}
+  leftDetector: {fileID: 1167108336572244}
+  rightDetector: {fileID: 1859755662626456}
+  poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
+  bloodParticles: {fileID: 1125210263508766, guid: 11d03cfc3e62e674f9d8b6279aae05e0,
     type: 2}
 --- !u!114 &114243716829580208
 MonoBehaviour:
@@ -467,7 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2c84c10fa4be04195b3812572031f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInRange: 0
 --- !u!114 &114393278898052836
 MonoBehaviour:
   m_ObjectHideFlags: 1

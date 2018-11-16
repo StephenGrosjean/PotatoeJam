@@ -1,24 +1,23 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Boss Manager
 /// </summary>
 public class BossBras : MonoBehaviour {
-    [SerializeField] private GameObject Popup;
-    [SerializeField] private GameObject BrasSmash;
-    [SerializeField] private GameObject BrasClap;
-    [SerializeField] private int WaitTurnTime;
+    [SerializeField] private GameObject popup;
+    [SerializeField] private GameObject brasSmash;
+    [SerializeField] private GameObject brasClap;
+    [SerializeField] private int waitTurnTime;
 
     public string Turn = "Smash";
-    private BossBrasClap BossBrasClapScript;
-    private BossBrasSmash BossBrasSmashScript;
+    private BossBrasClap bossBrasClapScript;
+    private BossBrasSmash bossBrasSmashScript;
 
     private void Start() {
-        BossBrasClapScript = BrasClap.GetComponent<BossBrasClap>();
-        BossBrasSmashScript = BrasSmash.GetComponent<BossBrasSmash>();
+        bossBrasClapScript = brasClap.GetComponent<BossBrasClap>();
+        bossBrasSmashScript = brasSmash.GetComponent<BossBrasSmash>();
 
-        Popup.SetActive(true);
+        popup.SetActive(true);
 
         TurnSequence();
 
@@ -33,21 +32,21 @@ public class BossBras : MonoBehaviour {
         switch (Turn) {
             case "Smash":
 
-                if (BrasClap.activeSelf) {
-                    BossBrasClapScript.InvokeState("Exit");
+                if (brasClap.activeSelf) {
+                    bossBrasClapScript.InvokeState("Exit");
                 }
                 yield return new WaitForSeconds(1.5f);
 
-                BrasSmash.SetActive(true);
+                brasSmash.SetActive(true);
                 break;
 
             case "Clap":
-                if (BrasSmash.activeSelf) {
-                    BossBrasSmashScript.InvokeState("Exit");
+                if (brasSmash.activeSelf) {
+                    bossBrasSmashScript.InvokeState("Exit");
                 }
 
                 yield return new WaitForSeconds(1.5f);
-                BrasClap.SetActive(true);
+                brasClap.SetActive(true);
 
                 break;
         }
@@ -55,7 +54,7 @@ public class BossBras : MonoBehaviour {
 
     //Change Boss stage
     IEnumerator TurnSelector() {
-        yield return new WaitForSeconds(WaitTurnTime);
+        yield return new WaitForSeconds(waitTurnTime);
         switch (Turn) {
             case "Smash":
                 Turn = "Clap";

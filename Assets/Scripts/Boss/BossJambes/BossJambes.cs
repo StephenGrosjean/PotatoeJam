@@ -1,80 +1,91 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BossJambes : MonoBehaviour {
+public class BossJambes : MonoBehaviour
+{
+    [SerializeField] private Transform leftPos;
+    [SerializeField] private Transform rightPos;
+    [SerializeField] private GameObject rightDamageZone, leftDamageZone;
+    [SerializeField] private GameObject hitCircle;
+    [SerializeField] private GameObject dashZone;
+    [SerializeField] private float speed;
+    [SerializeField] private float waitIdle, waitWalk, waitBeforeHit, waitHit, waitAfterHit;
+    [SerializeField] private float kickForce;
 
-    [SerializeField] private Transform LeftPos;
-    [SerializeField] private Transform RightPos;
-    [SerializeField] private GameObject RightDamageZone, LeftDamageZone;
-    [SerializeField] private GameObject HitCircle;
-    [SerializeField] private GameObject DashZone;
-    [SerializeField] private float Speed;
-    [SerializeField] private float Wait_Idle, Wait_Walk, Wait_BeforeHit, Wait_Hit, Wait_AfterHit;
-    [SerializeField] private float KickForce;
+    private bool sideLeft;
+    private Transform target;
+    private GameObject player;
 
-    private bool SideLeft;
-    private Transform Target;
-    private GameObject Player;
+    private Animator animatorComponent;
+    private DamageZone rightDamageZoneScript, leftDamageZoneScript;
+    private LifeSystem lifeSystemScript;
+    private Rigidbody2D playerRigidbody;
+    private PlayerMovement playerMovementScript;
+    private DashZone dashZoneScript;
 
-    private Animator AnimatorComponent;
-    private DamageZone RightDamageZoneScript, LeftDamageZoneScript;
-    private LifeSystem LifeSystemScript;
-    private Rigidbody2D PlayerRigidbody;
-    private PlayerMovement PlayerMovementScript;
-    private DashZone DashZoneScript;
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
 
-	void Start () {
-        Player = GameObject.FindGameObjectWithTag("Player");
-
-        AnimatorComponent = GetComponent<Animator>();
-        RightDamageZoneScript = RightDamageZone.GetComponent<DamageZone>();
-        LeftDamageZoneScript = LeftDamageZone.GetComponent<DamageZone>();
-        LifeSystemScript = Player.GetComponent<LifeSystem>();
-        PlayerRigidbody = Player.GetComponent<Rigidbody2D>();
-        PlayerMovementScript = Player.GetComponent<PlayerMovement>();
-        DashZoneScript = DashZone.GetComponent<DashZone>();
+        animatorComponent = GetComponent<Animator>();
+        rightDamageZoneScript = rightDamageZone.GetComponent<DamageZone>();
+        leftDamageZoneScript = leftDamageZone.GetComponent<DamageZone>();
+        lifeSystemScript = player.GetComponent<LifeSystem>();
+        playerRigidbody = player.GetComponent<Rigidbody2D>();
+        playerMovementScript = player.GetComponent<PlayerMovement>();
+        dashZoneScript = dashZone.GetComponent<DashZone>();
 
         StartCoroutine("States", "Start");
-	}
+    }
 
-	void Update () {
-        if(Target != null) {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector3(Target.position.x, transform.position.y, Target.position.z), Speed);
+    void Update()
+    {
+        if (target != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+                new Vector3(target.position.x, transform.position.y, target.position.z), speed);
         }
-       
-        if (SideLeft) {
+
+        if (sideLeft)
+        {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-        else if(!SideLeft) {
+        else if (!sideLeft)
+        {
             transform.localScale = new Vector3(1, 1, 1);
         }
-
-        
-	}
-
-    private void OnDisable() {
-        HitCircle.SetActive(false);
     }
 
-    void ApplyKickDamages() {
-        if (SideLeft) {
-            if (LeftDamageZoneScript.IsInZone) {
-                LifeSystemScript.LowerLife();
-                PlayerRigidbody.AddForce(Vector2.up * KickForce, ForceMode2D.Impulse);
+    private void OnDisable()
+    {
+        hitCircle.SetActive(false);
+    }
+
+    void ApplyKickDamages()
+    {
+        if (sideLeft)
+        {
+            if (leftDamageZoneScript.IsInZone)
+            {
+                lifeSystemScript.LowerLife();
+                playerRigidbody.AddForce(Vector2.up * kickForce, ForceMode2D.Impulse);
             }
         }
-        else {
-            if (RightDamageZoneScript.IsInZone) {
-                LifeSystemScript.LowerLife();
-                PlayerRigidbody.AddForce(Vector2.up * KickForce, ForceMode2D.Impulse);
+        else
+        {
+            if (rightDamageZoneScript.IsInZone)
+            {
+                lifeSystemScript.LowerLife();
+                playerRigidbody.AddForce(Vector2.up * kickForce, ForceMode2D.Impulse);
             }
         }
     }
 
 
-    IEnumerator States(string state) {
-        switch (state) {
+    IEnumerator States(string state)
+    {
+        switch (state)
+        {
             case "Start":
                 Debug.Log("Start");
                 yield return new WaitForSeconds(1);
@@ -83,55 +94,57 @@ public class BossJambes : MonoBehaviour {
 
             case "Idle":
                 Debug.Log("Idle");
-                AnimatorComponent.Play("Idle");
-                yield return new WaitForSeconds(Wait_Idle);
-                HitCircle.SetActive(false);
-                DashZone.SetActive(false);
+                animatorComponent.Play("Idle");
+                yield return new WaitForSeconds(waitIdle);
+                hitCircle.SetActive(false);
+                dashZone.SetActive(false);
 
-                if (SideLeft) {
+                if (sideLeft)
+                {
                     StartCoroutine("States", "WalkRight");
-
                 }
-                else {
+                else
+                {
                     StartCoroutine("States", "WalkLeft");
                 }
+
                 break;
 
             case "WalkLeft":
                 Debug.Log("WalkLeft");
-                Target = LeftPos;
-                AnimatorComponent.Play("Walk");
-                yield return new WaitForSeconds(Wait_Walk);
-                SideLeft = true;
+                target = leftPos;
+                animatorComponent.Play("Walk");
+                yield return new WaitForSeconds(waitWalk);
+                sideLeft = true;
                 StartCoroutine("States", "Wait");
                 break;
 
             case "WalkRight":
                 Debug.Log("WalkRight");
-                Target = RightPos;
-                AnimatorComponent.Play("Walk");
-                yield return new WaitForSeconds(Wait_Walk);
-                SideLeft = false;
+                target = rightPos;
+                animatorComponent.Play("Walk");
+                yield return new WaitForSeconds(waitWalk);
+                sideLeft = false;
                 StartCoroutine("States", "Wait");
                 break;
 
             case "Wait":
-                AnimatorComponent.Play("Idle");
+                animatorComponent.Play("Idle");
                 yield return new WaitForSeconds(1);
                 StartCoroutine("States", "Hit");
                 break;
 
             case "Hit":
                 Debug.Log("Hit");
-                yield return new WaitForSeconds(Wait_BeforeHit);
-                AnimatorComponent.Play("Kick");
+                yield return new WaitForSeconds(waitBeforeHit);
+                animatorComponent.Play("Kick");
 
-                yield return new WaitForSeconds(Wait_Hit);
+                yield return new WaitForSeconds(waitHit);
                 ApplyKickDamages();
-                DashZone.SetActive(true);
-                HitCircle.SetActive(true);
+                dashZone.SetActive(true);
+                hitCircle.SetActive(true);
 
-                yield return new WaitForSeconds(Wait_AfterHit);
+                yield return new WaitForSeconds(waitAfterHit);
                 StartCoroutine("States", "Idle");
 
 

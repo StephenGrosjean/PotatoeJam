@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 0
+  animName: 0
 --- !u!95 &171310878
 Animator:
   serializedVersion: 3
@@ -6355,7 +6355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 0
+  animName: 0
 --- !u!95 &281228540
 Animator:
   serializedVersion: 3
@@ -6865,6 +6865,11 @@ Prefab:
       propertyPath: OtherBricks.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4211487296733596, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -57.599976
@@ -6940,6 +6945,26 @@ Prefab:
     - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
         type: 2}
       propertyPath: OtherBricks.Array.data[3]
+      value: 
+      objectReference: {fileID: 641946511}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[0]
+      value: 
+      objectReference: {fileID: 134690894}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1426220422}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[2]
+      value: 
+      objectReference: {fileID: 1953652843}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[3]
       value: 
       objectReference: {fileID: 641946511}
     m_RemovedComponents:
@@ -8147,9 +8172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf1bd3303b8ccb469ac84da28843717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateObject: 1
-  ObjectsToActivate:
-  - {fileID: 525618637}
+  activateObject: 0
+  objectsToActivate: []
   Triggered: 0
 --- !u!61 &452754480
 BoxCollider2D:
@@ -8291,13 +8315,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b5b4b93811fcf41946ac2c5f17c5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelContainer: {fileID: 204977474}
-  LevelTrigger: {fileID: 2092943268}
-  Door: {fileID: 119459261}
-  EnemyContainer: {fileID: 424265001}
-  PopUp: {fileID: 1402529329}
-  ArrowGo: {fileID: 1987705525}
-  BorderPos: {fileID: 445762700}
+  levelContainer: {fileID: 204977474}
+  levelTrigger: {fileID: 2092943268}
+  door: {fileID: 119459261}
+  enemyContainer: {fileID: 424265001}
+  popUp: {fileID: 1402529329}
+  arrowGo: {fileID: 1987705525}
+  borderPos: {fileID: 445762700}
 --- !u!1 &468299316
 GameObject:
   m_ObjectHideFlags: 0
@@ -8487,7 +8511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b5e4497d21c19459dd91b57d45b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossContainer: {fileID: 1757543984}
+  bossContainer: {fileID: 0}
 --- !u!61 &480813537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8932,6 +8956,11 @@ Prefab:
       propertyPath: OtherBricks.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4211487296733596, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -57.599976
@@ -9003,6 +9032,26 @@ Prefab:
     - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
         type: 2}
       propertyPath: OtherBricks.Array.data[3]
+      value: 
+      objectReference: {fileID: 725692769}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[0]
+      value: 
+      objectReference: {fileID: 134690894}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1953652843}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[2]
+      value: 
+      objectReference: {fileID: 641946511}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[3]
       value: 
       objectReference: {fileID: 725692769}
     m_RemovedComponents:
@@ -9293,7 +9342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 1
+  animName: 0
 --- !u!95 &660207576
 Animator:
   serializedVersion: 3
@@ -9555,6 +9604,11 @@ Prefab:
       propertyPath: OtherBricks.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4211487296733596, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -57.599976
@@ -9630,6 +9684,26 @@ Prefab:
     - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
         type: 2}
       propertyPath: OtherBricks.Array.data[3]
+      value: 
+      objectReference: {fileID: 725692769}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[0]
+      value: 
+      objectReference: {fileID: 134690894}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1426220422}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[2]
+      value: 
+      objectReference: {fileID: 1953652843}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[3]
       value: 
       objectReference: {fileID: 725692769}
     m_RemovedComponents:
@@ -9834,25 +9908,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afca177d5b2a784e925b38929a8d263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashZone: {fileID: 1392651800}
-  DamageZone: {fileID: 422674674}
-  LockVirtualCamera: {fileID: 1905551302}
-  FXPlayer: {fileID: 186675639}
-  HitSound: {fileID: 8300000, guid: 73b88a81f6f1b9a47aee85435bb1f970, type: 3}
-  WaitTime_Exit_State: 1
-  WaitTime_Idle_State: 1
-  WaitTime_Search_State: 1
-  WaitTime_Idle2_State: 2
-  WaitTime_Search2_State: 1
-  WaitTime_Smash_Action:
+  dashZone: {fileID: 1392651800}
+  damageZone: {fileID: 422674674}
+  lockVirtualCamera: {fileID: 1905551302}
+  fxPlayer: {fileID: 186675639}
+  hitSound: {fileID: 8300000, guid: 73b88a81f6f1b9a47aee85435bb1f970, type: 3}
+  waitTimeExitState: 1
+  waitTimeIdleState: 1
+  waitTimeSearchState: 1
+  waitTimeIdle2State: 2
+  waitTimeSearch2State: 1
+  waitTimeSmashAction:
   - 0.3
   - 1.5
   - 1.7
-  Animation_CameraShake: CameraShake
-  Animation_Idle_Left: Idle_Left
-  Animation_Idle_Right: Idle_Right
-  Animation_Smash_Left: Smash_Left
-  Animation_Smash_Right: Smash_Right
+  animationCameraShake: CameraShake
+  animationIdleLeft: Idle_Left
+  animationIdleRight: Idle_Right
+  animationSmashLeft: Smash_Left
+  animationSmashRight: Smash_Right
 --- !u!1 &712525666
 GameObject:
   m_ObjectHideFlags: 0
@@ -26043,9 +26117,9 @@ RectTransform:
   - {fileID: 84993761}
   - {fileID: 1905299781}
   - {fileID: 910814267}
-  - {fileID: 1926636711}
-  - {fileID: 416591783}
   - {fileID: 991624796}
+  - {fileID: 416591783}
+  - {fileID: 1926636711}
   - {fileID: 1850783581}
   - {fileID: 1402529330}
   - {fileID: 1748664119}
@@ -26756,7 +26830,7 @@ RectTransform:
   m_LocalScale: {x: 0.99999, y: 0.99999, z: 0.99999}
   m_Children: []
   m_Father: {fileID: 825017707}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -27128,8 +27202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf1bd3303b8ccb469ac84da28843717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateObject: 0
-  ObjectsToActivate: []
+  activateObject: 0
+  objectsToActivate: []
   Triggered: 0
 --- !u!1 &999360934
 GameObject:
@@ -27262,7 +27336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 0
+  animName: 0
 --- !u!95 &1006775382
 Animator:
   serializedVersion: 3
@@ -27481,10 +27555,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd653bf126416ef479cb0d9647e45bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Popup: {fileID: 171310875}
-  BrasSmash: {fileID: 706351952}
-  BrasClap: {fileID: 1911036263}
-  WaitTurnTime: 20
+  popup: {fileID: 171310875}
+  brasSmash: {fileID: 706351952}
+  brasClap: {fileID: 1911036263}
+  waitTurnTime: 20
   Turn: Smash
 --- !u!95 &1014769849
 Animator:
@@ -27515,18 +27589,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3beda34e755f0e4fb2f38196198c84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Blood: {fileID: 1125210263508766, guid: 229b14a275d11294fba82e97e40b1bd2, type: 2}
-  Hearts:
+  blood: {fileID: 1125210263508766, guid: 229b14a275d11294fba82e97e40b1bd2, type: 2}
+  hearts:
   - {fileID: 991624797}
   - {fileID: 416591784}
   - {fileID: 1926636712}
-  GoodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
-  BadHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
-  LockVirtualCamera: {fileID: 1905551302}
-  Poof: {fileID: 1405597609609186, guid: c0c31bc3a269a594481087f3ea11819e, type: 2}
-  PoofOrigin: {fileID: 1766676301}
-  Life: 2
-  BloodSpawnPoint: {fileID: 439579495}
+  goodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
+  badHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
+  lockVirtualCamera: {fileID: 1905551302}
+  poof: {fileID: 1405597609609186, guid: c0c31bc3a269a594481087f3ea11819e, type: 2}
+  poofOrigin: {fileID: 1766676301}
+  life: 3
+  bloodSpawnPoint: {fileID: 439579495}
   BossName: 
 --- !u!1 &1020833840
 GameObject:
@@ -27777,8 +27851,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 283774223
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 226d3e0deee10fd42a1dea63c8747f63, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0}
@@ -28485,8 +28559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a283b93cac0a7646b1f93d58c0856e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaskAttract: Attract
-  MaskNone: Default
+  maskAttract: Attrack
+  maskNone: Default
 --- !u!61 &1223957142
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28658,13 +28732,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b5b4b93811fcf41946ac2c5f17c5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelContainer: {fileID: 411726998}
-  LevelTrigger: {fileID: 997976229}
-  Door: {fileID: 1568261592}
-  EnemyContainer: {fileID: 1689318678}
-  PopUp: {fileID: 1006775380}
-  ArrowGo: {fileID: 2122074371}
-  BorderPos: {fileID: 1859809159}
+  levelContainer: {fileID: 411726998}
+  levelTrigger: {fileID: 997976229}
+  door: {fileID: 1568261592}
+  enemyContainer: {fileID: 1689318678}
+  popUp: {fileID: 1006775380}
+  arrowGo: {fileID: 2122074371}
+  borderPos: {fileID: 1859809159}
 --- !u!1 &1261265231
 GameObject:
   m_ObjectHideFlags: 0
@@ -29383,6 +29457,11 @@ Prefab:
       propertyPath: OtherBricks.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4211487296733596, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -57.599976
@@ -29460,6 +29539,26 @@ Prefab:
       propertyPath: OtherBricks.Array.data[3]
       value: 
       objectReference: {fileID: 725692769}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[0]
+      value: 
+      objectReference: {fileID: 134690894}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1426220422}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[2]
+      value: 
+      objectReference: {fileID: 641946511}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[3]
+      value: 
+      objectReference: {fileID: 725692769}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
@@ -29531,7 +29630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b5e4497d21c19459dd91b57d45b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossContainer: {fileID: 1014769846}
+  bossContainer: {fileID: 1014769846}
 --- !u!212 &1392651804
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29679,7 +29778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 0
+  animName: 0
 --- !u!1 &1407366569
 GameObject:
   m_ObjectHideFlags: 0
@@ -29801,9 +29900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf1bd3303b8ccb469ac84da28843717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateObject: 1
-  ObjectsToActivate:
-  - {fileID: 660207574}
+  activateObject: 0
+  objectsToActivate: []
   Triggered: 0
 --- !u!61 &1442584492
 BoxCollider2D:
@@ -29879,7 +29977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81957588620a3e14cb7ca8718390205a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 1
+  animName: 0
 --- !u!95 &1447385888
 Animator:
   serializedVersion: 3
@@ -30567,35 +30665,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BossArmsDead: 0
   BossLegsDead: 0
-  currentcheckpoint: 0
-  PowerScreen: {fileID: 780953564}
-  PopUpFirstBoss: {fileID: 281228537}
-  PopUpSecondBoss: {fileID: 1447385885}
-  PauseMenu: {fileID: 1850783580}
-  LimitBoss1: 460
-  LimitBoss2: 1120
-  CP0: {fileID: 1348421889}
-  CP1: {fileID: 1595108281}
-  CP2: {fileID: 793191971}
-  Boss1: {fileID: 1014769846}
-  Boss2: {fileID: 1757543984}
-  Cam: {fileID: 519420028}
-  CamCinemachineMain: {fileID: 942164992}
-  CamCinemachineLock1: {fileID: 1905551302}
-  CamCinemachineLock2: {fileID: 134414940}
-  WallB1_1: {fileID: 1352262327}
-  WallB1_2: {fileID: 1910390025}
-  WallB2_1: {fileID: 999360934}
-  WallB2_2: {fileID: 1556499568}
-  LifeBoss1:
-  - {fileID: 1926636710}
-  - {fileID: 416591782}
+  Currentcheckpoint: 0
+  powerScreen: {fileID: 780953564}
+  popUpFirstBoss: {fileID: 281228537}
+  popUpSecondBoss: {fileID: 1447385885}
+  pauseMenu: {fileID: 1850783580}
+  limitBoss1: 478
+  limitBoss2: 1118
+  cp0: {fileID: 1348421889}
+  cp1: {fileID: 1595108281}
+  cp2: {fileID: 793191971}
+  boss1: {fileID: 1014769846}
+  boss2: {fileID: 1757543984}
+  cam: {fileID: 519420028}
+  camCinemachineMain: {fileID: 942164992}
+  camCinemachineLock1: {fileID: 1905551302}
+  camCinemachineLock2: {fileID: 134414940}
+  wallB11: {fileID: 1352262327}
+  wallB12: {fileID: 1910390025}
+  wallB21: {fileID: 999360934}
+  wallB22: {fileID: 1556499568}
+  lifeBoss1:
   - {fileID: 991624795}
-  LifeBoss2:
-  - {fileID: 1926636710}
   - {fileID: 416591782}
+  - {fileID: 1926636710}
+  lifeBoss2:
   - {fileID: 991624795}
-  UISmash: {fileID: 429845753}
+  - {fileID: 416591782}
+  - {fileID: 1926636710}
+  uiSmash: {fileID: 429845753}
 --- !u!1 &1595108280
 GameObject:
   m_ObjectHideFlags: 0
@@ -31410,18 +31508,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3beda34e755f0e4fb2f38196198c84e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Blood: {fileID: 1125210263508766, guid: 229b14a275d11294fba82e97e40b1bd2, type: 2}
-  Hearts:
-  - {fileID: 1926636712}
-  - {fileID: 416591784}
+  blood: {fileID: 1125210263508766, guid: 229b14a275d11294fba82e97e40b1bd2, type: 2}
+  hearts:
   - {fileID: 991624797}
-  GoodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
-  BadHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
-  LockVirtualCamera: {fileID: 1905551302}
-  Poof: {fileID: 1405597609609186, guid: c0c31bc3a269a594481087f3ea11819e, type: 2}
-  PoofOrigin: {fileID: 1757543984}
-  Life: 1
-  BloodSpawnPoint: {fileID: 1107903944}
+  - {fileID: 416591784}
+  - {fileID: 1926636712}
+  goodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
+  badHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
+  lockVirtualCamera: {fileID: 134414940}
+  poof: {fileID: 1405597609609186, guid: c0c31bc3a269a594481087f3ea11819e, type: 2}
+  poofOrigin: {fileID: 563567797}
+  life: 3
+  bloodSpawnPoint: {fileID: 1107903944}
   BossName: 
 --- !u!114 &1757543987
 MonoBehaviour:
@@ -31434,19 +31532,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bcfd9b612d14f940aa43b36bc531f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftPos: {fileID: 215155187}
-  RightPos: {fileID: 992300690}
-  RightDamageZone: {fileID: 1949890392}
-  LeftDamageZone: {fileID: 327342432}
-  HitCircle: {fileID: 105607004}
-  DashZone: {fileID: 480813535}
-  Speed: 0.5
-  Wait_Idle: 1
-  Wait_Walk: 4
-  Wait_BeforeHit: 1
-  Wait_Hit: 1
-  Wait_AfterHit: 3
-  KickForce: 100
+  leftPos: {fileID: 215155187}
+  rightPos: {fileID: 992300690}
+  rightDamageZone: {fileID: 1949890392}
+  leftDamageZone: {fileID: 327342432}
+  hitCircle: {fileID: 105607004}
+  dashZone: {fileID: 480813535}
+  speed: 0.5
+  waitIdle: 1
+  waitWalk: 4
+  waitBeforeHit: 1
+  waitHit: 1
+  waitAfterHit: 3
+  kickForce: 100
 --- !u!95 &1757543988
 Animator:
   serializedVersion: 3
@@ -32231,20 +32329,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4078714385fb7db47a778cfd7c938e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClapSound: {fileID: 8300000, guid: 476e458f29beca1469727f2bc78dbd0b, type: 3}
-  FXPlayer: {fileID: 186675639}
-  DamageZone: {fileID: 665932252}
-  FixedVirtualCamera: {fileID: 1905551302}
-  WaitTime_Exit_State: 1
-  WaitTime_Idle_State: 1
-  WaitTime_Search_State: 1
-  WaitTime_Idle2_State: 2
-  WaitTime_Search2_State: 1
-  WaitTime_Clap_Action:
-  - 0.2
-  - 2.8
-  Animation_Clap: Clap
-  Animation_CameraShake: CameraShake
+  clapSound: {fileID: 8300000, guid: 476e458f29beca1469727f2bc78dbd0b, type: 3}
+  fxPlayer: {fileID: 186675639}
+  damageZone: {fileID: 665932252}
+  fixedVirtualCamera: {fileID: 1905551302}
+  waitTimeExitState: 1
+  waitTimeIdleState: 1
+  waitTimeSearchState: 1
+  waitTimeIdle2State: 2
+  waitTimeSearch2State: 1
+  waitTimeClapAction:
+  - 0.4
+  - 3
+  animationClap: Clap
+  animationCameraShake: CameraShake
 --- !u!114 &1911036265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32409,7 +32507,7 @@ RectTransform:
   m_LocalScale: {x: 0.99999, y: 0.99999, z: 0.99999}
   m_Children: []
   m_Father: {fileID: 825017707}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -33280,6 +33378,11 @@ Prefab:
       propertyPath: OtherBricks.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4211487296733596, guid: 787d65b85d469624891d3f1b63d40d5c, type: 2}
       propertyPath: m_LocalPosition.x
       value: -57.6
@@ -33355,6 +33458,26 @@ Prefab:
     - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
         type: 2}
       propertyPath: OtherBricks.Array.data[3]
+      value: 
+      objectReference: {fileID: 725692769}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1426220422}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1953652843}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[2]
+      value: 
+      objectReference: {fileID: 641946511}
+    - target: {fileID: 114377939225990268, guid: 787d65b85d469624891d3f1b63d40d5c,
+        type: 2}
+      propertyPath: otherBricks.Array.data[3]
       value: 
       objectReference: {fileID: 725692769}
     m_RemovedComponents:
@@ -33608,8 +33731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf1bd3303b8ccb469ac84da28843717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivateObject: 0
-  ObjectsToActivate: []
+  activateObject: 0
+  objectsToActivate: []
   Triggered: 0
 --- !u!1 &2094607563
 GameObject:
@@ -33750,22 +33873,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e180751bf7e3ac44aff73539e24d7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 55
-  JumpForce: 100
-  MoveInput: 0
-  GroundCheck: {fileID: 470273956}
-  CheckRadius: 4.18
-  GroundLayer:
+  speed: 55
+  jumpForce: 100
+  moveInput: 0
+  groundCheck: {fileID: 470273956}
+  checkRadius: 4
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 256
-  ExtraJumpValue: 1
-  Inputs: {fileID: 0}
-  LeftKey: 
-  RightKey: 
-  JumpKey: 
-  DashKey: 
-  InhaleKey: 
-  SmashKey: 
+    m_Bits: 0
+  extraJumpValue: 1
+  inputs: {fileID: 0}
+  leftKey: 
+  rightKey: 
+  jumpKey: 
+  dashKey: 
+  inhaleKey: 
+  smashKey: 
 --- !u!114 &2117369298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33778,9 +33901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDashing: 0
-  WaitTime: 1
-  DashSlider: {fileID: 1830121420}
-  DashValue: 0
+  waitTime: 1
+  dashSlider: {fileID: 1830121420}
+  dashValue: 0
 --- !u!50 &2117369299
 Rigidbody2D:
   serializedVersion: 4
@@ -33813,17 +33936,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stages: 1
-  IdleNoArms: Idle_No_Arms
-  WalkNoArms: Walk_No_Arms
-  DashNoArms: Dash_No_Arms
-  ChargeNoArms: Charge_No_Arms
-  AspirerNoArms: Inhale_No_Arms
-  IdleArms: Idle_Arms
-  WalkArms: Walk_Arms
-  ChargeArms: Charge_Arms
-  DashArms: Dash_Arms
-  AspirerArms: Inhale_No_Arms
-  SmashArms: Smash_Arms
+  idleNoArms: Idle_No_Arms
+  walkNoArms: Walk_No_Arms
+  dashNoArms: Dash_No_Arms
+  chargeNoArms: Charge_No_Arms
+  aspirerNoArms: Inhale_No_Arms
+  idleArms: Idle_Arms
+  walkArms: Walk_Arms
+  chargeArms: Charge_Arms
+  dashArms: Dash_Arms
+  aspirerArms: Inhale_Arms
+  smashArms: Smash_Arms
 --- !u!4 &2117369301
 Transform:
   m_ObjectHideFlags: 0
@@ -33855,14 +33978,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DashKey: 
-  DashTrail: {fileID: 1132859916}
-  DashSpeed: 200
-  DashTime: 0
-  StartDashTime: 0.25
-  Direction: 0
-  DashDamp: 1
-  Dashing: 0
-  Charging: 0
+  dashTrail: {fileID: 1132859916}
+  dashSpeed: 200
+  dashTime: 0
+  startDashTime: 0.25
+  direction: 0
+  dashDamp: 1
+  dashing: 0
+  charging: 0
 --- !u!95 &2117369303
 Animator:
   serializedVersion: 3
@@ -33894,21 +34017,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActiveCamera: {fileID: 0}
   Life: 3
-  LifeUp: {fileID: 8300000, guid: 3a20cf2548a896145ad7f596a90c02a2, type: 3}
-  FxPlayer: {fileID: 186675639}
-  FxHeal: {fileID: 1985086174094826, guid: 97111440516f65d4aaa7440062e8219e, type: 2}
-  Hearts:
+  lifeUp: {fileID: 8300000, guid: 3a20cf2548a896145ad7f596a90c02a2, type: 3}
+  fxPlayer: {fileID: 186675639}
+  fxHeal: {fileID: 1985086174094826, guid: 97111440516f65d4aaa7440062e8219e, type: 2}
+  hearts:
   - {fileID: 1474410143}
   - {fileID: 84993762}
   - {fileID: 1905299782}
   - {fileID: 910814268}
-  GoodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
-  BadHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
-  Poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
-  DamageScreen: {fileID: 1029353137}
-  DeathScreen: {fileID: 1798825522}
-  InhaleSlider: {fileID: 712525666}
-  MaxLife: 4
+  goodHeart: {fileID: 21300000, guid: 2fe4a1de51bae7243b92cb559d70ab59, type: 3}
+  badHeart: {fileID: 21300000, guid: 9c5633a660b702444a8248438e8609ed, type: 3}
+  poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
+  damageScreen: {fileID: 1029353137}
+  deathScreen: {fileID: 1798825522}
+  inhaleSlider: {fileID: 1407366569}
+  maxLife: 4
   Invincible: 0
 --- !u!114 &2117369305
 MonoBehaviour:
@@ -33924,9 +34047,9 @@ MonoBehaviour:
   InhaleKey: 
   DoInhale: 0
   InhaleSlider: {fileID: 1407366571}
-  InhaleParticles: {fileID: 246011609}
-  Effector: {fileID: 2116810457}
-  TimerInhale: 10
+  inhaleParticles: {fileID: 246011609}
+  effector: {fileID: 2116810457}
+  timerInhale: 10
 --- !u!70 &2117369306
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -34049,14 +34172,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SmashKey: 
-  SmashBall: {fileID: 1395861586307498, guid: 9a3616787853e4b4fbaae8a05a91c0f4, type: 2}
-  SmashSlider: {fileID: 1989027007}
-  SmashSpawnZone: {fileID: 2094607564}
-  WaitTimeSmash: 1
-  WaitTimeCharge: 4.6
-  WaitTimeSpawnBall: 0.4
-  TimerSmash: 0
-  SmashReloadTime: 5
+  smashBall: {fileID: 1395861586307498, guid: 9a3616787853e4b4fbaae8a05a91c0f4, type: 2}
+  smashSlider: {fileID: 1989027007}
+  smashSpawnZone: {fileID: 2094607564}
+  waitTimeSmash: 1
+  waitTimeCharge: 4.6
+  waitTimeSpawnBall: 0.4
+  timerSmash: 0
+  smashReloadTime: 5
 --- !u!1 &2122074371
 GameObject:
   m_ObjectHideFlags: 0

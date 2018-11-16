@@ -11,78 +11,78 @@ public class AnimatorNames : MonoBehaviour {
     public int Stages; // 1 = Mouth; 2 = Arms; 3 = Legs;
 
     [Header("No Arms")]
-    [SerializeField] private string IdleNoArms;
-    [SerializeField] private string WalkNoArms;
-    [SerializeField] private string DashNoArms;
-    [SerializeField] private string ChargeNoArms;
-    [SerializeField] private string AspirerNoArms;
+    [SerializeField] private string idleNoArms;
+    [SerializeField] private string walkNoArms;
+    [SerializeField] private string dashNoArms;
+    [SerializeField] private string chargeNoArms;
+    [SerializeField] private string aspirerNoArms;
 
     [Header("Arms")]
-    [SerializeField] private string IdleArms;
-    [SerializeField] private string WalkArms;
-    [SerializeField] private string ChargeArms;
-    [SerializeField] private string DashArms;
-    [SerializeField] private string AspirerArms;
-    [SerializeField] private string SmashArms;
+    [SerializeField] private string idleArms;
+    [SerializeField] private string walkArms;
+    [SerializeField] private string chargeArms;
+    [SerializeField] private string dashArms;
+    [SerializeField] private string aspirerArms;
+    [SerializeField] private string smashArms;
 
-    private Animator Anim;
+    private Animator anim;
 
     private void Start() {
 
-        Anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
-    public void PlayAnimations(string Animation) {
-        switch (Animation) {
+    public void PlayAnimations(string animation) {
+        switch (animation) {
             case "Idle":
                 if (Stages == 1) {
-                    Anim.Play(IdleNoArms);
+                    anim.Play(idleNoArms);
                 }
                 else if (Stages == 2) {
-                    Anim.Play(IdleArms);
+                    anim.Play(idleArms);
                 }
                 break;
 
 
             case "Walk":
                 if (Stages == 1) {
-                    Anim.Play(WalkNoArms);
+                    anim.Play(walkNoArms);
                 }
                 else if (Stages == 2) {
-                    Anim.Play(WalkArms);
+                    anim.Play(walkArms);
                 }
                 break;
 
 
             case "Charge":
                 if (Stages == 1) {
-                    Anim.Play(ChargeNoArms);
+                    anim.Play(chargeNoArms);
                 }
                 else if (Stages == 2) {
-                    Anim.Play(ChargeArms);
+                    anim.Play(chargeArms);
                 }
                 break;
 
             case "Dash":
                 if (Stages == 1) {
-                    Anim.Play(DashNoArms);
+                    anim.Play(dashNoArms);
                 }
                 else if (Stages == 2) {
-                    Anim.Play(DashArms);
+                    anim.Play(dashArms);
                 }
                 break;
 
             case "Inhale":
                 if (Stages == 1) {
-                    Anim.Play(AspirerNoArms);
+                    anim.Play(aspirerNoArms);
                 }
                 else if (Stages == 2) {
-                    Anim.Play(AspirerArms);
+                    anim.Play(aspirerArms);
                 }
                 break;
 
             case "Smash":
-                Anim.Play(SmashArms);
+                anim.Play(smashArms);
                 break;
         }
     }

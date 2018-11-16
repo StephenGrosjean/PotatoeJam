@@ -8,101 +8,101 @@ public class LifeSystem : MonoBehaviour {
     public GameObject ActiveCamera; //GET (yes)
     public int Life = 4; //GET (yes)
 
-    [SerializeField] private AudioClip LifeUp;
-    [SerializeField] private GameObject FxPlayer;
-    [SerializeField] private GameObject FxHeal;
-    [SerializeField] private Image[] Hearts;
-    [SerializeField] private Sprite GoodHeart, BadHeart;
-    [SerializeField] private GameObject Poof;
-    [SerializeField] private GameObject DamageScreen;
-    [SerializeField] private GameObject DeathScreen;
-    [SerializeField] private GameObject InhaleSlider;
-    [SerializeField] private int MaxLife = 4;
+    [SerializeField] private AudioClip lifeUp;
+    [SerializeField] private GameObject fxPlayer;
+    [SerializeField] private GameObject fxHeal;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite goodHeart, badHeart;
+    [SerializeField] private GameObject poof;
+    [SerializeField] private GameObject damageScreen;
+    [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject inhaleSlider;
+    [SerializeField] private int maxLife = 4;
     public bool Invincible;
-    private Animator CamAnimator;
-    private bool CanTakeDamage;
+    private Animator camAnimator;
+    private bool canTakeDamage;
 
     private const float DamageTimerWaitTime = 0.5f;
 
-    private Inhale InhaleScript;
-    private Image InhaleSliderImage;
-    private Animator DamageScreenAnimator;
-    private AudioSource FXPlayerAudioSource;
-    private Darkend DeathScreenScript;
+    private Inhale inhaleScript;
+    private Image inhaleSliderImage;
+    private Animator damageScreenAnimator;
+    private AudioSource fxPlayerAudioSource;
+    private Darkend deathScreenScript;
 
     private void Start() {
-        CanTakeDamage = true;
+        canTakeDamage = true;
 
-        CamAnimator = ActiveCamera.GetComponent<Animator>();
-        InhaleScript = GetComponent<Inhale>();
-        InhaleSliderImage = InhaleSlider.GetComponentInChildren<Image>();
-        DamageScreenAnimator = DamageScreen.GetComponent<Animator>();
-        CamAnimator = ActiveCamera.GetComponent<Animator>();
-        FXPlayerAudioSource = FxPlayer.GetComponent<AudioSource>();
-        DeathScreenScript = DeathScreen.GetComponent<Darkend>();
+        camAnimator = ActiveCamera.GetComponent<Animator>();
+        inhaleScript = GetComponent<Inhale>();
+        inhaleSliderImage = inhaleSlider.GetComponentInChildren<Image>();
+        damageScreenAnimator = damageScreen.GetComponent<Animator>();
+        camAnimator = ActiveCamera.GetComponent<Animator>();
+        fxPlayerAudioSource = fxPlayer.GetComponent<AudioSource>();
+        deathScreenScript = deathScreen.GetComponent<Darkend>();
 
     }
 
     void Update () {
         //Look if life doesn't get above the MaxLife value
-        if (Life > MaxLife) {
-            Life = MaxLife;
+        if (Life > maxLife) {
+            Life = maxLife;
         }
 
         //Fill the Inhale Slider and disable it
-        if(Life == MaxLife) {
-            InhaleSliderImage.fillAmount = 1;
-            InhaleScript.DoInhale = false;
-            InhaleScript.enabled = false;
+        if(Life == maxLife) {
+            inhaleSliderImage.fillAmount = 1;
+            inhaleScript.DoInhale = false;
+            inhaleScript.enabled = false;
         }
         else {
-            InhaleScript.enabled = true;
+            inhaleScript.enabled = true;
         }
 
         switch (Life) {
             case 4:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = GoodHeart;
-                Hearts[3].sprite = GoodHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = goodHeart;
+                hearts[3].sprite = goodHeart;
                 break;
 
             case 3:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = GoodHeart;
-                Hearts[3].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = goodHeart;
+                hearts[3].sprite = badHeart;
                 break;
 
             case 2:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = BadHeart;
-                Hearts[3].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = badHeart;
+                hearts[3].sprite = badHeart;
                 break;
 
             case 1:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
-                Hearts[3].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
+                hearts[3].sprite = badHeart;
                 break;
 
             case 0:
                
-                Hearts[0].sprite = BadHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
-                Hearts[3].sprite = BadHeart;
+                hearts[0].sprite = badHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
+                hearts[3].sprite = badHeart;
                 KillPlayer();
                 break;
         }
 	}
 
     public void LowerLife() {
-        if (CanTakeDamage) {
-            DamageScreenAnimator.Play("Damage");
-            CamAnimator.Play("CameraShake");
+        if (canTakeDamage) {
+            damageScreenAnimator.Play("Damage");
+            camAnimator.Play("CameraShake");
             if (!Invincible) {
                 Life--;
             }
@@ -112,26 +112,26 @@ public class LifeSystem : MonoBehaviour {
 
     public void RiseLife() {
         //instantiate the Wing Gif and put it as child
-        GameObject Wing = Instantiate(FxHeal, new Vector3(transform.position.x, transform.position.y+17, transform.position.z-0.1f), Quaternion.identity);
-        Wing.transform.SetParent(transform);
+        GameObject wing = Instantiate(fxHeal, new Vector3(transform.position.x, transform.position.y+17, transform.position.z-0.1f), Quaternion.identity);
+        wing.transform.SetParent(transform);
 
         //Play audio clip
-        FXPlayerAudioSource.clip = LifeUp;
-        FXPlayerAudioSource.Play();
+        fxPlayerAudioSource.clip = lifeUp;
+        fxPlayerAudioSource.Play();
         Life++;
     }
 
     void KillPlayer() {
-        Instantiate(Poof, transform.position, Quaternion.identity);
-        DeathScreenScript.StartCoroutine("DeathProtocol");
+        Instantiate(poof, transform.position, Quaternion.identity);
+        deathScreenScript.StartCoroutine("DeathProtocol");
         Destroy(gameObject);
     }
 
     //Allow the Player to take one damage at a time
     IEnumerator DamageTimer() {
-        CanTakeDamage = false;
+        canTakeDamage = false;
         yield return new WaitForSeconds(DamageTimerWaitTime);
-        CanTakeDamage = true;
+        canTakeDamage = true;
     }
 
 }

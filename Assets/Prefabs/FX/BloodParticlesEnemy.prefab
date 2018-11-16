@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e597d42dbdbd6a546a7522cc6726f76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BloodFlaque: {fileID: 1805023229471632, guid: 8c9ce580d768ae0468961a237f7cd73f,
+  bloodFlaque: {fileID: 1805023229471632, guid: 8c9ce580d768ae0468961a237f7cd73f,
     type: 2}
-  Offset: 8
+  offset: 8
 --- !u!114 &114852577400918754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f207b68e1ae1ab84c82bf51eaad9a8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 10
+  time: 3
 --- !u!198 &198243956862812212
 ParticleSystem:
   m_ObjectHideFlags: 1

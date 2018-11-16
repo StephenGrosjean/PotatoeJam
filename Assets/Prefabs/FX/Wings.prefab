@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0d4ce78046e5248be99bea6837492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Frames:
+  frames:
   - {fileID: 21300000, guid: d54f5904703fe2a4b847b7992c3bb44e, type: 3}
   - {fileID: 21300000, guid: e1b14df7ff00a134092609cb5901e104, type: 3}
   - {fileID: 21300000, guid: c253dc9e92d9d314e91951a22084f1fc, type: 3}
@@ -65,8 +65,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c253dc9e92d9d314e91951a22084f1fc, type: 3}
   - {fileID: 21300000, guid: e1b14df7ff00a134092609cb5901e104, type: 3}
   - {fileID: 21300000, guid: d54f5904703fe2a4b847b7992c3bb44e, type: 3}
-  Speed: 0.1
-  Loop: 0
+  speed: 0.2
+  loop: 0
 --- !u!212 &212915988182514082
 SpriteRenderer:
   m_ObjectHideFlags: 1

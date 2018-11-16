@@ -32,8 +32,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: arm_attack
-  Speed: 1.5
+  animName: arm_attack
+  speed: 1.5
 --- !u!114 &114316212847112260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Walk_noArms
-  Speed: 1.4
+  animName: Walk_noArms
+  speed: 1
 --- !u!114 &114327785363042274
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: aspirer_Arms
-  Speed: 1
+  animName: aspirer_Arms
+  speed: 2
 --- !u!114 &114354105524343360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Dash_charge_noArms
-  Speed: 2
+  animName: Dash_charge_noArms
+  speed: 1
 --- !u!114 &114427747022826946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: idle_noArms
-  Speed: 1
+  animName: idle_noArms
+  speed: 1
 --- !u!114 &114438276451053998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: 
-  Speed: 1
+  animName: 
+  speed: 1
 --- !u!114 &114633484211926150
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: aspirer_noArms
-  Speed: 2
+  animName: aspirer_noArms
+  speed: 2
 --- !u!114 &114778274782265706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: dash_roll_noArms
-  Speed: 1.5
+  animName: dash_roll_noArms
+  speed: 1.5
 --- !u!114 &114832416082211752
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Walk_Arms
-  Speed: 1
+  animName: Walk_Arms
+  speed: 1
 --- !u!114 &114868148041592628
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: dash_roll_Arms
-  Speed: 1.5
+  animName: dash_roll_Arms
+  speed: 1.5
 --- !u!114 &114873299273644202
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Dash_charge_Arms
-  Speed: 1
+  animName: Dash_charge_Arms
+  speed: 1
 --- !u!114 &114986073158634628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: idle_Arms
-  Speed: 1
+  animName: idle_Arms
+  speed: 1
 --- !u!1101 &1101093110633440744
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

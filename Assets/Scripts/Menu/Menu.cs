@@ -9,16 +9,16 @@ using TMPro;
 
 public class Menu : MonoBehaviour {
 
-    [SerializeField] private GameObject Panel;
-    [SerializeField] private GameObject XboxPanel;
-    [SerializeField] private GameObject KeyboardPanel;
-    [SerializeField] private TextMeshProUGUI LayoutText;
+    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject xboxPanel;
+    [SerializeField] private GameObject keyboardPanel;
+    [SerializeField] private TextMeshProUGUI layoutText;
 
-    private string CurrentLayout = "Keyboard";
-    private Animator PanelAnimator;
+    private string currentLayout = "Keyboard";
+    private Animator panelAnimator;
 
     void Start() {
-        PanelAnimator = Panel.GetComponent<Animator>();
+        panelAnimator = panel.GetComponent<Animator>();
     }
 
 
@@ -33,43 +33,43 @@ public class Menu : MonoBehaviour {
     }
 
     public void PlayPanel() {
-        PanelAnimator.Play("GotoPlay");
+        panelAnimator.Play("GotoPlay");
     }
 
     public void Back() {
-        PanelAnimator.Play("GotoMain");
+        panelAnimator.Play("GotoMain");
     }
 
     public void BackFromSettings() {
-        PanelAnimator.Play("GotoMainFromSettings");
+        panelAnimator.Play("GotoMainFromSettings");
     }
 
     public void GotoCreditsFromMain() {
-        PanelAnimator.Play("GotoCredits");
+        panelAnimator.Play("GotoCredits");
     }
 
     public void GotoMainFromCredits() {
-        PanelAnimator.Play("GotoMainFromCredits");
+        panelAnimator.Play("GotoMainFromCredits");
     }
 
     public void Settings() {
-        PanelAnimator.Play("GotoSettings");
+        panelAnimator.Play("GotoSettings");
     }
 
     public void LayoutButton() {
-        if(CurrentLayout == "Keyboard") {
-            KeyboardPanel.SetActive(false);
-            XboxPanel.SetActive(true);
-            CurrentLayout = "Xbox";
-            LayoutText.text = CurrentLayout;
-            PlayerPrefs.SetString("ControlLayout", CurrentLayout);
+        if(currentLayout == "Keyboard") {
+            keyboardPanel.SetActive(false);
+            xboxPanel.SetActive(true);
+            currentLayout = "Xbox";
+            layoutText.text = currentLayout;
+            PlayerPrefs.SetString("ControlLayout", currentLayout);
         }
         else {
-            KeyboardPanel.SetActive(true);
-            XboxPanel.SetActive(false);
-            CurrentLayout = "Keyboard";
-            LayoutText.text = CurrentLayout;
-            PlayerPrefs.SetString("ControlLayout", CurrentLayout);
+            keyboardPanel.SetActive(true);
+            xboxPanel.SetActive(false);
+            currentLayout = "Keyboard";
+            layoutText.text = currentLayout;
+            PlayerPrefs.SetString("ControlLayout", currentLayout);
         }
         
     }

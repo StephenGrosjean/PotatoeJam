@@ -92,9 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce87bd97a312ff94a95481d96f344512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -500
-  ChangeDirectionTime: 0
-  LockDirection: 1
+  speed: -500
+  changeDirectionTime: 0
+  lockDirection: 1
 --- !u!114 &114156236899341884
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10561e14e05a5924a93355eb7a250e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Force: 100
-  Direction: 0
+  force: 100
+  direction: 0
 --- !u!114 &114303504678751952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f207b68e1ae1ab84c82bf51eaad9a8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 10
+  time: 10
 --- !u!114 &114877896683168074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -131,17 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0d4ce78046e5248be99bea6837492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Frames:
-  - {fileID: 21300000, guid: d3f913db98aa6b74b9044569c1ff379b, type: 3}
-  - {fileID: 21300000, guid: ba2957d6ba772464db874635be6319af, type: 3}
-  - {fileID: 21300000, guid: c596626486c56c042988d5a93c9e58c6, type: 3}
-  - {fileID: 21300000, guid: 9aae81ead162a9e4d9e673a199f1fbfa, type: 3}
-  - {fileID: 21300000, guid: e11f52fa468c4ce449f782d466d53d66, type: 3}
-  - {fileID: 21300000, guid: 9aae81ead162a9e4d9e673a199f1fbfa, type: 3}
-  - {fileID: 21300000, guid: c596626486c56c042988d5a93c9e58c6, type: 3}
-  - {fileID: 21300000, guid: ba2957d6ba772464db874635be6319af, type: 3}
-  Speed: 0.05
-  Loop: 1
+  frames: []
+  speed: 0
+  loop: 0
 --- !u!212 &212813746249991712
 SpriteRenderer:
   m_ObjectHideFlags: 1
