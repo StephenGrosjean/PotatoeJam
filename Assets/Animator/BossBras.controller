@@ -32,8 +32,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Arms_Smash_Idle
-  Speed: 1
+  animName: Arms_Smash_Idle
+  speed: 1
 --- !u!114 &114377911719450592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Arms_Smash
-  Speed: 1
+  animName: Arms_Smash
+  speed: 1
 --- !u!114 &114729803825632582
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: ground_smash_right
-  Speed: 1
+  animName: ground_smash_right
+  speed: 1
 --- !u!114 &114772621775215458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: groundSmashIdle_left
-  Speed: 1
+  animName: groundSmashIdle_left
+  speed: 1
 --- !u!114 &114922843397981882
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: groundSmashIdle_right
-  Speed: 1
+  animName: groundSmashIdle_right
+  speed: 1
 --- !u!114 &114967023861915560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: ground_smash_left
-  Speed: 1
+  animName: ground_smash_left
+  speed: 1
 --- !u!1101 &1101427323885580508
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

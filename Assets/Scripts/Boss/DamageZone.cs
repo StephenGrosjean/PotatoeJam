@@ -9,22 +9,22 @@ using UnityEngine;
 public class DamageZone : MonoBehaviour {
     public bool IsInZone; //Get (yes)
 
-    private LifeSystem LifeSystemScript;
-    private GameObject Player;
-    private bool CanGiveDmg = true;
+    private LifeSystem lifeSystemScript;
+    private GameObject player;
+    private bool canGiveDmg = true;
     private const float DamageDamp = 0.5f;
 
     void Start() {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        LifeSystemScript = Player.GetComponent<LifeSystem>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        lifeSystemScript = player.GetComponent<LifeSystem>();
     }
 
     //Give him some damages if he is in zone
    public void ApplyDamages() {
-        if (IsInZone && CanGiveDmg) {
-            CanGiveDmg = false;
+        if (IsInZone && canGiveDmg) {
+            canGiveDmg = false;
             StartCoroutine("DmgDamp");
-            LifeSystemScript.LowerLife();
+            lifeSystemScript.LowerLife();
         }
     }
 
@@ -45,7 +45,7 @@ public class DamageZone : MonoBehaviour {
     //Prevent the boss dealing more than 1 damage to the player at a time
     IEnumerator DmgDamp() {
         yield return new WaitForSeconds(DamageDamp);
-        CanGiveDmg = true;
+        canGiveDmg = true;
        
     }
 }

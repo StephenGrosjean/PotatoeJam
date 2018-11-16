@@ -6,22 +6,22 @@ using UnityEngine;
 /// </summary>
 public class LevelTrigger : MonoBehaviour {
 
-    [SerializeField] private bool ActivateObject;
-    [SerializeField] private GameObject[] ObjectsToActivate;
+    [SerializeField] private bool activateObject;
+    [SerializeField] private GameObject[] objectsToActivate;
 
     public bool Triggered; //GET (yes)
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.tag == "Player") {
             Triggered = true;
-            if (ActivateObject) {
+            if (activateObject) {
                 ActivateObjects();
             }
         }
     }
 
     void ActivateObjects() {
-        foreach(GameObject obj in ObjectsToActivate) {
+        foreach(GameObject obj in objectsToActivate) {
             obj.SetActive(true);
         }
         Destroy(gameObject);

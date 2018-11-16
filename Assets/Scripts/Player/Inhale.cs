@@ -13,29 +13,29 @@ public class Inhale : MonoBehaviour {
     public bool DoInhale; //GET (yes)
     public Image InhaleSlider; //GET (yes)
 
-    [SerializeField] private GameObject InhaleParticles;
-    [SerializeField] private GameObject Effector;
-    [SerializeField] private float TimerInhale;
+    [SerializeField] private GameObject inhaleParticles;
+    [SerializeField] private GameObject effector;
+    [SerializeField] private float timerInhale;
 
-    private float InhaleValue;
-    private bool Charge;
+    private float inhaleValue;
+    private bool charge;
 
-    private bool CanInhale = true;
-    private AnimatorNames AnimatorNames;
-    private PlayerMovement PlayerMovementScript;
+    private bool canInhale = true;
+    private AnimatorNames animatorNames;
+    private PlayerMovement playerMovementScript;
 
     void Start () {
-        AnimatorNames = GetComponent<AnimatorNames>();
-        PlayerMovementScript = GetComponent<PlayerMovement>();
+        animatorNames = GetComponent<AnimatorNames>();
+        playerMovementScript = GetComponent<PlayerMovement>();
     }
 
     void Update() {
-        InhaleSlider.fillAmount = InhaleValue; //Update the value of the Inhale slider
+        InhaleSlider.fillAmount = inhaleValue; //Update the value of the Inhale slider
 
         if (InhaleKey != "") {//Check if the Inhale key as been asigned
-            if (Input.GetKeyDown(InhaleKey) && CanInhale) {
+            if (Input.GetKeyDown(InhaleKey) && canInhale) {
                 DoInhale = true;
-                AnimatorNames.PlayAnimations("Inhale"); //Play the animation
+                animatorNames.PlayAnimations("Inhale"); //Play the animation
                 StartCoroutine("InhaleChargeTime");//Start the charge time (slider)
             }
             if (Input.GetKeyUp(InhaleKey)) {
@@ -43,44 +43,44 @@ public class Inhale : MonoBehaviour {
             }
         }
 
-        if (Charge) {
-            InhaleValue += Time.deltaTime/TimerInhale; //Increase the slider value;
+        if (charge) {
+            inhaleValue += Time.deltaTime/timerInhale; //Increase the slider value;
         }
         else {
-            InhaleValue = 1;
+            inhaleValue = 1;
         }
 	}
 
     //Disable the player control while inhaling
     IEnumerator DisablePlayerControl() {
-        PlayerMovementScript.enabled = false;
+        playerMovementScript.enabled = false;
         yield return new WaitForSeconds(1f);
 
-        PlayerMovementScript.enabled = true;
+        playerMovementScript.enabled = true;
     }
 
     //Enable/Disable the aspiration effect
     IEnumerator ToggleEffects() {
-        Effector.SetActive(true);
-        InhaleParticles.SetActive(true);
+        effector.SetActive(true);
+        inhaleParticles.SetActive(true);
         yield return new WaitForSeconds(1f);
-        Effector.SetActive(false);
-        InhaleParticles.SetActive(false);
+        effector.SetActive(false);
+        inhaleParticles.SetActive(false);
 
     }
 
     //Start the charge procedure
     IEnumerator InhaleChargeTime() {
-        InhaleValue = 0;
-        CanInhale = false;
-        Charge = true;
+        inhaleValue = 0;
+        canInhale = false;
+        charge = true;
 
         StartCoroutine("ToggleEffects");
         StartCoroutine("DisablePlayerControl");
 
-        yield return new WaitForSeconds(TimerInhale);
+        yield return new WaitForSeconds(timerInhale);
 
-        CanInhale = true;
-        Charge = false;
+        canInhale = true;
+        charge = false;
     }
 }

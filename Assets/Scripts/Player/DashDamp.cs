@@ -9,46 +9,46 @@ using UnityEngine.UI;
 public class DashDamp : MonoBehaviour {
     public bool IsDashing;
 
-    [SerializeField] private float WaitTime = 1f;
-    [SerializeField] private Image DashSlider;
-    [SerializeField] private float DashValue;
+    [SerializeField] private float waitTime = 1f;
+    [SerializeField] private Image dashSlider;
+    [SerializeField] private float dashValue;
 
-    private Dash DashScript;
+    private Dash dashScript;
 
     void Start () {
-        DashScript = GetComponent<Dash>();
+        dashScript = GetComponent<Dash>();
 	}
 
     void Update() {
-        DashSlider.fillAmount = DashValue; //Set the slider value 
+        dashSlider.fillAmount = dashValue; //Set the slider value 
 
         //Check if the value is not at the maximum
-        if (DashValue < 1){ 
+        if (dashValue < 1){ 
             //Increase the value
-            DashValue += Time.deltaTime;
+            dashValue += Time.deltaTime;
         }
         else {
             //Limit the value to 1;
-            DashValue = 1;
+            dashValue = 1;
         }
        
     }
 
     public void StartDashing() {
         //Reset the value of the slider
-        DashValue = 0;
+        dashValue = 0;
         StartCoroutine("DashStart");
     }
 
     IEnumerator DashStart() {
         IsDashing = true;
-        DashScript.enabled = false;
+        dashScript.enabled = false;
 
-        yield return new WaitForSeconds(WaitTime);
-        DashValue = 1;
+        yield return new WaitForSeconds(waitTime);
+        dashValue = 1;
 
         IsDashing = false;
-        DashScript.enabled = true;
+        dashScript.enabled = true;
         
     }
 }

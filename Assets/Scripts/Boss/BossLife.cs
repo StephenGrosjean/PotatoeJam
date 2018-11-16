@@ -9,30 +9,30 @@ using UnityEngine.UI;
 
 public class BossLife : MonoBehaviour {
 
-    [SerializeField] private GameObject Blood;
-    [SerializeField] private Image[] Hearts;
-    [SerializeField] private Sprite GoodHeart, BadHeart;
-    [SerializeField] private GameObject LockVirtualCamera;
-    [SerializeField] private GameObject Poof;
-    [SerializeField] private GameObject PoofOrigin;
-    [SerializeField] private int Life = 3;
-    [SerializeField] private Transform BloodSpawnPoint;
+    [SerializeField] private GameObject blood;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite goodHeart, badHeart;
+    [SerializeField] private GameObject lockVirtualCamera;
+    [SerializeField] private GameObject poof;
+    [SerializeField] private GameObject poofOrigin;
+    [SerializeField] private int life = 3;
+    [SerializeField] private Transform bloodSpawnPoint;
 
     public string BossName;
-    private Animator LockVirtualCameraAnimator;
-    private GameManager GM;
-    private Animator BossAnimator;
-    private BossJambes BossJambesScript;
+    private Animator lockVirtualCameraAnimator;
+    private GameManager gm;
+    private Animator bossAnimator;
+    private BossJambes bossJambesScript;
 
 
     private void OnEnable() {
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-        LockVirtualCameraAnimator = LockVirtualCamera.GetComponent<Animator>();
-        BossAnimator = GetComponent<Animator>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        lockVirtualCameraAnimator = lockVirtualCamera.GetComponent<Animator>();
+        bossAnimator = GetComponent<Animator>();
         BossName = gameObject.name;
 
         if (BossName == "BossJambes") {
-            BossJambesScript = GetComponent<BossJambes>();
+            bossJambesScript = GetComponent<BossJambes>();
         }
 
        
@@ -40,29 +40,29 @@ public class BossLife : MonoBehaviour {
 
     void UpdateHearts() {
         //Change sprite for the Hearts acording to the life value
-        switch (Life) {
+        switch (life) {
             case 3:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = GoodHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = goodHeart;
                 break;
 
             case 2:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = badHeart;
                 break;
 
             case 1:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
                 break;
 
             case 0:
-                Hearts[0].sprite = BadHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = badHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
 
                 if(BossName == "BossBras") {
                     KillBoss();
@@ -77,8 +77,8 @@ public class BossLife : MonoBehaviour {
 
 
     IEnumerator JambesDefeat() {
-        BossJambesScript.enabled = false;
-        BossAnimator.Play("Defeat");
+        bossJambesScript.enabled = false;
+        bossAnimator.Play("Defeat");
         yield return new WaitForSeconds(1.367f);
         KillBoss();
     }
@@ -86,27 +86,27 @@ public class BossLife : MonoBehaviour {
     //Do damage to the boss, shake the camera and update the Hearts
     public void TakeDamage() {
         Invoke("UpdateHearts", 0);
-        Instantiate(Blood, BloodSpawnPoint.position, Quaternion.identity);
-        LockVirtualCameraAnimator.Play("CameraShake");
-        Life--;
+        Instantiate(blood, bloodSpawnPoint.position, Quaternion.identity);
+        lockVirtualCameraAnimator.Play("CameraShake");
+        life--;
     }
 
     //Kill the boss
     public void KillBoss() {
-        Instantiate(Poof, PoofOrigin.transform.position, Quaternion.identity);
+        Instantiate(poof, poofOrigin.transform.position, Quaternion.identity);
         if(BossName == "BossBras") {
-            GM.BossArmsDead = true;
+            gm.BossArmsDead = true;
         }
         else {
-            GM.BossLegsDead = true;
+            gm.BossLegsDead = true;
         }
         
-        foreach(Image Heart in Hearts) {
-            Heart.enabled = false;
+        foreach(Image heart in hearts) {
+            heart.enabled = false;
         }
-        Hearts[0].sprite = GoodHeart;
-        Hearts[1].sprite = GoodHeart;
-        Hearts[2].sprite = GoodHeart;
+        hearts[0].sprite = goodHeart;
+        hearts[1].sprite = goodHeart;
+        hearts[2].sprite = goodHeart;
 
         Destroy(gameObject);
     }

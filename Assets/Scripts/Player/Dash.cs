@@ -6,73 +6,73 @@ using UnityEngine;
 public class Dash : MonoBehaviour {
     public string DashKey; //SET (yes)
 
-    [SerializeField] private GameObject DashTrail;
-    [SerializeField] private float DashSpeed;
-    [SerializeField] private float DashTime;
-    [SerializeField] private float StartDashTime;
-    [SerializeField] private int Direction;
-    [SerializeField] private float DashDamp;
-    [SerializeField] private bool Dashing;
-    [SerializeField] private bool Charging;
+    [SerializeField] private GameObject dashTrail;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashTime;
+    [SerializeField] private float startDashTime;
+    [SerializeField] private int direction;
+    [SerializeField] private float dashDamp;
+    [SerializeField] private bool dashing;
+    [SerializeField] private bool charging;
 
 
-    private PlayerMovement PlayerMovementScript;
-    private AnimatorNames AnimatorNames;
+    private PlayerMovement playerMovementScript;
+    private AnimatorNames animatorNames;
     private Rigidbody2D rb;
 
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
-        AnimatorNames = GetComponent<AnimatorNames>();
-        PlayerMovementScript = GetComponent<PlayerMovement>();
-        DashTime = StartDashTime;
+        animatorNames = GetComponent<AnimatorNames>();
+        playerMovementScript = GetComponent<PlayerMovement>();
+        dashTime = startDashTime;
 	}
 	
 	void Update () {
-            if (Direction == 0) {
+            if (direction == 0) {
                 if (DashKey != "") {
                     if (Input.GetKeyDown(DashKey)) {
                         StartCoroutine("DashChargeTime");
                         if (transform.localScale.x < 0) {
-                            Direction = 1;
+                            direction = 1;
                         }
                         if (transform.localScale.x > 0) {
-                            Direction = 2;
+                            direction = 2;
                         }
                     }
                 }
             }
             else {
-                if (DashTime <= 0) {
-                    Direction = 0;
-                    DashTime = StartDashTime;
-                    if (!Dashing) {
-                        AnimatorNames.PlayAnimations("Idle");
+                if (dashTime <= 0) {
+                    direction = 0;
+                    dashTime = startDashTime;
+                    if (!dashing) {
+                        animatorNames.PlayAnimations("Idle");
                     }
 
 
                     rb.velocity = Vector2.zero;
                 }
-                else if (!Charging && !Dashing) {
+                else if (!charging && !dashing) {
 
-                    DashTime -= Time.deltaTime;
+                    dashTime -= Time.deltaTime;
 
                     if (DashKey != "") {
                        if (Input.GetKey(DashKey)) {
-                            AnimatorNames.PlayAnimations("Dash");
+                            animatorNames.PlayAnimations("Dash");
 
-                            if (!Dashing) {
-                                if (Direction == 1) {
-                                    rb.AddForce(Vector2.left * DashSpeed, ForceMode2D.Impulse);
+                            if (!dashing) {
+                                if (direction == 1) {
+                                    rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
                                
                                 }
-                                else if (Direction == 2) {
-                                    rb.AddForce(Vector2.right * DashSpeed, ForceMode2D.Impulse);
+                                else if (direction == 2) {
+                                    rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
                                 }
 
                                 GetComponent<DashDamp>().StartDashing();
-                                Direction = 0;
-                                DashTime = StartDashTime;
+                                direction = 0;
+                                dashTime = startDashTime;
                             }
                        }
                     }
@@ -81,20 +81,20 @@ public class Dash : MonoBehaviour {
 	}
 
     IEnumerator DisablePlayerControl() {
-        DashTrail.SetActive(true);
-        PlayerMovementScript.enabled = false;
-        yield return new WaitForSeconds(DashTime + 0.4f);
-        DashTrail.SetActive(false);
-        PlayerMovementScript.enabled = true;
+        dashTrail.SetActive(true);
+        playerMovementScript.enabled = false;
+        yield return new WaitForSeconds(dashTime + 0.4f);
+        dashTrail.SetActive(false);
+        playerMovementScript.enabled = true;
     }
 
     IEnumerator DashChargeTime() {
         StartCoroutine("DisablePlayerControl");
-        AnimatorNames.PlayAnimations("Charge");
+        animatorNames.PlayAnimations("Charge");
 
-        Charging = true;
+        charging = true;
         yield return new WaitForSeconds(0.35f);
-        Charging = false;
+        charging = false;
         
     }
 }

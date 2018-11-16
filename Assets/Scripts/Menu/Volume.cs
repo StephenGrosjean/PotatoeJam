@@ -8,25 +8,25 @@ using TMPro;
 
 public class Volume : MonoBehaviour {
 
-    [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private TextMeshProUGUI text;
 
-    private float Vol;
+    private float vol;
     private const int VolumeScale = 100;
 
-    private Slider SliderVolume;
+    private Slider sliderVolume;
 
 
 	void Start () {
-        SliderVolume = GetComponent<Slider>();
+        sliderVolume = GetComponent<Slider>();
 
-        Vol = PlayerPrefs.GetFloat("Volume"); //Get the volume float from the playerprefs
-        SliderVolume.value = Vol;
+        vol = PlayerPrefs.GetFloat("Volume"); //Get the volume float from the playerprefs
+        sliderVolume.value = vol;
 	}
 	
 	void Update () {
-        Vol = SliderVolume.value;
-        PlayerPrefs.SetFloat("Volume", Vol);
-        Text.SetText(Mathf.RoundToInt(Vol * VolumeScale) + " %");
+        vol = sliderVolume.value;
+        PlayerPrefs.SetFloat("Volume", vol);
+        text.SetText(Mathf.RoundToInt(vol * VolumeScale) + " %");
 
 	}
 }

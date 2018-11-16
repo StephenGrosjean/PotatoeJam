@@ -5,13 +5,13 @@ using Spine.Unity;
 
 public class AnimationSpine : StateMachineBehaviour {
 
-    [SerializeField] private string AnimName;
-    [SerializeField] private float Speed = 1.0f;
+    [SerializeField] private string animName;
+    [SerializeField] private float speed = 1.0f;
 
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         SkeletonAnimation Anim = animator.GetComponentInChildren<SkeletonAnimation>();
-         Anim.AnimationState.SetAnimation(0, AnimName, false).TimeScale = Speed;
+         Anim.AnimationState.SetAnimation(0, animName, false).TimeScale = speed;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

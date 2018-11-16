@@ -32,8 +32,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Kick
-  Speed: 1
+  animName: Kick
+  speed: 1
 --- !u!114 &114348111887025766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Idle
-  Speed: 1
+  animName: Idle
+  speed: 1
 --- !u!114 &114382633909191982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,8 +58,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: boss_defeat
-  Speed: 1
+  animName: boss_defeat
+  speed: 1
 --- !u!114 &114696473220257582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,8 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4460155cbc7989d4494991cecd070ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimName: Walk
-  Speed: 1
+  animName: Walk
+  speed: 1
 --- !u!1101 &1101422622432194240
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

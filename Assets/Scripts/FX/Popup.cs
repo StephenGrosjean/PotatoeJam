@@ -7,22 +7,22 @@ using UnityEngine;
 public class Popup : MonoBehaviour {
     private enum Animation {Pop,PopLong};
 
-    private Animator AnimatorComponent;
+    private Animator animatorComponent;
     private const float PopDuration = 6.5f;
     private const float PopLongDuration = 11.5f;
-    private float WaitTimeUntilDestruction;
+    private float waitTimeUntilDestruction;
 
-    [SerializeField] private Animation AnimName;
+    [SerializeField] private Animation animName;
     private string currentAnimation;
 
     private void OnEnable() {
-        currentAnimation = System.Enum.GetName(typeof(Animation), AnimName);
-        AnimatorComponent = GetComponent<Animator>();
-        if (AnimName == Animation.Pop) {
-            WaitTimeUntilDestruction = PopDuration;
+        currentAnimation = System.Enum.GetName(typeof(Animation), animName);
+        animatorComponent = GetComponent<Animator>();
+        if (animName == Animation.Pop) {
+            waitTimeUntilDestruction = PopDuration;
         }
         else {
-            WaitTimeUntilDestruction = PopLongDuration;
+            waitTimeUntilDestruction = PopLongDuration;
         }
 
         Pop();
@@ -30,12 +30,12 @@ public class Popup : MonoBehaviour {
 
     private void Pop() {
         Debug.Log(currentAnimation);
-       AnimatorComponent.Play(currentAnimation.ToString());
+       animatorComponent.Play(currentAnimation.ToString());
         StartCoroutine("Kill");
     }
 
     IEnumerator Kill() {
-        yield return new WaitForSeconds(WaitTimeUntilDestruction);
+        yield return new WaitForSeconds(waitTimeUntilDestruction);
         Destroy(gameObject);
     }
 }

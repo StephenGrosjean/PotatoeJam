@@ -6,24 +6,24 @@ using UnityEngine;
 /// </summary>
 
 public class HealPickup : MonoBehaviour {
-    [SerializeField] private GameObject Poof;
+    [SerializeField] private GameObject poof;
 
-    private LifeSystem LifeSystemScript;
+    private LifeSystem lifeSystemScript;
 
     //Check if the player as collided with the object
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.tag == "Player") {
             //Get his life system script
-            LifeSystemScript = collision.GetComponent<LifeSystem>();
+            lifeSystemScript = collision.GetComponent<LifeSystem>();
 
             //Check if he is not full life
-            if(LifeSystemScript.Life < 4) {
+            if(lifeSystemScript.Life < 4) {
                 //Rise his life
-                LifeSystemScript.RiseLife();
+                lifeSystemScript.RiseLife();
             }
 
             //Instantiate the Poof Prefab and destroy itself
-            Instantiate(Poof, transform.position, Quaternion.identity);
+            Instantiate(poof, transform.position, Quaternion.identity);
             Destroy(gameObject.transform.parent.gameObject);
         }
     }

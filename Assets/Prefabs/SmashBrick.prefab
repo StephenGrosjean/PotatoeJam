@@ -78,9 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0f2f6b2df79e64e9fe12243dc6360e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
-  DestroySmash: 0
-  OtherBricks: []
+  poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
+  destroySmash: 1
+  otherBricks: []
 --- !u!212 &212886686454054104
 SpriteRenderer:
   m_ObjectHideFlags: 1
