@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +8,27 @@ using UnityEngine.UI;
 
 public class Inhale : MonoBehaviour {
 
-    public string InhaleKey; //GET;SET; (Maybe?)
-    public bool DoInhale; //GET (yes)
-    public Image InhaleSlider; //GET (yes)
+    [SerializeField] private string inhaleKey;
+    public string InhaleKey
+    {
+        get { return inhaleKey; }
+        set { inhaleKey = value; }
+    }
+
+    [SerializeField] private bool doInhale;
+    public bool DoInhale
+    {
+        get { return doInhale; }
+        set { doInhale = value; }
+    }
+
+    [SerializeField]  private Image inhaleSlider;
+    public Image InhaleSlider
+    {
+        get { return inhaleSlider; }
+        set { inhaleSlider = value; }
+
+    }
 
     [SerializeField] private GameObject inhaleParticles;
     [SerializeField] private GameObject effector;

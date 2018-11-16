@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Script to control the Clap Phase of the first boss
+/// </summary>
 public class BossBrasClap : MonoBehaviour {
 
     [SerializeField] private AudioClip  clapSound;

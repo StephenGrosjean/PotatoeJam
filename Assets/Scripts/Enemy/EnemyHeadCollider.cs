@@ -6,7 +6,12 @@ using UnityEngine;
 /// </summary>
 public class EnemyHeadCollider : MonoBehaviour {
 
-    public bool HeadBump; //Get (yes)
+    [SerializeField] private bool headBump;
+    public bool HeadBump
+    {
+        get { return headBump; }
+        set { headBump = value; }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Player") {

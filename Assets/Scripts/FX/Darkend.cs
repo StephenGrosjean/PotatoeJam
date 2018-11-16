@@ -10,7 +10,7 @@ public class Darkend : MonoBehaviour {
     private bool dark;
     private float alpha;
     private const float AlphaIncreaseValue = 0.01f;
-    private const int DeathWaitTime = 1;
+    private const int deathWaitTime = 1;
 
     private SpriteRenderer spriteRendererComponent;
 
@@ -30,7 +30,7 @@ public class Darkend : MonoBehaviour {
 	}
 
     IEnumerator DeathProtocol() {
-        yield return new WaitForSeconds(DeathWaitTime);
+        yield return new WaitForSeconds(deathWaitTime);
         dark = true;
     }
 }

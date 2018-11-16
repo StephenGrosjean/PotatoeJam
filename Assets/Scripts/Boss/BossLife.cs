@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +19,13 @@ public class BossLife : MonoBehaviour {
 
     public string BossName;
     private Animator lockVirtualCameraAnimator;
-    private GameManager gm;
+    private GameManager GM;
     private Animator bossAnimator;
     private BossJambes bossJambesScript;
 
 
     private void OnEnable() {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         lockVirtualCameraAnimator = lockVirtualCamera.GetComponent<Animator>();
         bossAnimator = GetComponent<Animator>();
         BossName = gameObject.name;
@@ -95,10 +94,10 @@ public class BossLife : MonoBehaviour {
     public void KillBoss() {
         Instantiate(poof, poofOrigin.transform.position, Quaternion.identity);
         if(BossName == "BossBras") {
-            gm.BossArmsDead = true;
+            GM.BossArmsDead = true;
         }
         else {
-            gm.BossLegsDead = true;
+            GM.BossLegsDead = true;
         }
         
         foreach(Image heart in hearts) {

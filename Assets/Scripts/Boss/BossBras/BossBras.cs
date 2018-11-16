@@ -8,15 +8,16 @@ public class BossBras : MonoBehaviour {
     [SerializeField] private GameObject brasSmash;
     [SerializeField] private GameObject brasClap;
     [SerializeField] private int waitTurnTime;
+    [SerializeField] private string turn = "Smash";
 
-    public string Turn = "Smash";
     private BossBrasClap bossBrasClapScript;
     private BossBrasSmash bossBrasSmashScript;
+
 
     private void Start() {
         bossBrasClapScript = brasClap.GetComponent<BossBrasClap>();
         bossBrasSmashScript = brasSmash.GetComponent<BossBrasSmash>();
-
+        
         popup.SetActive(true);
 
         TurnSequence();
@@ -29,7 +30,7 @@ public class BossBras : MonoBehaviour {
     }
 
     IEnumerator UpdateTurn () {
-        switch (Turn) {
+        switch (turn) {
             case "Smash":
 
                 if (brasClap.activeSelf) {
@@ -55,18 +56,19 @@ public class BossBras : MonoBehaviour {
     //Change Boss stage
     IEnumerator TurnSelector() {
         yield return new WaitForSeconds(waitTurnTime);
-        switch (Turn) {
+        switch (turn) {
             case "Smash":
-                Turn = "Clap";
+                turn = "Clap";
                 TurnSequence();
                 break;
 
             case "Clap":
-                Turn = "Smash";
+                turn = "Smash";
                 UpdateTurn();
                 TurnSequence();
                 break;
         }
         
     }
+
 }

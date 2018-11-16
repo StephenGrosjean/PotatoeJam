@@ -4,7 +4,13 @@ using UnityEngine;
 /// Script that manage the Dash Physics
 /// </summary>
 public class Dash : MonoBehaviour {
-    public string DashKey; //SET (yes)
+   [SerializeField] private string dashKey;
+
+    public string DashKey
+    {
+        get { return dashKey; }
+        set { dashKey = value; }
+    }
 
     [SerializeField] private GameObject dashTrail;
     [SerializeField] private float dashSpeed;

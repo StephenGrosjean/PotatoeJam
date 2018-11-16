@@ -15,8 +15,8 @@ public class SelectKey : MonoBehaviour {
     private bool wantToChange;
     private string[] alowedKeys;
     private bool validKey;
-    private const int KeyPressTimeout = 10;
-    private const float GetKeyTimer = 0.5f;
+    private const int keyPressTimeout = 10;
+    private const float getKeyTimer = 0.5f;
 
     private TextMeshProUGUI textMeshComponent;
     private KeyManager keyManagerScript;
@@ -74,13 +74,13 @@ public class SelectKey : MonoBehaviour {
     IEnumerator WantChange() {
         wantToChange = true;
         textMeshComponent.SetText("_");
-        yield return new WaitForSeconds(KeyPressTimeout); //Set a timeout for pressing the key
+        yield return new WaitForSeconds(keyPressTimeout); //Set a timeout for pressing the key
         wantToChange = false;
     }
 
     //Get the key from the Json
     IEnumerator GetKey() {
-        yield return new WaitForSeconds(GetKeyTimer);
+        yield return new WaitForSeconds(getKeyTimer);
         string keyFromJson = keyManagerScript.KeyMap[id];
         textMeshComponent.SetText(keyFromJson);
         keyManagerScript.AddKey(textMeshComponent.text, id);

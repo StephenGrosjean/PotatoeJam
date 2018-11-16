@@ -62,7 +62,7 @@ public class DestroyableBrick : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    IEnumerator DestroyTnt() {
+    IEnumerator DestroyTNT() {
 
         Instantiate(poof, transform.position, Quaternion.identity);
         spriteRendererComponent.enabled = false;

@@ -1,13 +1,17 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// Script that controle the value of the Dash slider and the boolean IsDashing
+/// Script that control the value of the Dash slider and the boolean IsDashing
 /// </summary>
 
 public class DashDamp : MonoBehaviour {
-    public bool IsDashing;
+    [SerializeField] private bool isDashing;
+    public bool IsDashing
+    {
+        get { return isDashing; }
+        set { isDashing = value; }
+    }
 
     [SerializeField] private float waitTime = 1f;
     [SerializeField] private Image dashSlider;

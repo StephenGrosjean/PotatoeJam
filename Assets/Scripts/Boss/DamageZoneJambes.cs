@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script to check if the player have to recieve damages 
+/// Script to check if the player have to receive damages 
 /// </summary>
 
 public class DamageZoneJambes : MonoBehaviour {
-    public bool IsInZone; //Get (yes)
+    [SerializeField] private bool isInZone;
+    public bool IsInZone
+    {
+        get { return isInZone; }
+        set { isInZone = value; }
+    }
 
     private LifeSystem lifeSystemScript;
     private GameObject player;
