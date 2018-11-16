@@ -11,7 +11,7 @@ public class Volume : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI text;
 
     private float vol;
-    private const int VolumeScale = 100;
+    private const int volumeScale = 100;
 
     private Slider sliderVolume;
 
@@ -26,7 +26,7 @@ public class Volume : MonoBehaviour {
 	void Update () {
         vol = sliderVolume.value;
         PlayerPrefs.SetFloat("Volume", vol);
-        text.SetText(Mathf.RoundToInt(vol * VolumeScale) + " %");
+        text.SetText(Mathf.RoundToInt(vol * volumeScale) + " %");
 
 	}
 }

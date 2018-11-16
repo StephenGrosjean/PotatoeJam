@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Script that control the enemy movement
@@ -36,7 +34,7 @@ public class Enemy : MonoBehaviour {
     private bool playerDashing;
     private bool playerInhaling;
 
-    private const float JumpTimeStep = 0.2f;
+    private const float jumpTimeStep = 0.2f;
 
     private PlayerDetector playerDetectorScript;
     private EnemySideDetector leftSideDetectorScript;
@@ -48,7 +46,7 @@ public class Enemy : MonoBehaviour {
     private LifeSystem playerLifeSystem;
 
     private void Start() {
-        //Asign components to variables
+        //Assign components to variables
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerDetectorScript = playerDetector.GetComponent<PlayerDetector>();
@@ -64,7 +62,7 @@ public class Enemy : MonoBehaviour {
         objectScale = transform.localScale;
 
         //Invoke the Jump method
-        InvokeRepeating("Jump", 0, JumpTimeStep);
+        InvokeRepeating("Jump", 0, jumpTimeStep);
     }
 
     private void FixedUpdate() {

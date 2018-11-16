@@ -6,10 +6,21 @@ using Cinemachine;
 /// </summary>
 
 public class GameManager : MonoBehaviour {
-    public bool BossArmsDead; //Get (yes)
-    public bool BossLegsDead; //Get (yes)
+    [SerializeField] private bool bossArmsDead;
+    public bool BossArmsDead
+    {
+        get { return bossArmsDead; }
+        set { bossArmsDead = value; }
+    }
 
-    public int Currentcheckpoint;
+    [SerializeField] private bool bossLegsDead;
+    public bool BossLegsDead
+    {
+        get { return bossLegsDead; }
+        set { bossLegsDead = value; }
+    }
+
+    [SerializeField] private int Currentcheckpoint;
     [SerializeField] private GameObject powerScreen;
     [SerializeField] private GameObject popUpFirstBoss, popUpSecondBoss;
     [SerializeField] private GameObject pauseMenu;
@@ -25,13 +36,13 @@ public class GameManager : MonoBehaviour {
     [Header("SmashPower")]
     [SerializeField] private GameObject uiSmash;
 
-    private const float NormalMusicPitch = 1f;
-    private const float BossMusicPitch = 1.1f;
+    private const float normalMusicPitch = 1f;
+    private const float bossMusicPitch = 1.1f;
 
-    private const int CameraHighPrority = 10;
-    private const int CameraLowPriority = 1;
+    private const int cameraHighPrority = 10;
+    private const int cameraLowPriority = 1;
 
-    private const int VolumeScale = 15;
+    private const int volumeScale = 15;
 
     private GameObject player;
 
@@ -55,7 +66,7 @@ public class GameManager : MonoBehaviour {
         camCinemachineLock1VirtualCamera = camCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
         camCinemachineLock2VirtualCamera = camCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
 
-        camAudioSource.volume = PlayerPrefs.GetFloat("Volume") / VolumeScale;
+        camAudioSource.volume = PlayerPrefs.GetFloat("Volume") / volumeScale;
 
         if(PlayerPrefs.GetInt("CheckPoint") == 0) {
             player.transform.position = cp0.position;
@@ -66,8 +77,8 @@ public class GameManager : MonoBehaviour {
             wallB11.SetActive(true);
             BossArmsDead = true;
             Destroy(boss1);
-            camCinemachineMainVirtualCamera.Priority = CameraHighPrority;
-            camCinemachineLock1VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
         }
         else if (PlayerPrefs.GetInt("CheckPoint") == 2) {
             player.transform.position = cp2.position;
@@ -76,9 +87,9 @@ public class GameManager : MonoBehaviour {
             BossLegsDead = true;
             Destroy(boss1);
             Destroy(boss2);
-            camCinemachineMainVirtualCamera.Priority = CameraHighPrority;
-            camCinemachineLock1VirtualCamera.Priority = CameraLowPriority;
-            camCinemachineLock2VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock2VirtualCamera.Priority = cameraLowPriority;
         }
     }
 
@@ -92,12 +103,12 @@ public class GameManager : MonoBehaviour {
         //If the camera as passed the boss 1 room center
 		if(cam.transform.position.x >= limitBoss1 && !BossArmsDead && !BossLegsDead) {
             
-            camAudioSource.pitch = BossMusicPitch;
+            camAudioSource.pitch = bossMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineLock1;
 
             //Change Virtual Camera
-            camCinemachineMainVirtualCamera.Priority = CameraLowPriority;
-            camCinemachineLock1VirtualCamera.Priority = CameraHighPrority;
+            camCinemachineMainVirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock1VirtualCamera.Priority = cameraHighPrority;
 
             //Enable the boss and the room walls
             boss1.SetActive(true);
@@ -117,12 +128,12 @@ public class GameManager : MonoBehaviour {
 
             UpgradePlayer(2);
 
-            camAudioSource.pitch = NormalMusicPitch;
+            camAudioSource.pitch = normalMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
-            camCinemachineMainVirtualCamera.Priority = CameraHighPrority;
-            camCinemachineLock1VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
 
             //Delete only the wall that prevent the player continue the game
             Destroy(wallB12);
@@ -135,12 +146,12 @@ public class GameManager : MonoBehaviour {
 
         //Check if camera as passed the boss 2 room center, the first boss is dead and the second not
         if(cam.transform.position.x >= limitBoss2 && BossArmsDead && !BossLegsDead) {
-            camAudioSource.pitch = BossMusicPitch;
+            camAudioSource.pitch = bossMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineLock2;
 
             //Change Virtual Camera
-            camCinemachineMainVirtualCamera.Priority = CameraLowPriority;
-            camCinemachineLock2VirtualCamera.Priority = CameraHighPrority;
+            camCinemachineMainVirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock2VirtualCamera.Priority = cameraHighPrority;
 
             //Enable the boss and the room walls
             if(boss2 != null) {
@@ -158,12 +169,12 @@ public class GameManager : MonoBehaviour {
         else if (BossLegsDead && PlayerPrefs.GetInt("CheckPoint") == 1 && BossArmsDead) {
             Save(2); //Set the checkpoint 
 
-            camAudioSource.pitch = NormalMusicPitch;
+            camAudioSource.pitch = normalMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
-            camCinemachineMainVirtualCamera.Priority = CameraHighPrority;
-            camCinemachineLock2VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock2VirtualCamera.Priority = cameraLowPriority;
 
             //Delete only the wall that prevent the player continue the game
             Destroy(wallB22);

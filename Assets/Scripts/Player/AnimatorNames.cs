@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// All the animations for the player are triggered from here
@@ -8,7 +6,13 @@ using UnityEngine;
 
 public class AnimatorNames : MonoBehaviour {
 
-    public int Stages; // 1 = Mouth; 2 = Arms; 3 = Legs;
+    [SerializeField] private int stages; // 1 = Mouth; 2 = Arms; 3 = Legs;
+
+    public int Stages
+    {
+        get { return stages; }
+        set { stages = value; }
+    }
 
     [Header("No Arms")]
     [SerializeField] private string idleNoArms;

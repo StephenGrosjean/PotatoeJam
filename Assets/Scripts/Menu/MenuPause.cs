@@ -7,20 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class MenuPause : MonoBehaviour {
 
-    private const int NormalTimeScale = 1;
+    private const int normalTimeScale = 1;
 
     public void Continue() {
-        Time.timeScale = NormalTimeScale;
+        Time.timeScale = normalTimeScale;
         gameObject.SetActive(false);
     }
 
     public void BackToMenu() {
-        Time.timeScale = NormalTimeScale;
+        Time.timeScale = normalTimeScale;
         SceneManager.LoadScene("MainMenu");
     }
 
     public void NewGame() {
-        Time.timeScale = NormalTimeScale;
+        Time.timeScale = normalTimeScale;
         SceneManager.LoadScene("NewGame");
 
     }

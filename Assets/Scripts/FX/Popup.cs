@@ -1,18 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Script to enable the Tip popup
 /// </summary>
 public class Popup : MonoBehaviour {
     private enum Animation {Pop,PopLong};
+    [SerializeField] private Animation animName;
 
     private Animator animatorComponent;
     private const float PopDuration = 6.5f;
     private const float PopLongDuration = 11.5f;
     private float waitTimeUntilDestruction;
-
-    [SerializeField] private Animation animName;
     private string currentAnimation;
 
     private void OnEnable() {

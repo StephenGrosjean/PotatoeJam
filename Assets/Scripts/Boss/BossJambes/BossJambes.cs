@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+/// <summary>
+/// Script to control the second boss
+/// </summary>
 public class BossJambes : MonoBehaviour
 {
     [SerializeField] private Transform leftPos;

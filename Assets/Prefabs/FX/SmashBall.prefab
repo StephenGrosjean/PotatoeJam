@@ -131,9 +131,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0d4ce78046e5248be99bea6837492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frames: []
-  speed: 0
-  loop: 0
+  frames:
+  - {fileID: 21300000, guid: d3f913db98aa6b74b9044569c1ff379b, type: 3}
+  - {fileID: 21300000, guid: ba2957d6ba772464db874635be6319af, type: 3}
+  - {fileID: 21300000, guid: c596626486c56c042988d5a93c9e58c6, type: 3}
+  - {fileID: 21300000, guid: 9aae81ead162a9e4d9e673a199f1fbfa, type: 3}
+  - {fileID: 21300000, guid: e11f52fa468c4ce449f782d466d53d66, type: 3}
+  - {fileID: 21300000, guid: 9aae81ead162a9e4d9e673a199f1fbfa, type: 3}
+  - {fileID: 21300000, guid: c596626486c56c042988d5a93c9e58c6, type: 3}
+  - {fileID: 21300000, guid: ba2957d6ba772464db874635be6319af, type: 3}
+  - {fileID: 21300000, guid: d3f913db98aa6b74b9044569c1ff379b, type: 3}
+  speed: 0.02
+  loop: 1
 --- !u!212 &212813746249991712
 SpriteRenderer:
   m_ObjectHideFlags: 1

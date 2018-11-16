@@ -5,8 +5,20 @@ using UnityEngine.UI;
 /// Script that manage the player life
 /// </summary>
 public class LifeSystem : MonoBehaviour {
-    public GameObject ActiveCamera; //GET (yes)
-    public int Life = 4; //GET (yes)
+    [SerializeField] private GameObject activeCamera;
+    public GameObject ActiveCamera
+    {
+        get { return activeCamera; }
+        set { activeCamera = value; }
+    }
+
+    private int life = 4;
+
+    public int Life
+    {
+        get { return life; }
+        set { life = value; }
+    }
 
     [SerializeField] private AudioClip lifeUp;
     [SerializeField] private GameObject fxPlayer;
@@ -22,7 +34,7 @@ public class LifeSystem : MonoBehaviour {
     private Animator camAnimator;
     private bool canTakeDamage;
 
-    private const float DamageTimerWaitTime = 0.5f;
+    private const float damageTimerWaitTime = 0.5f;
 
     private Inhale inhaleScript;
     private Image inhaleSliderImage;
@@ -130,7 +142,7 @@ public class LifeSystem : MonoBehaviour {
     //Allow the Player to take one damage at a time
     IEnumerator DamageTimer() {
         canTakeDamage = false;
-        yield return new WaitForSeconds(DamageTimerWaitTime);
+        yield return new WaitForSeconds(damageTimerWaitTime);
         canTakeDamage = true;
     }
 

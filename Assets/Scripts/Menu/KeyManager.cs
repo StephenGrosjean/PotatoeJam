@@ -6,8 +6,19 @@ using UnityEngine;
 public class KeyManager : MonoBehaviour {
     [SerializeField] private GameObject inputs;
 
-    public string[] Keys;
-    public string[] KeyMap;
+    private string[] keys;
+    public string[] Keys
+    {
+        get { return keys; }
+        set { keys = value; }
+    }
+
+    private string[] keyMap;
+    public string[] KeyMap
+    {
+        get { return keyMap; }
+        set { keyMap = value; }
+    }
 
     private InputManager inputManagerScript;
     private const float GetKeyWaitTime = 0.2f;

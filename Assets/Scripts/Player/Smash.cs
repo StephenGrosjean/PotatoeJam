@@ -1,10 +1,14 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Smash : MonoBehaviour {
-    public string SmashKey; //SET (yes)
+    [SerializeField] private string smashKey;
+    public string SmashKey
+    {
+        get { return smashKey; }
+        set { smashKey = value; }
+    }
 
     [SerializeField] private GameObject smashBall;
     [SerializeField] private Image smashSlider;

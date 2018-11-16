@@ -6301,7 +6301,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4513393747890124, guid: 45461f31456a3ad4797abddf6df97db8, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45461f31456a3ad4797abddf6df97db8, type: 2}
@@ -6713,7 +6713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f404713ec983448bcba024c4703d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInZone: 0
+  isInZone: 0
 --- !u!61 &327342434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7230,7 +7230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f404713ec983448bcba024c4703d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInZone: 0
+  isInZone: 0
 --- !u!1 &424265001
 GameObject:
   m_ObjectHideFlags: 0
@@ -8174,7 +8174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObject: 0
   objectsToActivate: []
-  Triggered: 0
+  triggered: 0
 --- !u!61 &452754480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8943,7 +8943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443396a4cdf791f44bd20603a7ac8e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInZone: 0
+  isInZone: 0
 --- !u!1001 &557842985
 Prefab:
   m_ObjectHideFlags: 0
@@ -9591,7 +9591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f404713ec983448bcba024c4703d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInZone: 0
+  isInZone: 0
 --- !u!1001 &680454644
 Prefab:
   m_ObjectHideFlags: 0
@@ -26026,7 +26026,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &825017703
 GameObject:
@@ -27204,7 +27204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObject: 0
   objectsToActivate: []
-  Triggered: 0
+  triggered: 0
 --- !u!1 &999360934
 GameObject:
   m_ObjectHideFlags: 0
@@ -27559,7 +27559,7 @@ MonoBehaviour:
   brasSmash: {fileID: 706351952}
   brasClap: {fileID: 1911036263}
   waitTurnTime: 20
-  Turn: Smash
+  turn: Smash
 --- !u!95 &1014769849
 Animator:
   serializedVersion: 3
@@ -29902,7 +29902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObject: 0
   objectsToActivate: []
-  Triggered: 0
+  triggered: 0
 --- !u!61 &1442584492
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30663,8 +30663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1325d44404eba140839147b0479639c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossArmsDead: 0
-  BossLegsDead: 0
+  bossArmsDead: 0
+  bossLegsDead: 0
   Currentcheckpoint: 0
   powerScreen: {fileID: 780953564}
   popUpFirstBoss: {fileID: 281228537}
@@ -32657,7 +32657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f404713ec983448bcba024c4703d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInZone: 0
+  isInZone: 0
 --- !u!61 &1949890395
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33733,7 +33733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObject: 0
   objectsToActivate: []
-  Triggered: 0
+  triggered: 0
 --- !u!1 &2094607563
 GameObject:
   m_ObjectHideFlags: 0
@@ -33756,7 +33756,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2094607563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: -0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2117369301}
@@ -33880,7 +33880,7 @@ MonoBehaviour:
   checkRadius: 4
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   extraJumpValue: 1
   inputs: {fileID: 0}
   leftKey: 
@@ -33900,7 +33900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73348591a221e74699983b51e7bd64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDashing: 0
+  isDashing: 0
   waitTime: 1
   dashSlider: {fileID: 1830121420}
   dashValue: 0
@@ -33935,7 +33935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8baad1f29d5a2c745b1396e0b02720b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stages: 1
+  stages: 0
   idleNoArms: Idle_No_Arms
   walkNoArms: Walk_No_Arms
   dashNoArms: Dash_No_Arms
@@ -33977,7 +33977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11a64d89417736469e52b47e6aaed99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashKey: 
+  dashKey: 
   dashTrail: {fileID: 1132859916}
   dashSpeed: 200
   dashTime: 0
@@ -34015,8 +34015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed13127f765fc6e46ae2db8e76e3061d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveCamera: {fileID: 0}
-  Life: 3
+  activeCamera: {fileID: 0}
   lifeUp: {fileID: 8300000, guid: 3a20cf2548a896145ad7f596a90c02a2, type: 3}
   fxPlayer: {fileID: 186675639}
   fxHeal: {fileID: 1985086174094826, guid: 97111440516f65d4aaa7440062e8219e, type: 2}
@@ -34044,9 +34043,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de07a69f2031fb488ebce150a674bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InhaleKey: 
-  DoInhale: 0
-  InhaleSlider: {fileID: 1407366571}
+  inhaleKey: 
+  doInhale: 0
+  inhaleSlider: {fileID: 0}
   inhaleParticles: {fileID: 246011609}
   effector: {fileID: 2116810457}
   timerInhale: 10
@@ -34171,7 +34170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c25bba2b6bdd514097a3bc1d06bb234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmashKey: 
+  smashKey: 
   smashBall: {fileID: 1395861586307498, guid: 9a3616787853e4b4fbaae8a05a91c0f4, type: 2}
   smashSlider: {fileID: 1989027007}
   smashSpawnZone: {fileID: 2094607564}

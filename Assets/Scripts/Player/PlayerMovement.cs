@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour{
     private bool isGrounded;
     private int extraJumps;
     private bool asPressedJump = false;
-    private const float GetKeyWaitTime = 0.2f;
+    private const float getKeyWaitTime = 0.2f;
 
     private Rigidbody2D rb;
     private AnimatorNames animatorNamesScript;
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour{
 
     //Get all inputs from the Json
     IEnumerator GetKey() {
-        yield return new WaitForSeconds(GetKeyWaitTime);
+        yield return new WaitForSeconds(getKeyWaitTime);
 
         leftKey = inputsManager.Inputs.Left;
         rightKey = inputsManager.Inputs.Right;

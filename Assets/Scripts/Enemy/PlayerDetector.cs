@@ -8,7 +8,7 @@ using UnityEngine;
 
 
 public class PlayerDetector : MonoBehaviour {
-    private bool playerInRange;
+    [SerializeField] private bool playerInRange;
 
     public bool PlayerInRange {
         get {
