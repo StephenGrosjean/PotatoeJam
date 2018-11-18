@@ -7,7 +7,11 @@ using System.IO;
 /// </summary>
 
 public class InputManager : MonoBehaviour {
-
+    private bool isXboxControls;
+    public bool IsXboxControls {
+        get { return isXboxControls; }
+        set { isXboxControls = value; }
+    }
     public Keys Inputs;
 
     private string json;
@@ -22,8 +26,16 @@ public class InputManager : MonoBehaviour {
         public string Smash;
     }
 
+    private void Update() {
+        if (PlayerPrefs.GetString("ControlLayout") == "Xbox") {
+            isXboxControls = true;
+        }
+        else {
+            isXboxControls = false;
+        }
+    }
 
-	void Start () {
+    void Start () {
         Invoke("ReadJson", 0.1f);
 	}
 

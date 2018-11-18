@@ -19,26 +19,39 @@ public class Smash : MonoBehaviour {
     [SerializeField] private float timerSmash;
     [SerializeField] private float smashReloadTime;
 
+    private bool isXboxControls;
 
     private AnimatorNames animatorNames;
     private PlayerMovement playerMovementScript;
     private float smashValue;
     private bool charge;
     private bool canSmash = true;
-
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
 
     void Start () {
         animatorNames = GetComponent<AnimatorNames>();
         playerMovementScript = GetComponent<PlayerMovement>();
-	}
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
         smashSlider.fillAmount = smashValue;
 
-        if (SmashKey != "") {
-            if (Input.GetKeyDown(SmashKey) && canSmash) {
+        if (isXboxControls) {
+            if (Input.GetButtonDown("X360_Smash") && canSmash) {
                 StartCoroutine("ChargeSmash");
+            }
+        }
+        else {
+            if (SmashKey != "") {
+                if (Input.GetKeyDown(SmashKey) && canSmash) {
+                    StartCoroutine("ChargeSmash");
+                }
             }
         }
 

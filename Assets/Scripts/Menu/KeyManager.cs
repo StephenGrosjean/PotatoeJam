@@ -6,14 +6,14 @@ using UnityEngine;
 public class KeyManager : MonoBehaviour {
     [SerializeField] private GameObject inputs;
 
-    private string[] keys;
+    [SerializeField] private string[] keys;
     public string[] Keys
     {
         get { return keys; }
         set { keys = value; }
     }
 
-    private string[] keyMap;
+    [SerializeField] private string[] keyMap;
     public string[] KeyMap
     {
         get { return keyMap; }
@@ -38,6 +38,7 @@ public class KeyManager : MonoBehaviour {
         inputManagerScript.WriteJson(Keys);
         Read();
     }
+
 
     //Read the keys from the InputManager
     void Read() {

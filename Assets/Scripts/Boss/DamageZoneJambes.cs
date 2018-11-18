@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +13,8 @@ public class DamageZoneJambes : MonoBehaviour {
         set { isInZone = value; }
     }
 
+    private GameObject bossContainer;
+    private BossJambes bossJambesScript;
     private LifeSystem lifeSystemScript;
     private GameObject player;
     private bool canGiveDmg = true;
@@ -21,12 +22,14 @@ public class DamageZoneJambes : MonoBehaviour {
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
+        bossContainer = transform.parent.gameObject;
+        bossJambesScript = bossContainer.GetComponent<BossJambes>();
         lifeSystemScript = player.GetComponent<LifeSystem>();
     }
 
     //Give him some damages if he is in zone
     public void ApplyDamages() {
-        if (IsInZone && canGiveDmg) {
+        if (IsInZone && canGiveDmg && bossJambesScript.IsWalking) {
             canGiveDmg = false;
             StartCoroutine("DmgDamp");
             lifeSystemScript.LowerLife();

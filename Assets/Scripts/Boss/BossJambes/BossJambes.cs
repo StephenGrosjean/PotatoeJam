@@ -5,6 +5,12 @@ using UnityEngine;
 /// </summary>
 public class BossJambes : MonoBehaviour
 {
+    [SerializeField] private bool isWalking;
+    public bool IsWalking {
+        get { return isWalking; }
+        set { isWalking = value; }
+    }
+
     [SerializeField] private Transform leftPos;
     [SerializeField] private Transform rightPos;
     [SerializeField] private GameObject rightDamageZone, leftDamageZone;
@@ -116,6 +122,7 @@ public class BossJambes : MonoBehaviour
                 Debug.Log("WalkLeft");
                 target = leftPos;
                 animatorComponent.Play("Walk");
+                IsWalking = true;
                 yield return new WaitForSeconds(waitWalk);
                 sideLeft = true;
                 StartCoroutine("States", "Wait");
@@ -125,12 +132,14 @@ public class BossJambes : MonoBehaviour
                 Debug.Log("WalkRight");
                 target = rightPos;
                 animatorComponent.Play("Walk");
+                IsWalking = true;
                 yield return new WaitForSeconds(waitWalk);
                 sideLeft = false;
                 StartCoroutine("States", "Wait");
                 break;
 
             case "Wait":
+                IsWalking = false;
                 animatorComponent.Play("Idle");
                 yield return new WaitForSeconds(1);
                 StartCoroutine("States", "Hit");

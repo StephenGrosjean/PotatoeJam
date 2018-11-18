@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour {
     [Header("SmashPower")]
     [SerializeField] private GameObject uiSmash;
 
+
+    private bool isXboxControls;
+
     private const float normalMusicPitch = 1f;
     private const float bossMusicPitch = 1.1f;
 
@@ -52,6 +55,9 @@ public class GameManager : MonoBehaviour {
     private AnimatorNames animatorNamesScript;
     private Smash smashScript;
     private CinemachineVirtualCamera camCinemachineMainVirtualCamera, camCinemachineLock1VirtualCamera, camCinemachineLock2VirtualCamera;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
+
 
     void Start () {
         Currentcheckpoint = PlayerPrefs.GetInt("CheckPoint");
@@ -62,6 +68,8 @@ public class GameManager : MonoBehaviour {
         animatorNamesScript = player.GetComponent<AnimatorNames>();
         smashScript = player.GetComponent<Smash>();
         powerScreenAnimator = powerScreen.GetComponent<Animator>();
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
         camCinemachineMainVirtualCamera = camCinemachineMain.GetComponent<CinemachineVirtualCamera>();
         camCinemachineLock1VirtualCamera = camCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
         camCinemachineLock2VirtualCamera = camCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
@@ -100,8 +108,10 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update () {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
         //If the camera as passed the boss 1 room center
-		if(cam.transform.position.x >= limitBoss1 && !BossArmsDead && !BossLegsDead) {
+        if (cam.transform.position.x >= limitBoss1 && !BossArmsDead && !BossLegsDead) {
             
             camAudioSource.pitch = bossMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineLock1;
@@ -186,10 +196,32 @@ public class GameManager : MonoBehaviour {
         }
 
         //Enable pause menu
-        if (Input.GetKeyDown(KeyCode.P)) {
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0;
+        if (isXboxControls) {
+            if (Input.GetButtonDown("X360_Pause")) {
+                if (pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                else {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                }
+            }
         }
+        else {
+            if (Input.GetKeyDown(KeyCode.P)) {
+                if (pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                else {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                }
+            }
+        }
+
+        Cursor.visible = (Time.timeScale == 0);
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();

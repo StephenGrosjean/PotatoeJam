@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyableBrick : MonoBehaviour {
+    private bool isInDestroyProcess;
+    public bool IsInDestroyProcess {
+        get { return isInDestroyProcess; }
+        set { isInDestroyProcess = value; }
+    }
+
     [SerializeField] private GameObject poof;
     [SerializeField] private bool destroySmash;
     [SerializeField] private GameObject[] otherBricks;
 
+    private const float destroyDamp = 0.1f;
+
     private GameObject player;
     private DashDamp dashDampScript;
     private bool isPlayerDashing;
-
+  
     private Rigidbody2D rigid;
     private Vector3 normal;
 
@@ -44,12 +52,14 @@ public class DestroyableBrick : MonoBehaviour {
 
     public void DestroySequenceSmash() {
         if (destroySmash) {
+            IsInDestroyProcess = true;
             StartCoroutine("DestroyTNT");
         }
     }
 
-    public void DestroySequenceTnt() {
+    public void DestroySequenceTNT() {
         Instantiate(poof, transform.position, Quaternion.identity);
+        Debug.Log("Destroyed" + gameObject.name);
         Destroy(gameObject);
     }
 
@@ -75,8 +85,11 @@ public class DestroyableBrick : MonoBehaviour {
         }
 
         foreach(GameObject brick in otherBricksList) {
-            brick.GetComponent<DestroyableBrick>().DestroySequenceTnt();
-            yield return new WaitForSeconds(0.1f);
+            Debug.Log("destroy : " + brick.name);
+            if (!brick.GetComponent<DestroyableBrick>().IsInDestroyProcess) {
+                brick.GetComponent<DestroyableBrick>().DestroySequenceTNT();
+            }
+            yield return new WaitForSeconds(destroyDamp);
         }
 
         Destroy(gameObject);

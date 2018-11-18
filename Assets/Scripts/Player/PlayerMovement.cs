@@ -27,15 +27,9 @@ public class PlayerMovement : MonoBehaviour{
     private Dash dashScript;
     private Inhale inhaleScript;
     private Smash smashScript;
-    private InputManager inputsManager;
+    private InputManager inputsManagerScript;
 
     void Start () {
-        if (PlayerPrefs.GetString("ControlLayout") == "Xbox") {
-            isXboxControls = true;
-        }
-        else {
-            isXboxControls = false;
-        }
 
         inputs = GameObject.FindGameObjectWithTag("InputManager");
         rb = GetComponent<Rigidbody2D>();
@@ -43,7 +37,7 @@ public class PlayerMovement : MonoBehaviour{
         dashScript = GetComponent<Dash>();
         inhaleScript = GetComponent<Inhale>();
         smashScript = GetComponent<Smash>();
-        inputsManager = inputs.GetComponent<InputManager>();
+        inputsManagerScript = inputs.GetComponent<InputManager>();
         
 
         StartCoroutine("GetKey");
@@ -62,16 +56,27 @@ public class PlayerMovement : MonoBehaviour{
     }
 
     private void Update() {
+        isXboxControls = inputsManagerScript.IsXboxControls;
         //Check if the player is grounded
         isGrounded = Physics2D.OverlapBox(groundCheck.position, new Vector2(checkRadius, 2f), 0, groundLayer);
 
         //Check if the player as pressed the jump key
         if (jumpKey != "") {
-            if (Input.GetKeyDown(jumpKey)) {
-                asPressedJump = true;
+            if (isXboxControls) {
+                if (Input.GetButtonDown("X360_Jump")) {
+                    asPressedJump = true;
+                }
+                else {
+                    asPressedJump = false;
+                }
             }
             else {
-                asPressedJump = false;
+                if (Input.GetKeyDown(jumpKey)) {
+                    asPressedJump = true;
+                }
+                else {
+                    asPressedJump = false;
+                }
             }
         }
         
@@ -86,17 +91,28 @@ public class PlayerMovement : MonoBehaviour{
             extraJumps--;
         }
 
-        // isGrounded = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, GroundLayer);
-
-        if (leftKey != "") {
-            if (Input.GetKey(leftKey)) {
+        if (isXboxControls) {
+            if (Input.GetAxis("X360_Horizontal") < 0) {
                 moveInput = -1;
             }
-            else if (Input.GetKey(rightKey)) {
+            else if (Input.GetAxis("X360_Horizontal") > 0) {
                 moveInput = 1;
             }
-            if (!Input.GetKey(leftKey) && !Input.GetKey(rightKey)) {
+            if (!(Input.GetAxis("X360_Horizontal") < 0) && !(Input.GetAxis("X360_Horizontal") > 0)) {
                 moveInput = 0;
+            }
+        }
+        else {
+            if (leftKey != "") {
+                if (Input.GetKey(leftKey)) {
+                    moveInput = -1;
+                }
+                else if (Input.GetKey(rightKey)) {
+                    moveInput = 1;
+                }
+                if (!Input.GetKey(leftKey) && !Input.GetKey(rightKey)) {
+                    moveInput = 0;
+                }
             }
         }
 
@@ -129,17 +145,17 @@ public class PlayerMovement : MonoBehaviour{
     IEnumerator GetKey() {
         yield return new WaitForSeconds(getKeyWaitTime);
 
-        leftKey = inputsManager.Inputs.Left;
-        rightKey = inputsManager.Inputs.Right;
-        jumpKey = inputsManager.Inputs.Jump;
+        leftKey = inputsManagerScript.Inputs.Left;
+        rightKey = inputsManagerScript.Inputs.Right;
+        jumpKey = inputsManagerScript.Inputs.Jump;
 
-        dashKey = inputsManager.Inputs.Dash;
+        dashKey = inputsManagerScript.Inputs.Dash;
              dashScript.DashKey = dashKey;
 
-        inhaleKey = inputsManager.Inputs.Inhale;
+        inhaleKey = inputsManagerScript.Inputs.Inhale;
             inhaleScript.InhaleKey = inhaleKey;
 
-        smashKey = inputsManager.Inputs.Smash;
+        smashKey = inputsManagerScript.Inputs.Smash;
             smashScript.SmashKey = smashKey;
     }
 }

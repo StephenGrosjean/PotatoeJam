@@ -37,27 +37,47 @@ public class Inhale : MonoBehaviour {
     private float inhaleValue;
     private bool charge;
 
+    private bool isXboxControls;
     private bool canInhale = true;
     private AnimatorNames animatorNames;
     private PlayerMovement playerMovementScript;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
 
     void Start () {
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
         animatorNames = GetComponent<AnimatorNames>();
         playerMovementScript = GetComponent<PlayerMovement>();
     }
 
     void Update() {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
         InhaleSlider.fillAmount = inhaleValue; //Update the value of the Inhale slider
 
         if (InhaleKey != "") {//Check if the Inhale key as been asigned
-            if (Input.GetKeyDown(InhaleKey) && canInhale) {
-                DoInhale = true;
-                animatorNames.PlayAnimations("Inhale"); //Play the animation
-                StartCoroutine("InhaleChargeTime");//Start the charge time (slider)
+            if (isXboxControls) {
+                if (Input.GetButtonDown("X360_Inhale") && canInhale) {
+                    DoInhale = true;
+                    animatorNames.PlayAnimations("Inhale"); //Play the animation
+                    StartCoroutine("InhaleChargeTime");//Start the charge time (slider)
+                }
+                if (Input.GetButtonUp("X360_Inhale")) {
+                    DoInhale = false;
+                }
             }
-            if (Input.GetKeyUp(InhaleKey)) {
-                DoInhale = false;
+            else {
+                if (Input.GetKeyDown(InhaleKey) && canInhale) {
+                    DoInhale = true;
+                    animatorNames.PlayAnimations("Inhale"); //Play the animation
+                    StartCoroutine("InhaleChargeTime");//Start the charge time (slider)
+                }
+                if (Input.GetKeyUp(InhaleKey)) {
+                    DoInhale = false;
+                }
             }
+           
         }
 
         if (charge) {

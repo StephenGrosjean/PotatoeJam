@@ -21,13 +21,17 @@ public class Dash : MonoBehaviour {
     [SerializeField] private bool dashing;
     [SerializeField] private bool charging;
 
-
+    private bool isXboxControls;
     private PlayerMovement playerMovementScript;
     private AnimatorNames animatorNames;
     private Rigidbody2D rb;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
 
 
     void Start () {
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
         rb = GetComponent<Rigidbody2D>();
         animatorNames = GetComponent<AnimatorNames>();
         playerMovementScript = GetComponent<PlayerMovement>();
@@ -35,15 +39,30 @@ public class Dash : MonoBehaviour {
 	}
 	
 	void Update () {
-            if (direction == 0) {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
+        if (direction == 0) {
                 if (DashKey != "") {
-                    if (Input.GetKeyDown(DashKey)) {
-                        StartCoroutine("DashChargeTime");
-                        if (transform.localScale.x < 0) {
-                            direction = 1;
+                    if (isXboxControls) {
+                        if (Input.GetButtonDown("X360_Dash")) {
+                            StartCoroutine("DashChargeTime");
+                            if (transform.localScale.x < 0) {
+                                direction = 1;
+                            }
+                            if (transform.localScale.x > 0) {
+                                direction = 2;
+                            }
                         }
-                        if (transform.localScale.x > 0) {
-                            direction = 2;
+                    }
+                    else {
+                        if (Input.GetKeyDown(DashKey)) {
+                            StartCoroutine("DashChargeTime");
+                            if (transform.localScale.x < 0) {
+                                direction = 1;
+                            }
+                            if (transform.localScale.x > 0) {
+                                direction = 2;
+                            }
                         }
                     }
                 }
@@ -63,14 +82,15 @@ public class Dash : MonoBehaviour {
 
                     dashTime -= Time.deltaTime;
 
-                    if (DashKey != "") {
-                       if (Input.GetKey(DashKey)) {
+                if (DashKey != "") {
+                    if (isXboxControls) {
+                        if (Input.GetButton("X360_Dash")) {
                             animatorNames.PlayAnimations("Dash");
 
                             if (!dashing) {
                                 if (direction == 1) {
                                     rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
-                               
+
                                 }
                                 else if (direction == 2) {
                                     rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
@@ -80,9 +100,29 @@ public class Dash : MonoBehaviour {
                                 direction = 0;
                                 dashTime = startDashTime;
                             }
-                       }
+                        }
                     }
-                }
+                    else {
+                        if (Input.GetKey(DashKey)) {
+                            animatorNames.PlayAnimations("Dash");
+
+                            if (!dashing) {
+                                if (direction == 1) {
+                                    rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+
+                                }
+                                else if (direction == 2) {
+                                    rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
+                                }
+
+                                GetComponent<DashDamp>().StartDashing();
+                                direction = 0;
+                                dashTime = startDashTime;
+                            }
+                        }
+                    }
+                }      
+            }
         }
 	}
 
