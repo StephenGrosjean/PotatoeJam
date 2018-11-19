@@ -28,9 +28,10 @@ public class PlayerMovement : MonoBehaviour{
     private Inhale inhaleScript;
     private Smash smashScript;
     private InputManager inputsManagerScript;
+    private Animator animatorComponent;
 
     void Start () {
-
+        animatorComponent = GetComponent<Animator>();
         inputs = GameObject.FindGameObjectWithTag("InputManager");
         rb = GetComponent<Rigidbody2D>();
         animatorNamesScript = GetComponent<AnimatorNames>();
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour{
         //If the player as extra jumps he can jump in the air while decreasing his number of extra jumps
         if (asPressedJump && extraJumps > 0) {
             rb.velocity = Vector2.up * jumpForce;
+            animatorNamesScript.PlayAnimations("Jump");
             extraJumps--;
         }
 
@@ -125,11 +127,11 @@ public class PlayerMovement : MonoBehaviour{
         }
 
         //Play Animations
-        if (moveInput != 0) {
+        if (moveInput != 0 && !animatorComponent.GetBool("isJumping")) {
             animatorNamesScript.PlayAnimations("Walk");
 
         }
-        else if (moveInput == 0) {
+        else if (moveInput == 0 && !animatorComponent.GetBool("isJumping")) {
             animatorNamesScript.PlayAnimations("Idle");
         }
     }

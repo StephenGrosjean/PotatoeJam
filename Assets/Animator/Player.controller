@@ -7,7 +7,13 @@ AnimatorController:
   m_PrefabInternal: {fileID: 0}
   m_Name: Player
   serializedVersion: 5
-  m_AnimatorParameters: []
+  m_AnimatorParameters:
+  - m_Name: isJumping
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -34,6 +40,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: idle
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114163211462239678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47,6 +55,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: arm_attack
   speed: 1.5
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114289109513653518
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -60,6 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: walk
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114316212847112260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,6 +85,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Walk_noArms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114327785363042274
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -86,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: aspirer_Arms
   speed: 2
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114354105524343360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Dash_charge_noArms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114427747022826946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: idle_noArms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114438276451053998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,6 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: 
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114633484211926150
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -138,6 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: aspirer_noArms
   speed: 2
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114778274782265706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,6 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: dash_roll_noArms
   speed: 1.5
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114825893217589132
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -164,6 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Kick
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114832416082211752
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -177,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Walk_Arms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114868148041592628
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -190,6 +220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: dash_roll_Arms
   speed: 1.5
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114873299273644202
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -203,6 +235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Dash_charge_Arms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!114 &114882797119773346
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -216,6 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: Jump
   speed: 1
+  parameterToEnable: isJumping
+  enableParameterOnPlay: 1
 --- !u!114 &114986073158634628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animName: idle_Arms
   speed: 1
+  parameterToEnable: 
+  enableParameterOnPlay: 0
 --- !u!1101 &1101009793936677920
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -266,6 +304,48 @@ AnimatorStateTransition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 1.07
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &1101094851080431202
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102363430236801190}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.2
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &1101214246820896386
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102261083107048476}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.2
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -588,7 +668,9 @@ AnimatorState:
   m_Name: Jump_Legs
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: 1101214246820896386}
+  - {fileID: 1101094851080431202}
   m_StateMachineBehaviours:
   - {fileID: 114882797119773346}
   m_Position: {x: 50, y: 50, z: 0}
@@ -602,7 +684,7 @@ AnimatorState:
   m_Motion: {fileID: 0}
   m_Tag: 
   m_SpeedParameter: 
-  m_MirrorParameter: 
+  m_MirrorParameter: isJumping
   m_CycleOffsetParameter: 
   m_TimeParameter: 
 --- !u!1102 &1102896755445614920
@@ -731,13 +813,13 @@ AnimatorStateMachine:
     m_Position: {x: 564, y: -48, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102252067395163150}
-    m_Position: {x: 612, y: 0, z: 0}
+    m_Position: {x: 672, y: 72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102874585911725638}
-    m_Position: {x: 612, y: 48, z: 0}
+    m_Position: {x: 672, y: 24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102363430236801190}
-    m_Position: {x: 612, y: 96, z: 0}
+    m_Position: {x: 780, y: -48, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
