@@ -37,23 +37,13 @@ public class AnimatorNames : MonoBehaviour {
 
     private Animator anim;
 
-    public GameObject GroundCheck;
-    public Transform pos;
-
     private void Start() {
 
         anim = GetComponent<Animator>();
 
-        if (Stages == 3) {
-            GetComponent<BoxCollider2D>().enabled = true;
-            GroundCheck.transform.position = pos.position;
-        }
+       
     }
 
-
-    private void Update() {
-
-    }
 
     public void PlayAnimations(string animation) {
         switch (animation) {

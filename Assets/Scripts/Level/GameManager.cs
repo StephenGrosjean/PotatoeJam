@@ -36,6 +36,14 @@ public class GameManager : MonoBehaviour {
     [Header("SmashPower")]
     [SerializeField] private GameObject uiSmash;
 
+    [Header("Legs Sequence")]
+    [SerializeField] private GameObject body;
+    [SerializeField] private GameObject legs;
+    [SerializeField] private Transform groundCheckNewPos;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private GameObject powerPanel;
+
+
 
     private bool isXboxControls;
 
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour {
             camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
         }
         else if (PlayerPrefs.GetInt("CheckPoint") == 2) {
+            UpgradePlayer(3);
             player.transform.position = cp2.position;
             wallB21.SetActive(true);
             BossArmsDead = true;
@@ -98,6 +107,7 @@ public class GameManager : MonoBehaviour {
             camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
             camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
             camCinemachineLock2VirtualCamera.Priority = cameraLowPriority;
+            EnableLegs();
         }
     }
 
@@ -178,6 +188,8 @@ public class GameManager : MonoBehaviour {
         //Check if the checkpoint is 1, the first boss and the second are dead
         else if (BossLegsDead && PlayerPrefs.GetInt("CheckPoint") == 1 && BossArmsDead) {
             Save(2); //Set the checkpoint 
+            UpgradePlayer(3);
+            EnableLegs();
 
             camAudioSource.pitch = normalMusicPitch;
             lifeSystemScript.ActiveCamera = camCinemachineMain;
@@ -236,7 +248,23 @@ public class GameManager : MonoBehaviour {
                 smashScript.enabled = true; //Enable the smash power
                 break;
             case 3:
+                animatorNamesScript.Stages = 3; //Get the arm Upgrade
                 break;
         }
+    }
+
+    void EnableLegs() {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z);
+        legs.SetActive(true);
+        body.SetActive(false);
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        groundCheck.transform.position = groundCheckNewPos.position;
+        powerPanel.SetActive(false);
+        player.GetComponent<Dash>().enabled = false;
+        player.GetComponent<Inhale>().enabled = false;
+        player.GetComponent<DashDamp>().enabled = false;
+        player.GetComponent<Smash>().enabled = false;
+        player.GetComponent<PlayerMovement>().JumpForce *= 2;
     }
 }

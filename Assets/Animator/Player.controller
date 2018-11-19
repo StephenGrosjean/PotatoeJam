@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animName: walk
-  speed: 1
+  speed: 3
   parameterToEnable: 
   enableParameterOnPlay: 0
 --- !u!114 &114316212847112260
@@ -280,9 +280,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 1.333
+  m_ExitTime: 0.444
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

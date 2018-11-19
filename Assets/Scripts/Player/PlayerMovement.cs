@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour{
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
     [SerializeField] private float moveInput;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float checkRadius;
@@ -14,6 +13,11 @@ public class PlayerMovement : MonoBehaviour{
     [SerializeField] private int extraJumpValue;
     [SerializeField] private GameObject inputs;
     [SerializeField] private string leftKey, rightKey, jumpKey, dashKey, inhaleKey, smashKey;
+    [SerializeField] private float jumpForce;
+    public float JumpForce {
+        get { return jumpForce;}
+        set { jumpForce = value; }
+    }
 
     private bool isXboxControls;
     private bool fliped;
