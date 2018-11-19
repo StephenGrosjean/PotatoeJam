@@ -28748,7 +28748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a283b93cac0a7646b1f93d58c0856e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskAttract: Attrack
+  maskAttract: Attract
   maskNone: Default
 --- !u!61 &1223957142
 BoxCollider2D:
