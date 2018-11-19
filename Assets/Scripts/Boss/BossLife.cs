@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// </summary>
 
 public class BossLife : MonoBehaviour {
-
+    [SerializeField] private float damageTimer;
     [SerializeField] private GameObject blood;
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite goodHeart, badHeart;
@@ -22,6 +22,8 @@ public class BossLife : MonoBehaviour {
     private GameManager GM;
     private Animator bossAnimator;
     private BossJambes bossJambesScript;
+
+    private bool canTakeDamage = true;
 
 
     private void OnEnable() {
@@ -84,10 +86,14 @@ public class BossLife : MonoBehaviour {
 
     //Do damage to the boss, shake the camera and update the Hearts
     public void TakeDamage() {
-        Invoke("UpdateHearts", 0);
-        Instantiate(blood, bloodSpawnPoint.position, Quaternion.identity);
-        lockVirtualCameraAnimator.Play("CameraShake");
-        life--;
+        if (canTakeDamage) {
+            StartCoroutine("TakeDamageTimer");
+            Invoke("UpdateHearts", 0);
+            Instantiate(blood, bloodSpawnPoint.position, Quaternion.identity);
+            lockVirtualCameraAnimator.Play("CameraShake");
+            life--;
+        }
+
     }
 
     //Kill the boss
@@ -108,5 +114,11 @@ public class BossLife : MonoBehaviour {
         hearts[2].sprite = goodHeart;
 
         Destroy(gameObject);
+    }
+
+    IEnumerator TakeDamageTimer() {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(damageTimer);
+        canTakeDamage = true;
     }
 }

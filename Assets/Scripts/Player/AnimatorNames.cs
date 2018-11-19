@@ -29,11 +29,30 @@ public class AnimatorNames : MonoBehaviour {
     [SerializeField] private string aspirerArms;
     [SerializeField] private string smashArms;
 
+    [Header("Legs")]
+    [SerializeField] private string idleLegs;
+    [SerializeField] private string walkLegs;
+    [SerializeField] private string kickLegs;
+    [SerializeField] private string jumpLegs;
+
     private Animator anim;
+
+    public GameObject GroundCheck;
+    public Transform pos;
 
     private void Start() {
 
         anim = GetComponent<Animator>();
+
+        if (Stages == 3) {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GroundCheck.transform.position = pos.position;
+        }
+    }
+
+
+    private void Update() {
+
     }
 
     public void PlayAnimations(string animation) {
@@ -45,6 +64,9 @@ public class AnimatorNames : MonoBehaviour {
                 else if (Stages == 2) {
                     anim.Play(idleArms);
                 }
+                else if (Stages == 3) {
+                    anim.Play(idleLegs);
+                }
                 break;
 
 
@@ -54,6 +76,9 @@ public class AnimatorNames : MonoBehaviour {
                 }
                 else if (Stages == 2) {
                     anim.Play(walkArms);
+                }
+                else if (Stages == 3) {
+                    anim.Play(walkLegs);
                 }
                 break;
 
@@ -87,6 +112,14 @@ public class AnimatorNames : MonoBehaviour {
 
             case "Smash":
                 anim.Play(smashArms);
+                break;
+
+            case "Jump":
+                anim.Play(jumpLegs);
+                break;
+            
+            case "Kick":
+                anim.Play(kickLegs);
                 break;
         }
     }

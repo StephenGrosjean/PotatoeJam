@@ -31,6 +31,7 @@ public class BossJambes : MonoBehaviour
     private PlayerMovement playerMovementScript;
     private DashZone dashZoneScript;
 
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
