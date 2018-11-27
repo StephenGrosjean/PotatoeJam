@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// play the poof sound
+/// </summary>
 public class PoofCloud : MonoBehaviour {
-    [SerializeField] private AudioClip PoofSound;
+    [SerializeField] private AudioClip poofSound;
 
-	// Use this for initialization
 	void Awake () {
-        GetComponent<AudioSource>().clip = PoofSound;
+        GetComponent<AudioSource>().clip = poofSound;
         GetComponent<AudioSource>().Play();
 	}
 }

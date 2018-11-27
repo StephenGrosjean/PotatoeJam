@@ -1,71 +1,90 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Script to use the smash power
+/// </summary>
 public class Smash : MonoBehaviour {
-    public string SmashKey; //SET (yes)
+    [SerializeField] private string smashKey;
+    public string SmashKey
+    {
+        get { return smashKey; }
+        set { smashKey = value; }
+    }
 
-    [SerializeField] private GameObject SmashBall;
-    [SerializeField] private Image SmashSlider;
-    [SerializeField] private Transform SmashSpawnZone;
-    [SerializeField] private float WaitTimeSmash;
-    [SerializeField] private float WaitTimeCharge;
-    [SerializeField] private float WaitTimeSpawnBall;
-    [SerializeField] private float TimerSmash;
-    [SerializeField] private float SmashReloadTime;
+    [SerializeField] private GameObject smashBall;
+    [SerializeField] private Image smashSlider;
+    [SerializeField] private Transform smashSpawnZone;
+    [SerializeField] private float waitTimeSmash;
+    [SerializeField] private float waitTimeCharge;
+    [SerializeField] private float waitTimeSpawnBall;
+    [SerializeField] private float timerSmash;
+    [SerializeField] private float smashReloadTime;
 
+    private bool isXboxControls;
 
-    private AnimatorNames AnimatorNames;
-    private PlayerMovement PlayerMovementScript;
-    private float SmashValue;
-    private bool Charge;
-    private bool CanSmash = true;
-
+    private AnimatorNames animatorNames;
+    private PlayerMovement playerMovementScript;
+    private float smashValue;
+    private bool charge;
+    private bool canSmash = true;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
 
     void Start () {
-        AnimatorNames = GetComponent<AnimatorNames>();
-        PlayerMovementScript = GetComponent<PlayerMovement>();
-	}
+        animatorNames = GetComponent<AnimatorNames>();
+        playerMovementScript = GetComponent<PlayerMovement>();
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        SmashSlider.fillAmount = SmashValue;
+        isXboxControls = inputManagerScript.IsXboxControls;
 
-        if (SmashKey != "") {
-            if (Input.GetKeyDown(SmashKey) && CanSmash) {
+        smashSlider.fillAmount = smashValue;
+
+        if (isXboxControls) {
+            if (Input.GetButtonDown("X360_Smash") && canSmash) {
                 StartCoroutine("ChargeSmash");
             }
         }
+        else {
+            if (SmashKey != "") {
+                if (Input.GetKeyDown(SmashKey) && canSmash) {
+                    StartCoroutine("ChargeSmash");
+                }
+            }
+        }
 
-        if (Charge) {
-            SmashValue += Time.deltaTime / SmashReloadTime;
+        if (charge) {
+            smashValue += Time.deltaTime / smashReloadTime;
         }
         else {
-            SmashValue = 1;
+            smashValue = 1;
         }
 	}
 
     IEnumerator Smashing() {
-        PlayerMovementScript.enabled = false;
-        AnimatorNames.PlayAnimations("Smash");
-        yield return new WaitForSeconds(WaitTimeSpawnBall);
-        GameObject Ball = Instantiate(SmashBall, SmashSpawnZone.position, Quaternion.identity);
-        Ball.GetComponent<SmashBall>().SetDirection((int)Mathf.Sign(transform.localScale.x));
-        yield return new WaitForSeconds(WaitTimeSmash);
-        PlayerMovementScript.enabled = true;
+        playerMovementScript.enabled = false;
+        animatorNames.PlayAnimations("Smash");
+        yield return new WaitForSeconds(waitTimeSpawnBall);
+        GameObject ball = Instantiate(smashBall, smashSpawnZone.position, Quaternion.identity);
+        ball.GetComponent<SmashBall>().SetDirection((int)Mathf.Sign(transform.localScale.x));
+        yield return new WaitForSeconds(waitTimeSmash);
+        playerMovementScript.enabled = true;
 
     }
 
 
     IEnumerator ChargeSmash() {
-        SmashValue = 0;
-        CanSmash = false;
-        Charge = true;
+        smashValue = 0;
+        canSmash = false;
+        charge = true;
         StartCoroutine("Smashing");
-        yield return new WaitForSeconds(WaitTimeCharge);
-        CanSmash = true;
-        Charge = false;
+        yield return new WaitForSeconds(waitTimeCharge);
+        canSmash = true;
+        charge = false;
     }
 
 }

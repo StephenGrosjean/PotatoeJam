@@ -1,28 +1,29 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Rotate over time
+/// </summary>
 public class RotateOverTime : MonoBehaviour {
-    [SerializeField] private float Speed;
-    [SerializeField] private float ChangeDirectionTime;
-    [SerializeField] private bool LockDirection;
+    [SerializeField] private float speed;
+    [SerializeField] private float changeDirectionTime;
+    [SerializeField] private bool lockDirection;
     private int direction = 1;
 
     private void Start() {
-        if (!LockDirection) {
+        if (!lockDirection) {
             StartCoroutine("ChangeDirection");
         }
     }
 
     void Update () {
-        transform.Rotate(new Vector3(0, 0, Speed*Time.deltaTime*direction));
+        transform.Rotate(new Vector3(0, 0, speed*Time.deltaTime*direction));
 	}
 
     IEnumerator ChangeDirection() {
         direction = 1;
-        yield return new WaitForSeconds(ChangeDirectionTime);
+        yield return new WaitForSeconds(changeDirectionTime);
         direction = -1;
-        yield return new WaitForSeconds(ChangeDirectionTime);
+        yield return new WaitForSeconds(changeDirectionTime);
         StartCoroutine("ChangeDirection");
 
     }

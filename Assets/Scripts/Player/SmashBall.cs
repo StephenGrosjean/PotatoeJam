@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Script to check the smashball collisions
+/// </summary>
 public class SmashBall : MonoBehaviour {
 
-    [SerializeField] private float Force;
-    [SerializeField] private int Direction;
+    [SerializeField] private float force;
+    [SerializeField] private int direction;
 
-    private Rigidbody2D Rigid;
+    private Rigidbody2D rigid;
 
     private void Start() {
-        Rigid = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -22,20 +22,24 @@ public class SmashBall : MonoBehaviour {
         else if(collision.gameObject.tag == "Ground"){
             Destroy(gameObject);
             
-        }else if(collision.gameObject.tag == "SpecialBrick") {
-            collision.gameObject.GetComponent<DestroyableBrick>().DestroySequenceSmash();
+        }
+        else if(collision.gameObject.tag == "SpecialBrick") {
+            collision.gameObject.GetComponent<DestroyableBrick>().DestroySequenceSmash(); //Get the destroyable brick script
             Destroy(gameObject);
+        }
+        else if(collision.gameObject.tag == "DashZone") {
+            collision.gameObject.GetComponent<DashZone>().TakeDamage(); //Get the dashzone script from the boss
         }
     }
 
     private void Update() {
-        if (Direction != 0) {
-            Rigid.velocity = new Vector2(Direction * Force, transform.position.y);
+        if (direction != 0) {
+            rigid.velocity = new Vector2(direction * force, transform.position.y);
         }
     }
        
 
     public void SetDirection(int dir) {
-        Direction = dir;
+        direction = dir;
     }
 }

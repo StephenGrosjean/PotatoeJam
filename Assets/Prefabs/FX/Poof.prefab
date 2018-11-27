@@ -51,7 +51,8 @@ AudioSource:
   m_GameObject: {fileID: 1405597609609186}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243768852902727776, guid: ddaeaf9d141283946a9571d83b1ecf5c,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -149,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3115a874411dfe04bade64eae22ececa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoofSound: {fileID: 8300000, guid: e3c70ac568c04f34e977074c2604bcf7, type: 3}
+  poofSound: {fileID: 8300000, guid: e3c70ac568c04f34e977074c2604bcf7, type: 3}
 --- !u!114 &114309558746669626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0d4ce78046e5248be99bea6837492a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Frames:
+  frames:
   - {fileID: 21300000, guid: b830147dfaa96ee4696ecbb944c3b7c9, type: 3}
   - {fileID: 21300000, guid: 7f5c7d350cce23f4c9829abcca239aad, type: 3}
   - {fileID: 21300000, guid: 232a41d25ec26964ab312b57d86bd3f8, type: 3}
@@ -185,8 +186,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2670ad42cb7e04344b2842b2a2a6cc9e, type: 3}
   - {fileID: 21300000, guid: 05986b7444f80e74a8e1e0ba6662ed3d, type: 3}
   - {fileID: 21300000, guid: a0021f6ea5f4cc449acc283a6a205810, type: 3}
-  Speed: 0.02
-  Loop: 0
+  speed: 0.02
+  loop: 0
 --- !u!212 &212859204838046208
 SpriteRenderer:
   m_ObjectHideFlags: 1

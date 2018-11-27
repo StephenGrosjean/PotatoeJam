@@ -1,30 +1,38 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script to check if the player have to recieve damages 
+/// Script to check if the player have to receive damages 
 /// </summary>
 
 public class DamageZoneJambes : MonoBehaviour {
-    public bool IsInZone; //Get (yes)
+    [SerializeField] private bool isInZone;
+    public bool IsInZone
+    {
+        get { return isInZone; }
+        set { isInZone = value; }
+    }
 
-    private LifeSystem LifeSystemScript;
-    private GameObject Player;
-    private bool CanGiveDmg = true;
+    private GameObject bossContainer;
+    private BossJambes bossJambesScript;
+    private LifeSystem lifeSystemScript;
+    private GameObject player;
+    private bool canGiveDmg = true;
     private const float DamageDamp = 0.5f;
 
     void Start() {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        LifeSystemScript = Player.GetComponent<LifeSystem>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        bossContainer = transform.parent.gameObject;
+        bossJambesScript = bossContainer.GetComponent<BossJambes>();
+        lifeSystemScript = player.GetComponent<LifeSystem>();
     }
 
     //Give him some damages if he is in zone
     public void ApplyDamages() {
-        if (IsInZone && CanGiveDmg) {
-            CanGiveDmg = false;
+        if (IsInZone && canGiveDmg && bossJambesScript.IsWalking) {
+            canGiveDmg = false;
             StartCoroutine("DmgDamp");
-            LifeSystemScript.LowerLife();
+            lifeSystemScript.LowerLife();
         }
     }
 
@@ -46,7 +54,7 @@ public class DamageZoneJambes : MonoBehaviour {
     //Prevent the boss dealing more than 1 damage to the player at a time
     IEnumerator DmgDamp() {
         yield return new WaitForSeconds(DamageDamp);
-        CanGiveDmg = true;
+        canGiveDmg = true;
 
     }
 }

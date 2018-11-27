@@ -1,34 +1,32 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 /// <summary>
 /// Utility to play a gif on an object
 /// </summary>
 public class GifPlay : MonoBehaviour {
-    [SerializeField] private Sprite[] Frames;
-    [SerializeField] private float Speed;
-    [SerializeField] private bool Loop;
-    private SpriteRenderer SpriteRendererComponent;
+    [SerializeField] private Sprite[] frames;
+    [SerializeField] private float speed;
+    [SerializeField] private bool loop;
+    private SpriteRenderer spriteRendererComponent;
 
     void Start() {
-        SpriteRendererComponent = GetComponent<SpriteRenderer>();
+        spriteRendererComponent = GetComponent<SpriteRenderer>();
 
         //Play the gif frame by frame
-        StartCoroutine("Play", Speed);
+        StartCoroutine("Play", speed);
     }
 
     IEnumerator Play(float speed) {
         //For each sprite in the array, asign it to the sprite renderer
-        for (int i = 0; i < Frames.Length; i++) {
+        for (int i = 0; i < frames.Length; i++) {
             yield return new WaitForSeconds(speed);
-           SpriteRendererComponent.sprite = Frames[i];
+           spriteRendererComponent.sprite = frames[i];
         }
-        if (!Loop) {
+        if (!loop) {
             Destroy(gameObject);
         }
         else {
-            StartCoroutine("Play", Speed);
+            StartCoroutine("Play", this.speed);
         }
     }
 }

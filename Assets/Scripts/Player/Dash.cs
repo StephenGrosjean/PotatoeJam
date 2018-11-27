@@ -4,97 +4,148 @@ using UnityEngine;
 /// Script that manage the Dash Physics
 /// </summary>
 public class Dash : MonoBehaviour {
-    public string DashKey; //SET (yes)
+    [SerializeField] private string dashKey;
+    public string DashKey
+    {
+        get { return dashKey; }
+        set { dashKey = value; }
+    }
 
-    [SerializeField] private GameObject DashTrail;
-    [SerializeField] private float DashSpeed;
-    [SerializeField] private float DashTime;
-    [SerializeField] private float StartDashTime;
-    [SerializeField] private int Direction;
-    [SerializeField] private float DashDamp;
-    [SerializeField] private bool Dashing;
-    [SerializeField] private bool Charging;
+    [SerializeField] private GameObject dashTrail;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashTime;
+    [SerializeField] private float startDashTime;
+    [SerializeField] private int direction;
+    [SerializeField] private float dashDamp;
+    [SerializeField] private bool dashing;
+    [SerializeField] private bool charging;
+    [SerializeField] private AudioClip dashSound;
 
-
-    private PlayerMovement PlayerMovementScript;
-    private AnimatorNames AnimatorNames;
+    private bool isXboxControls;
+    private PlayerMovement playerMovementScript;
+    private AnimatorNames animatorNames;
     private Rigidbody2D rb;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
+    private DashDamp dashDampScript;
+    private AudioSource audioSourceComponent;
 
 
     void Start () {
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
         rb = GetComponent<Rigidbody2D>();
-        AnimatorNames = GetComponent<AnimatorNames>();
-        PlayerMovementScript = GetComponent<PlayerMovement>();
-        DashTime = StartDashTime;
+        animatorNames = GetComponent<AnimatorNames>();
+        playerMovementScript = GetComponent<PlayerMovement>();
+        dashDampScript = GetComponent<DashDamp>();
+        audioSourceComponent = GetComponent<AudioSource>();
+        dashTime = startDashTime;
 	}
 	
 	void Update () {
-            if (Direction == 0) {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
+        if (direction == 0) {
                 if (DashKey != "") {
-                    if (Input.GetKeyDown(DashKey)) {
-                        StartCoroutine("DashChargeTime");
-                        if (transform.localScale.x < 0) {
-                            Direction = 1;
+                    if (isXboxControls) {
+                        if (Input.GetButtonDown("X360_Dash")) {
+                            StartCoroutine("DashChargeTime");
+                            if (transform.localScale.x < 0) {
+                                direction = 1;
+                            }
+                            if (transform.localScale.x > 0) {
+                                direction = 2;
+                            }
                         }
-                        if (transform.localScale.x > 0) {
-                            Direction = 2;
+                    }
+                    else {
+                        if (Input.GetKeyDown(DashKey)) {
+                            StartCoroutine("DashChargeTime");
+                            if (transform.localScale.x < 0) {
+                                direction = 1;
+                            }
+                            if (transform.localScale.x > 0) {
+                                direction = 2;
+                            }
                         }
                     }
                 }
             }
             else {
-                if (DashTime <= 0) {
-                    Direction = 0;
-                    DashTime = StartDashTime;
-                    if (!Dashing) {
-                        AnimatorNames.PlayAnimations("Idle");
+                if (dashTime <= 0) {
+                    direction = 0;
+                    dashTime = startDashTime;
+                    if (!dashing) {
+                        animatorNames.PlayAnimations("Idle");
                     }
 
 
                     rb.velocity = Vector2.zero;
                 }
-                else if (!Charging && !Dashing) {
+                else if (!charging && !dashing) {
 
-                    DashTime -= Time.deltaTime;
+                    dashTime -= Time.deltaTime;
 
-                    if (DashKey != "") {
-                       if (Input.GetKey(DashKey)) {
-                            AnimatorNames.PlayAnimations("Dash");
+                if (DashKey != "") {
+                    if (isXboxControls) {
+                        if (Input.GetButton("X360_Dash")) {
+                            animatorNames.PlayAnimations("Dash");
+                            audioSourceComponent.PlayOneShot(dashSound);
 
-                            if (!Dashing) {
-                                if (Direction == 1) {
-                                    rb.AddForce(Vector2.left * DashSpeed, ForceMode2D.Impulse);
-                               
+                            if (!dashing) {
+                                if (direction == 1) {
+                                    rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+
                                 }
-                                else if (Direction == 2) {
-                                    rb.AddForce(Vector2.right * DashSpeed, ForceMode2D.Impulse);
+                                else if (direction == 2) {
+                                    rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
                                 }
 
-                                GetComponent<DashDamp>().StartDashing();
-                                Direction = 0;
-                                DashTime = StartDashTime;
+                                dashDampScript.StartDashing();
+                                direction = 0;
+                                dashTime = startDashTime;
                             }
-                       }
+                        }
                     }
-                }
+                    else {
+                        if (Input.GetKey(DashKey)) {
+                            animatorNames.PlayAnimations("Dash");
+                            audioSourceComponent.PlayOneShot(dashSound);
+
+                            if (!dashing) {
+                                if (direction == 1) {
+                                    rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
+                                }
+                                else if (direction == 2) {
+                                    rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
+                                }
+
+                                dashDampScript.StartDashing();
+                                direction = 0;
+                                dashTime = startDashTime;
+                            }
+                        }
+                    }
+                }      
+            }
         }
 	}
 
     IEnumerator DisablePlayerControl() {
-        DashTrail.SetActive(true);
-        PlayerMovementScript.enabled = false;
-        yield return new WaitForSeconds(DashTime + 0.4f);
-        DashTrail.SetActive(false);
-        PlayerMovementScript.enabled = true;
+        dashTrail.SetActive(true);
+        playerMovementScript.enabled = false;
+        yield return new WaitForSeconds(dashTime + 0.4f);
+        dashTrail.SetActive(false);
+        playerMovementScript.enabled = true;
     }
 
     IEnumerator DashChargeTime() {
         StartCoroutine("DisablePlayerControl");
-        AnimatorNames.PlayAnimations("Charge");
+        animatorNames.PlayAnimations("Charge");
 
-        Charging = true;
+        charging = true;
         yield return new WaitForSeconds(0.35f);
-        Charging = false;
-        
+        charging = false;
+
     }
 }

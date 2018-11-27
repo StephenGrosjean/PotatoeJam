@@ -1,46 +1,57 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// Script to add the keys to the InputManager 
 /// </summary>
 public class KeyManager : MonoBehaviour {
-    [SerializeField] private GameObject Inputs;
+    [SerializeField] private GameObject inputs;
 
-    public string[] Keys;
-    public string[] KeyMap;
+    [SerializeField] private string[] keys;
+    public string[] Keys
+    {
+        get { return keys; }
+        set { keys = value; }
+    }
 
-    private InputManager InputManagerScript;
-    private const float GetKey_WaitTime = 0.2f;
+    [SerializeField] private string[] keyMap;
+    public string[] KeyMap
+    {
+        get { return keyMap; }
+        set { keyMap = value; }
+    }
+
+    private InputManager inputManagerScript;
+    private const float GetKeyWaitTime = 0.2f;
 
     private void Start() {
-        InputManagerScript = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>();
+        inputManagerScript = GameObject.FindGameObjectWithTag("InputManager").GetComponent<InputManager>();
         StartCoroutine("GetKey");
     }
 
     //Add the keys to the Keys array
-    public void AddKey(string Key, int ID) {
-        Keys[ID] = Key;
+    public void AddKey(string key, int id) {
+        Keys[id] = key;
     }
 
     //Save into the Json by passing the keys array to the Input Manager 
     public void Save() {
-        InputManagerScript.WriteJson(Keys);
+        inputManagerScript.WriteJson(Keys);
         Read();
     }
 
+
     //Read the keys from the InputManager
     void Read() {
-        KeyMap[0] = InputManagerScript.Inputs.Left;
-        KeyMap[1] = InputManagerScript.Inputs.Right;
-        KeyMap[2] = InputManagerScript.Inputs.Jump;
-        KeyMap[3] = InputManagerScript.Inputs.Dash;
-        KeyMap[4] = InputManagerScript.Inputs.Inhale;
-        KeyMap[5] = InputManagerScript.Inputs.Smash;
+        KeyMap[0] = inputManagerScript.Inputs.Left;
+        KeyMap[1] = inputManagerScript.Inputs.Right;
+        KeyMap[2] = inputManagerScript.Inputs.Jump;
+        KeyMap[3] = inputManagerScript.Inputs.Dash;
+        KeyMap[4] = inputManagerScript.Inputs.Inhale;
+        KeyMap[5] = inputManagerScript.Inputs.Smash;
     }
     
     IEnumerator GetKey() {
-        yield return new WaitForSeconds(GetKey_WaitTime);
+        yield return new WaitForSeconds(GetKeyWaitTime);
         Read();
     }
 

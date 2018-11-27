@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Enemy
   - SpecialBrick
+  - DashZone
   layers:
   - Default
   - TransparentFX

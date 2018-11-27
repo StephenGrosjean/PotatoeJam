@@ -140,11 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4d068c40274ac41b2b94df409695ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CheckRadius: 0.1
-  GroundCheckLeft: {fileID: 4843162028647940}
-  GroundCheckRight: {fileID: 4180797284935168}
-  GroundCheckUp: {fileID: 4744498182802856}
-  GroundLayer:
+  checkRadius: 0.1
+  groundCheckLeft: {fileID: 4843162028647940}
+  groundCheckRight: {fileID: 4180797284935168}
+  groundCheckUp: {fileID: 4744498182802856}
+  groundLayer:
     serializedVersion: 2
     m_Bits: 256
 --- !u!114 &114510040697363614
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f207b68e1ae1ab84c82bf51eaad9a8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 120
+  time: 120
 --- !u!212 &212602455307520478
 SpriteRenderer:
   m_ObjectHideFlags: 1

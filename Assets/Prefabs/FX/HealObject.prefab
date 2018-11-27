@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9104ddb5ff005354d93e56bf024f1731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
+  poof: {fileID: 1405597609609186, guid: 2ff1fe8a56c65314ca12a0a7d22d5ef4, type: 2}
 --- !u!212 &212537284684123858
 SpriteRenderer:
   m_ObjectHideFlags: 1

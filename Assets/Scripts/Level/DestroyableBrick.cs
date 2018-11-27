@@ -1,41 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Script to make some bricks "Special"
+/// </summary>
 public class DestroyableBrick : MonoBehaviour {
-    [SerializeField] private GameObject Poof;
-    [SerializeField] private bool DestroySmash;
-    [SerializeField] private GameObject[] OtherBricks;
+    private bool isInDestroyProcess;
+    public bool IsInDestroyProcess {
+        get { return isInDestroyProcess; }
+        set { isInDestroyProcess = value; }
+    }
 
-    private GameObject Player;
-    private DashDamp DashDampScript;
+    [SerializeField] private GameObject poof;
+    [SerializeField] private bool destroySmash;
+    [SerializeField] private GameObject[] otherBricks;
+
+    private const float destroyDamp = 0.1f;
+
+    private GameObject player;
+    private DashDamp dashDampScript;
     private bool isPlayerDashing;
+  
+    private Rigidbody2D rigid;
+    private Vector3 normal;
 
-    private Rigidbody2D Rigid;
-    private Vector3 Normal;
 
-
-    private List<GameObject> OtherBricksList = new List<GameObject>();
-    private SpriteRenderer SpriteRendererComponent;
-    private BoxCollider2D Col;
+    private List<GameObject> otherBricksList = new List<GameObject>();
+    private SpriteRenderer spriteRendererComponent;
+    private BoxCollider2D col;
 
     void Start() {
-        Rigid = GetComponent<Rigidbody2D>();
-        Player = GameObject.FindGameObjectWithTag("Player");
-        DashDampScript = Player.GetComponent<DashDamp>();
-        SpriteRendererComponent = GetComponent<SpriteRenderer>();
-        Col = GetComponent<BoxCollider2D>();
+        rigid = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        dashDampScript = player.GetComponent<DashDamp>();
+        spriteRendererComponent = GetComponent<SpriteRenderer>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     private void Update() {
-        isPlayerDashing = DashDampScript.IsDashing;
+        isPlayerDashing = dashDampScript.IsDashing;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Player") {
-            if (!DestroySmash) {
+            if (!destroySmash) {
                 if (isPlayerDashing) {
-                    Normal = collision.contacts[0].normal;
+                    normal = collision.contacts[0].normal;
                     StartCoroutine("DestroySequenceDash");
                 }
             }
@@ -43,40 +53,46 @@ public class DestroyableBrick : MonoBehaviour {
     }
 
     public void DestroySequenceSmash() {
-        if (DestroySmash) {
+        if (destroySmash) {
+            IsInDestroyProcess = true;
             StartCoroutine("DestroyTNT");
         }
     }
 
     public void DestroySequenceTNT() {
-        Instantiate(Poof, transform.position, Quaternion.identity);
+        Instantiate(poof, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
+    //Destroy bricks dash
     IEnumerator DestroySequenceDash() {
-        Rigid.bodyType = RigidbodyType2D.Dynamic;
-        Rigid.velocity = Normal*50;
-        Rigid.gravityScale = 10;
+        rigid.bodyType = RigidbodyType2D.Dynamic;
+        rigid.velocity = normal*50;
+        rigid.gravityScale = 10;
         yield return new WaitForSeconds(0.5f);
-        Instantiate(Poof, transform.position, Quaternion.identity);
+        Instantiate(poof, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
+    //Destroy bricks Smash
     IEnumerator DestroyTNT() {
+        Instantiate(poof, transform.position, Quaternion.identity);
+        spriteRendererComponent.enabled = false;
+        col.isTrigger = true;
 
-        Instantiate(Poof, transform.position, Quaternion.identity);
-        SpriteRendererComponent.enabled = false;
-        Col.isTrigger = true;
-
-        for (int i = 0; i < OtherBricks.Length; i ++) {
-            if (OtherBricks[i] != null) {
-                OtherBricksList.Add(OtherBricks[i]);
+        //add bricks to array
+        for (int i = 0; i < otherBricks.Length; i ++) {
+            if (otherBricks[i] != null) {
+                otherBricksList.Add(otherBricks[i]);
             }
         }
 
-        foreach(GameObject brick in OtherBricksList) {
-            brick.GetComponent<DestroyableBrick>().DestroySequenceTNT();
-            yield return new WaitForSeconds(0.1f);
+        //Destroy all bricks
+        foreach(GameObject brick in otherBricksList) {
+            if (!brick.GetComponent<DestroyableBrick>().IsInDestroyProcess) {
+                brick.GetComponent<DestroyableBrick>().DestroySequenceTNT();
+            }
+            yield return new WaitForSeconds(destroyDamp);
         }
 
         Destroy(gameObject);

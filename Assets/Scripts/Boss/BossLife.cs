@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,31 +7,34 @@ using UnityEngine.UI;
 /// </summary>
 
 public class BossLife : MonoBehaviour {
-
-    [SerializeField] private GameObject Blood;
-    [SerializeField] private Image[] Hearts;
-    [SerializeField] private Sprite GoodHeart, BadHeart;
-    [SerializeField] private GameObject LockVirtualCamera;
-    [SerializeField] private GameObject Poof;
-    [SerializeField] private GameObject PoofOrigin;
-    [SerializeField] private int Life = 3;
-    [SerializeField] private Transform BloodSpawnPoint;
+    [SerializeField] private float damageTimer;
+    [SerializeField] private GameObject blood;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite goodHeart, badHeart;
+    [SerializeField] private GameObject lockVirtualCamera;
+    [SerializeField] private GameObject poof;
+    [SerializeField] private GameObject poofOrigin;
+    [SerializeField] private int life = 3;
+    [SerializeField] private Transform bloodSpawnPoint;
 
     public string BossName;
-    private Animator LockVirtualCameraAnimator;
+    private Animator lockVirtualCameraAnimator;
     private GameManager GM;
-    private Animator BossAnimator;
-    private BossJambes BossJambesScript;
+    private Animator bossAnimator;
+    private BossJambes bossJambesScript;
 
+    private bool canTakeDamage = true;
+
+    private const float animationDuration = 1.367f;
 
     private void OnEnable() {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
-        LockVirtualCameraAnimator = LockVirtualCamera.GetComponent<Animator>();
-        BossAnimator = GetComponent<Animator>();
+        lockVirtualCameraAnimator = lockVirtualCamera.GetComponent<Animator>();
+        bossAnimator = GetComponent<Animator>();
         BossName = gameObject.name;
 
         if (BossName == "BossJambes") {
-            BossJambesScript = GetComponent<BossJambes>();
+            bossJambesScript = GetComponent<BossJambes>();
         }
 
        
@@ -40,29 +42,29 @@ public class BossLife : MonoBehaviour {
 
     void UpdateHearts() {
         //Change sprite for the Hearts acording to the life value
-        switch (Life) {
+        switch (life) {
             case 3:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = GoodHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = goodHeart;
                 break;
 
             case 2:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = GoodHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = goodHeart;
+                hearts[2].sprite = badHeart;
                 break;
 
             case 1:
-                Hearts[0].sprite = GoodHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = goodHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
                 break;
 
             case 0:
-                Hearts[0].sprite = BadHeart;
-                Hearts[1].sprite = BadHeart;
-                Hearts[2].sprite = BadHeart;
+                hearts[0].sprite = badHeart;
+                hearts[1].sprite = badHeart;
+                hearts[2].sprite = badHeart;
 
                 if(BossName == "BossBras") {
                     KillBoss();
@@ -77,23 +79,27 @@ public class BossLife : MonoBehaviour {
 
 
     IEnumerator JambesDefeat() {
-        BossJambesScript.enabled = false;
-        BossAnimator.Play("Defeat");
-        yield return new WaitForSeconds(1.367f);
+        bossJambesScript.enabled = false;
+        bossAnimator.Play("Defeat");
+        yield return new WaitForSeconds(animationDuration);
         KillBoss();
     }
 
     //Do damage to the boss, shake the camera and update the Hearts
     public void TakeDamage() {
-        Invoke("UpdateHearts", 0);
-        Instantiate(Blood, BloodSpawnPoint.position, Quaternion.identity);
-        LockVirtualCameraAnimator.Play("CameraShake");
-        Life--;
+        if (canTakeDamage) {
+            StartCoroutine("TakeDamageTimer");
+            Invoke("UpdateHearts", 0);
+            Instantiate(blood, bloodSpawnPoint.position, Quaternion.identity);
+            lockVirtualCameraAnimator.Play("CameraShake");
+            life--;
+        }
+
     }
 
     //Kill the boss
     public void KillBoss() {
-        Instantiate(Poof, PoofOrigin.transform.position, Quaternion.identity);
+        Instantiate(poof, poofOrigin.transform.position, Quaternion.identity);
         if(BossName == "BossBras") {
             GM.BossArmsDead = true;
         }
@@ -101,13 +107,16 @@ public class BossLife : MonoBehaviour {
             GM.BossLegsDead = true;
         }
         
-        foreach(Image Heart in Hearts) {
-            Heart.enabled = false;
-        }
-        Hearts[0].sprite = GoodHeart;
-        Hearts[1].sprite = GoodHeart;
-        Hearts[2].sprite = GoodHeart;
+        hearts[0].sprite = goodHeart;
+        hearts[1].sprite = goodHeart;
+        hearts[2].sprite = goodHeart;
 
         Destroy(gameObject);
+    }
+
+    IEnumerator TakeDamageTimer() {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(damageTimer);
+        canTakeDamage = true;
     }
 }

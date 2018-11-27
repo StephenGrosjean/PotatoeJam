@@ -6,31 +6,30 @@ using UnityEngine.SceneManagement;
 /// </summary>
 
 public class Darkend : MonoBehaviour {
-   
-    private bool Dark;
-    private float Alpha;
+    [SerializeField] private bool callGameOver = true;
+    private bool dark;
+    private float alpha;
     private const float AlphaIncreaseValue = 0.01f;
-    private const int DeathWaitTime = 1;
+    private const int deathWaitTime = 1;
 
-    private SpriteRenderer SpriteRendererComponent;
+    private SpriteRenderer spriteRendererComponent;
 
     private void Start() {
-        SpriteRendererComponent = GetComponent<SpriteRenderer>();
+        spriteRendererComponent = GetComponent<SpriteRenderer>();
     }
 
     void Update () {
-        if (Dark) {
-            Alpha += AlphaIncreaseValue;
-            if(Alpha >= 1) {
+        if (dark) {
+            alpha += AlphaIncreaseValue;
+            if(alpha >= 1 && callGameOver) {
                 SceneManager.LoadScene("GameOver");
             }
-           SpriteRendererComponent.color = new Color(0, 0, 0, Alpha);
+           spriteRendererComponent.color = new Color(0, 0, 0, alpha);
         }
-        
 	}
 
-    IEnumerator DeathProtocol() {
-        yield return new WaitForSeconds(DeathWaitTime);
-        Dark = true;
+    public IEnumerator DeathProtocol() {
+        yield return new WaitForSeconds(deathWaitTime);
+        dark = true;
     }
 }

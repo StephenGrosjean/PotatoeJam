@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// Check if the particle is grounded
+/// </summary>
 public class BloodGrounded : MonoBehaviour {
-    [SerializeField] private float CheckRadius;
-    [SerializeField] private Transform GroundCheckLeft;
-    [SerializeField] private Transform GroundCheckRight;
-    [SerializeField] private Transform GroundCheckUp;
-    [SerializeField] private LayerMask GroundLayer;
+    [SerializeField] private float checkRadius;
+    [SerializeField] private Transform groundCheckLeft;
+    [SerializeField] private Transform groundCheckRight;
+    [SerializeField] private Transform groundCheckUp;
+    [SerializeField] private LayerMask groundLayer;
 
     private bool isGroundedLeft;
     private bool isGroundedRight;
     private bool isGroundedUp;
 
     void Start() {
-        isGroundedLeft = Physics2D.OverlapCircle(GroundCheckLeft.position, CheckRadius, GroundLayer);
-        isGroundedRight = Physics2D.OverlapCircle(GroundCheckRight.position, CheckRadius, GroundLayer);
-        isGroundedUp = Physics2D.OverlapCircle(GroundCheckUp.position, CheckRadius, GroundLayer);
+        isGroundedLeft = Physics2D.OverlapCircle(groundCheckLeft.position, checkRadius, groundLayer);
+        isGroundedRight = Physics2D.OverlapCircle(groundCheckRight.position, checkRadius, groundLayer);
+        isGroundedUp = Physics2D.OverlapCircle(groundCheckUp.position, checkRadius, groundLayer);
 
 
         if (!isGroundedLeft || !isGroundedRight || isGroundedUp) {

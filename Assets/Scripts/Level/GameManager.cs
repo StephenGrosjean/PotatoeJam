@@ -1,199 +1,287 @@
 ﻿using UnityEngine;
 using Cinemachine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Game Manager script
 /// </summary>
 
 public class GameManager : MonoBehaviour {
-    public bool BossArmsDead; //Get (yes)
-    public bool BossLegsDead; //Get (yes)
+    [SerializeField] private bool bossArmsDead;
+    public bool BossArmsDead
+    {
+        get { return bossArmsDead; }
+        set { bossArmsDead = value; }
+    }
 
-    public int currentcheckpoint;
-    [SerializeField] private GameObject PowerScreen;
-    [SerializeField] private GameObject PopUpFirstBoss, PopUpSecondBoss;
-    [SerializeField] private GameObject PauseMenu;
-    [SerializeField] private float LimitBoss1, LimitBoss2;
-    [SerializeField] private Transform CP0, CP1, CP2;
-    [SerializeField] private GameObject Boss1, Boss2;
-    [SerializeField] private GameObject Cam;
-    [SerializeField] private GameObject CamCinemachineMain, CamCinemachineLock1, CamCinemachineLock2;
-    [SerializeField] private GameObject WallB1_1, WallB1_2, WallB2_1, WallB2_2;
-    [SerializeField] private GameObject[] LifeBoss1;
-    [SerializeField] private GameObject[] LifeBoss2;
+    [SerializeField] private bool bossLegsDead;
+    public bool BossLegsDead
+    {
+        get { return bossLegsDead; }
+        set { bossLegsDead = value; }
+    }
+
+    [SerializeField] private GameObject background, trees;
+    [SerializeField] private int Currentcheckpoint;
+    [SerializeField] private GameObject powerScreen;
+    [SerializeField] private GameObject popUpFirstBoss, popUpSecondBoss;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private float limitBoss1, limitBoss2;
+    [SerializeField] private Transform cp0, cp1, cp2;
+    [SerializeField] private GameObject boss1, boss2;
+    [SerializeField] private GameObject cam;
+    [SerializeField] private GameObject camCinemachineMain, camCinemachineLock1, camCinemachineLock2;
+    [SerializeField] private GameObject wallB11, wallB12, wallB21, wallB22;
+    [SerializeField] private GameObject[] lifeBoss1;
+    [SerializeField] private GameObject[] lifeBoss2;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Transform legsUpgradePosition;
 
     [Header("SmashPower")]
-    [SerializeField] private GameObject UISmash;
+    [SerializeField] private GameObject uiSmash;
 
-    private const float NormalMusicPitch = 1f;
-    private const float BossMusicPitch = 1.1f;
+    [Header("Legs Sequence")]
+    [SerializeField] private GameObject body;
+    [SerializeField] private GameObject legs;
+    [SerializeField] private Transform groundCheckNewPos;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private GameObject powerPanel;
 
-    private const int CameraHighPrority = 10;
-    private const int CameraLowPriority = 1;
 
-    private const int VolumeScale = 15;
 
-    private GameObject Player;
+    private bool isXboxControls;
 
-    private Animator PowerScreenAnimator;
-    private AudioSource CamAudioSource;
-    private LifeSystem LifeSystemScript;
-    private AnimatorNames AnimatorNamesScript;
-    private Smash SmashScript;
-    private CinemachineVirtualCamera CamCinemachineMain_VirtualCamera, CamCinemachineLock1_VirtualCamera, CamCinemachineLock2_VirtualCamera;
+    private const float normalMusicPitch = 1f;
+    private const float bossMusicPitch = 1.1f;
+
+    private const int cameraHighPrority = 10;
+    private const int cameraLowPriority = 1;
+
+    private const int volumeScale = 15;
+
+    private GameObject player;
+
+    private Animator powerScreenAnimator;
+    private AudioSource camAudioSource;
+    private LifeSystem lifeSystemScript;
+    private AnimatorNames animatorNamesScript;
+    private Smash smashScript;
+    private CinemachineVirtualCamera camCinemachineMainVirtualCamera, camCinemachineLock1VirtualCamera, camCinemachineLock2VirtualCamera;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
+    private EndGame endGameScript;
+    private Parallax backgroundParallax, treesParallax;
+
 
     void Start () {
-        currentcheckpoint = PlayerPrefs.GetInt("CheckPoint");
-        Player = GameObject.FindGameObjectWithTag("Player");
-        Player.GetComponent<LifeSystem>().ActiveCamera = CamCinemachineMain;
-        CamAudioSource = Cam.GetComponent<AudioSource>();
-        LifeSystemScript = Player.GetComponent<LifeSystem>();
-        AnimatorNamesScript = Player.GetComponent<AnimatorNames>();
-        SmashScript = Player.GetComponent<Smash>();
-        PowerScreenAnimator = PowerScreen.GetComponent<Animator>();
-        CamCinemachineMain_VirtualCamera = CamCinemachineMain.GetComponent<CinemachineVirtualCamera>();
-        CamCinemachineLock1_VirtualCamera = CamCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
-        CamCinemachineLock2_VirtualCamera = CamCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
+        Currentcheckpoint = PlayerPrefs.GetInt("CheckPoint");
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<LifeSystem>().ActiveCamera = camCinemachineMain;
+        camAudioSource = cam.GetComponent<AudioSource>();
+        lifeSystemScript = player.GetComponent<LifeSystem>();
+        animatorNamesScript = player.GetComponent<AnimatorNames>();
+        smashScript = player.GetComponent<Smash>();
+        powerScreenAnimator = powerScreen.GetComponent<Animator>();
+        inputManager = GameObject.Find("InputManager");
+        inputManagerScript = inputManager.GetComponent<InputManager>();
+        camCinemachineMainVirtualCamera = camCinemachineMain.GetComponent<CinemachineVirtualCamera>();
+        camCinemachineLock1VirtualCamera = camCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
+        camCinemachineLock2VirtualCamera = camCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
+        endGameScript = GetComponent<EndGame>();
+        backgroundParallax = background.GetComponent<Parallax>();
+        treesParallax = trees.GetComponent<Parallax>();
 
-        CamAudioSource.volume = PlayerPrefs.GetFloat("Volume") / VolumeScale;
+        mixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("Volume") / volumeScale);
 
         if(PlayerPrefs.GetInt("CheckPoint") == 0) {
-            Player.transform.position = CP0.position;
+            player.transform.position = cp0.position;
         }
         else if(PlayerPrefs.GetInt("CheckPoint") == 1) {
-            Player.transform.position = CP1.position;
+            player.transform.position = cp1.position;
             UpgradePlayer(2);
-            WallB1_1.SetActive(true);
+            wallB11.SetActive(true);
             BossArmsDead = true;
-            Destroy(Boss1);
-            CamCinemachineMain_VirtualCamera.Priority = CameraHighPrority;
-            CamCinemachineLock1_VirtualCamera.Priority = CameraLowPriority;
+            Destroy(boss1);
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
         }
         else if (PlayerPrefs.GetInt("CheckPoint") == 2) {
-            Player.transform.position = CP2.position;
-            WallB2_1.SetActive(true);
+            UpgradePlayer(3);
+            player.transform.position = cp2.position;
+            wallB21.SetActive(true);
             BossArmsDead = true;
             BossLegsDead = true;
-            Destroy(Boss1);
-            Destroy(Boss2);
-            CamCinemachineMain_VirtualCamera.Priority = CameraHighPrority;
-            CamCinemachineLock1_VirtualCamera.Priority = CameraLowPriority;
-            CamCinemachineLock2_VirtualCamera.Priority = CameraLowPriority;
+            endGameScript.enabled = true;
+            Destroy(boss1);
+            Destroy(boss2);
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock2VirtualCamera.Priority = cameraLowPriority;
+            EnableLegs();
         }
     }
 
     //Save the check point in the player prefs
-    public void Save(int CheckPoint) {
-        PlayerPrefs.SetInt("CheckPoint", CheckPoint);
+    public void Save(int checkPoint) {
+        PlayerPrefs.SetInt("CheckPoint", checkPoint);
         Debug.Log("GameSaved: " + PlayerPrefs.GetInt("CheckPoint"));
     }
 
     void Update () {
+        isXboxControls = inputManagerScript.IsXboxControls;
+
         //If the camera as passed the boss 1 room center
-		if(Cam.transform.position.x >= LimitBoss1 && !BossArmsDead && !BossLegsDead) {
-            
-            CamAudioSource.pitch = BossMusicPitch;
-            LifeSystemScript.ActiveCamera = CamCinemachineLock1;
+        if (cam.transform.position.x >= limitBoss1 && !BossArmsDead && !BossLegsDead) {
+            treesParallax.enabled = false;
+            backgroundParallax.enabled = false;
+            mixer.SetFloat("MusicPitch", bossMusicPitch);
+            lifeSystemScript.ActiveCamera = camCinemachineLock1;
 
             //Change Virtual Camera
-            CamCinemachineMain_VirtualCamera.Priority = CameraLowPriority;
-            CamCinemachineLock1_VirtualCamera.Priority = CameraHighPrority;
+            camCinemachineMainVirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock1VirtualCamera.Priority = cameraHighPrority;
 
             //Enable the boss and the room walls
-            Boss1.SetActive(true);
-            WallB1_1.SetActive(true);
-            WallB1_2.SetActive(true);
+            boss1.SetActive(true);
+            wallB11.SetActive(true);
+            wallB12.SetActive(true);
 
             //Enable Heart UI of the boss
-            foreach (GameObject Heart in LifeBoss1) {
-                Heart.SetActive(true);
+            foreach (GameObject heart in lifeBoss1) {
+                heart.SetActive(true);
             }
         }
         //Check if the Boss 1 is dead
         else if(BossArmsDead && PlayerPrefs.GetInt("CheckPoint") == 0) {
+            treesParallax.enabled = true;
+            backgroundParallax.enabled = true;
             Save(1); //Set the checkpoint 
-            PowerScreenAnimator.Play("PowerScreen");
-            PopUpFirstBoss.SetActive(true);
+            powerScreenAnimator.Play("PowerScreen");
+            popUpFirstBoss.SetActive(true);
 
             UpgradePlayer(2);
-
-            CamAudioSource.pitch = NormalMusicPitch;
-            LifeSystemScript.ActiveCamera = CamCinemachineMain;
+            mixer.SetFloat("MusicPitch", normalMusicPitch);
+            lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
-            CamCinemachineMain_VirtualCamera.Priority = CameraHighPrority;
-            CamCinemachineLock1_VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock1VirtualCamera.Priority = cameraLowPriority;
 
             //Delete only the wall that prevent the player continue the game
-            Destroy(WallB1_2);
+            Destroy(wallB12);
 
             //Disable Hearts UI of the Boss
-            foreach (GameObject Heart in LifeBoss1) {
-                Heart.SetActive(false);
+            foreach (GameObject heart in lifeBoss1) {
+                heart.SetActive(false);
             }
         }
 
         //Check if camera as passed the boss 2 room center, the first boss is dead and the second not
-        if(Cam.transform.position.x >= LimitBoss2 && BossArmsDead && !BossLegsDead) {
-            CamAudioSource.pitch = BossMusicPitch;
-            LifeSystemScript.ActiveCamera = CamCinemachineLock2;
+        if(cam.transform.position.x >= limitBoss2 && BossArmsDead && !BossLegsDead) {
+            treesParallax.enabled = false;
+            backgroundParallax.enabled = false;
+            mixer.SetFloat("MusicPitch", bossMusicPitch);
+            lifeSystemScript.ActiveCamera = camCinemachineLock2;
 
             //Change Virtual Camera
-            CamCinemachineMain_VirtualCamera.Priority = CameraLowPriority;
-            CamCinemachineLock2_VirtualCamera.Priority = CameraHighPrority;
+            camCinemachineMainVirtualCamera.Priority = cameraLowPriority;
+            camCinemachineLock2VirtualCamera.Priority = cameraHighPrority;
 
             //Enable the boss and the room walls
-            if(Boss2 != null) {
-                Boss2.SetActive(true);
+            if(boss2 != null) {
+                boss2.SetActive(true);
             }
-            WallB2_1.SetActive(true);
-            WallB2_2.SetActive(true);
+            wallB21.SetActive(true);
+            wallB22.SetActive(true);
 
             //Enable Heart UI of the boss
-            foreach (GameObject Heart in LifeBoss2) {
-                Heart.SetActive(true);
+            foreach (GameObject heart in lifeBoss2) {
+                heart.SetActive(true);
             }
         }
         //Check if the checkpoint is 1, the first boss and the second are dead
         else if (BossLegsDead && PlayerPrefs.GetInt("CheckPoint") == 1 && BossArmsDead) {
+            treesParallax.enabled = true;
+            backgroundParallax.enabled = true;
             Save(2); //Set the checkpoint 
+            UpgradePlayer(3);
+            EnableLegs();
+            endGameScript.enabled = true;
 
-            CamAudioSource.pitch = NormalMusicPitch;
-            LifeSystemScript.ActiveCamera = CamCinemachineMain;
+            mixer.SetFloat("MusicPitch", normalMusicPitch);
+            lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
-            CamCinemachineMain_VirtualCamera.Priority = CameraHighPrority;
-            CamCinemachineLock2_VirtualCamera.Priority = CameraLowPriority;
+            camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
+            camCinemachineLock2VirtualCamera.Priority = cameraLowPriority;
 
             //Delete only the wall that prevent the player continue the game
-            Destroy(WallB2_2);
+            Destroy(wallB22);
 
             //Disable Hearts UI of the Boss
-            foreach (GameObject Heart in LifeBoss2) {
-                Heart.SetActive(false);
+            foreach (GameObject heart in lifeBoss2) {
+                heart.SetActive(false);
             }
         }
 
         //Enable pause menu
-        if (Input.GetKeyDown(KeyCode.P)) {
-            PauseMenu.SetActive(true);
-            Time.timeScale = 0;
+        if (isXboxControls) {
+            if (Input.GetButtonDown("X360_Pause")) {
+                if (pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                else {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                }
+            }
         }
+        else {
+            if (Input.GetKeyDown(KeyCode.P)) {
+                if (pauseMenu.activeSelf) {
+                    pauseMenu.SetActive(false);
+                    Time.timeScale = 1;
+                }
+                else {
+                    pauseMenu.SetActive(true);
+                    Time.timeScale = 0;
+                }
+            }
+        }
+
+        Cursor.visible = (Time.timeScale == 0);
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
         }
 	}
 
-    void UpgradePlayer(int Stage) {
-        switch (Stage) {
+    void UpgradePlayer(int stage) {
+        switch (stage) {
             case 2:
-                AnimatorNamesScript.Stages = 2; //Get the arm Upgrade
-                UISmash.SetActive(true); //Enable the smash bar
-                SmashScript.enabled = true; //Enable the smash power
+                animatorNamesScript.Stages = 2; //Get the arm Upgrade
+                uiSmash.SetActive(true); //Enable the smash bar
+                smashScript.enabled = true; //Enable the smash power
                 break;
             case 3:
+                animatorNamesScript.Stages = 3; //Get the arm Upgrade
                 break;
         }
+    }
+
+    void EnableLegs() {
+        player.transform.position = legsUpgradePosition.position;
+        legs.SetActive(true);
+        body.SetActive(false);
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        groundCheck.transform.position = groundCheckNewPos.position;
+        powerPanel.SetActive(false);
+        player.GetComponent<Dash>().enabled = false;
+        player.GetComponent<Inhale>().enabled = false;
+        player.GetComponent<DashDamp>().enabled = false;
+        player.GetComponent<Smash>().enabled = false;
+        player.GetComponent<PlayerMovement>().JumpForce *= 2;
     }
 }

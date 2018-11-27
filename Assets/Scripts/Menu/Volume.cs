@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 /// <summary>
@@ -8,25 +9,61 @@ using TMPro;
 
 public class Volume : MonoBehaviour {
 
-    [SerializeField] private TextMeshProUGUI Text;
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private string playerPrefName;
+    [SerializeField] private string mixerPropertyName;
+    [SerializeField] private AudioClip soundToPlay;
+    [SerializeField] private AudioMixer mixer;
 
-    private float Vol;
-    private const int VolumeScale = 100;
+    private float vol;
+    private const int volumeScale = 100;
+    
+    private Slider sliderVolume;
 
-    private Slider SliderVolume;
+    private AudioSource audioSourceComponent;
 
+    private bool canPlaySound;
+    private const int minDb = 40;
 
 	void Start () {
-        SliderVolume = GetComponent<Slider>();
+        canPlaySound = false;
+        sliderVolume = GetComponent<Slider>();
+        audioSourceComponent = GetComponent<AudioSource>();
 
-        Vol = PlayerPrefs.GetFloat("Volume"); //Get the volume float from the playerprefs
-        SliderVolume.value = Vol;
-	}
+        
+        if(PlayerPrefs.HasKey(playerPrefName)) {
+            vol = PlayerPrefs.GetFloat(playerPrefName); //Get the volume float from the playerprefs
+        }
+        else {
+            PlayerPrefs.SetFloat(playerPrefName, 50); //Set the volume if the player pref not exist (first run)
+        }
+
+        sliderVolume.value = vol;
+        canPlaySound = true;
+    }
 	
 	void Update () {
-        Vol = SliderVolume.value;
-        PlayerPrefs.SetFloat("Volume", Vol);
-        Text.SetText(Mathf.RoundToInt(Vol * VolumeScale) + " %");
-
+        vol = sliderVolume.value;
+        PlayerPrefs.SetFloat(playerPrefName, vol);
+        text.SetText(Mathf.RoundToInt(vol * volumeScale) + " %");
+        if (vol == 0) {
+            mixer.SetFloat(mixerPropertyName, -80);
+        }
+        else {
+            mixer.SetFloat(mixerPropertyName, (vol * minDb) - minDb);
+        }
 	}
+
+    public void ValueChanged() {
+        if (canPlaySound) {
+            canPlaySound = false;
+            audioSourceComponent.PlayOneShot(soundToPlay);
+            Invoke("PlayTimer", soundToPlay.length);
+        }
+
+    }
+
+    void PlayTimer() {
+        canPlaySound = true;
+    }
 }

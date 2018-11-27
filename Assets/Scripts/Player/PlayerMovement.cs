@@ -5,45 +5,47 @@ using UnityEngine;
 /// </summary>
 
 public class PlayerMovement : MonoBehaviour{
-    [SerializeField] private float Speed;
-    [SerializeField] private float JumpForce;
-    [SerializeField] private float MoveInput;
-    [SerializeField] private Transform GroundCheck;
-    [SerializeField] private float CheckRadius;
-    [SerializeField] private LayerMask GroundLayer;
-    [SerializeField] private int ExtraJumpValue;
-    [SerializeField] private GameObject Inputs;
-    [SerializeField] private string LeftKey, RightKey, JumpKey, DashKey, InhaleKey, SmashKey;
+    [SerializeField] private GameObject inhaleZone;
+    [SerializeField] private float speed;
+    [SerializeField] private float moveInput;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float checkRadius;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private int extraJumpValue;
+    [SerializeField] private GameObject inputs;
+    [SerializeField] private string leftKey, rightKey, jumpKey, dashKey, inhaleKey, smashKey;
+    [SerializeField] private float jumpForce;
+    public float JumpForce {
+        get { return jumpForce;}
+        set { jumpForce = value; }
+    }
 
-    private bool IsXboxControls;
-    private bool Fliped;
+    private bool isXboxControls;
+    private bool fliped;
     private bool isGrounded;
-    private int ExtraJumps;
-    private bool AsPressedJump = false;
-    private const float GetKeyWaitTime = 0.2f;
+    private int extraJumps;
+    private bool asPressedJump = false;
+    private const float getKeyWaitTime = 0.2f;
 
     private Rigidbody2D rb;
-    private AnimatorNames AnimatorNamesScript;
-    private Dash DashScript;
-    private Inhale InhaleScript;
-    private Smash SmashScript;
-    private InputManager InputsManager;
+    private AnimatorNames animatorNamesScript;
+    private Dash dashScript;
+    private Inhale inhaleScript;
+    private Smash smashScript;
+    private InputManager inputsManagerScript;
+    private Animator animatorComponent;
+    private AreaEffector2D areaEffectorInhale;
 
     void Start () {
-        if (PlayerPrefs.GetString("ControlLayout") == "Xbox") {
-            IsXboxControls = true;
-        }
-        else {
-            IsXboxControls = false;
-        }
-
-        Inputs = GameObject.FindGameObjectWithTag("InputManager");
+        animatorComponent = GetComponent<Animator>();
+        inputs = GameObject.FindGameObjectWithTag("InputManager");
         rb = GetComponent<Rigidbody2D>();
-        AnimatorNamesScript = GetComponent<AnimatorNames>();
-        DashScript = GetComponent<Dash>();
-        InhaleScript = GetComponent<Inhale>();
-        SmashScript = GetComponent<Smash>();
-        InputsManager = Inputs.GetComponent<InputManager>();
+        animatorNamesScript = GetComponent<AnimatorNames>();
+        dashScript = GetComponent<Dash>();
+        inhaleScript = GetComponent<Inhale>();
+        smashScript = GetComponent<Smash>();
+        inputsManagerScript = inputs.GetComponent<InputManager>();
+        areaEffectorInhale = inhaleZone.GetComponent<AreaEffector2D>();
         
 
         StartCoroutine("GetKey");
@@ -53,93 +55,122 @@ public class PlayerMovement : MonoBehaviour{
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
         //Gizmos.DrawSphere(GroundCheck.position, CheckRadius);
-        Gizmos.DrawCube(GroundCheck.position, new Vector2(CheckRadius,2f));
+        Gizmos.DrawCube(groundCheck.position, new Vector2(checkRadius,2f));
     }
 
     private void FixedUpdate() {
         //Set the horizontal velocity
-        rb.velocity = new Vector2(MoveInput * Speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
     }
 
     private void Update() {
+        isXboxControls = inputsManagerScript.IsXboxControls;
         //Check if the player is grounded
-        isGrounded = Physics2D.OverlapBox(GroundCheck.position, new Vector2(CheckRadius, 2f), 0, GroundLayer);
+        isGrounded = Physics2D.OverlapBox(groundCheck.position, new Vector2(checkRadius, 2f), 0, groundLayer);
 
         //Check if the player as pressed the jump key
-        if (JumpKey != "") {
-            if (Input.GetKeyDown(JumpKey)) {
-                AsPressedJump = true;
+        if (jumpKey != "") {
+            if (isXboxControls) {
+                if (Input.GetButtonDown("X360_Jump")) {
+                    asPressedJump = true;
+                }
+                else {
+                    asPressedJump = false;
+                }
             }
             else {
-                AsPressedJump = false;
+                if (Input.GetKeyDown(jumpKey)) {
+                    asPressedJump = true;
+                }
+                else {
+                    asPressedJump = false;
+                }
             }
         }
         
         //Check if he is grounded, if so reasign the max value for the extra jumps
         if (isGrounded) {
-            ExtraJumps = ExtraJumpValue;
+            extraJumps = extraJumpValue;
         }
 
         //If the player as extra jumps he can jump in the air while decreasing his number of extra jumps
-        if (AsPressedJump && ExtraJumps > 0) {
-            rb.velocity = Vector2.up * JumpForce;
-            ExtraJumps--;
+        if (asPressedJump && extraJumps > 0) {
+            rb.velocity = Vector2.up * jumpForce;
+            animatorNamesScript.PlayAnimations("Jump");
+            extraJumps--;
         }
 
-        // isGrounded = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, GroundLayer);
-
-        if (LeftKey != "") {
-            if (Input.GetKey(LeftKey)) {
-                MoveInput = -1;
+        if (isXboxControls) {
+            if (Input.GetAxis("X360_Horizontal") < 0) {
+                moveInput = -1;
             }
-            else if (Input.GetKey(RightKey)) {
-                MoveInput = 1;
+            else if (Input.GetAxis("X360_Horizontal") > 0) {
+                moveInput = 1;
             }
-            if (!Input.GetKey(LeftKey) && !Input.GetKey(RightKey)) {
-                MoveInput = 0;
+            if (!(Input.GetAxis("X360_Horizontal") < 0) && !(Input.GetAxis("X360_Horizontal") > 0)) {
+                moveInput = 0;
+            }
+        }
+        else {
+            if (leftKey != "") {
+                if (Input.GetKey(leftKey)) {
+                    moveInput = -1;
+                }
+                else if (Input.GetKey(rightKey)) {
+                    moveInput = 1;
+                }
+                if (!Input.GetKey(leftKey) && !Input.GetKey(rightKey)) {
+                    moveInput = 0;
+                }
             }
         }
 
         //Flip the player acording to his movement
-        if (Fliped && MoveInput > 0) {
+        if (fliped && moveInput > 0) {
             Flip();
         }
-        else if (!Fliped && MoveInput < 0) {
+        else if (!fliped && moveInput < 0) {
             Flip();
         }
 
         //Play Animations
-        if (MoveInput != 0) {
-            AnimatorNamesScript.PlayAnimations("Walk");
+        if (moveInput != 0 && !animatorComponent.GetBool("isJumping")) {
+            animatorNamesScript.PlayAnimations("Walk");
 
         }
-        else if (MoveInput == 0) {
-            AnimatorNamesScript.PlayAnimations("Idle");
+        else if (moveInput == 0 && !animatorComponent.GetBool("isJumping")) {
+            animatorNamesScript.PlayAnimations("Idle");
         }
     }
 
     void Flip() {
-        Fliped = !Fliped;
-        Vector3 Scale = transform.localScale;
-        Scale.x *= -1;
-        transform.localScale = Scale;
+        fliped = !fliped;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+        if(areaEffectorInhale.forceMagnitude == -500) {
+            areaEffectorInhale.forceMagnitude = 500;
+        }
+        else {
+            areaEffectorInhale.forceMagnitude = -500;
+        }
     }
 
     //Get all inputs from the Json
     IEnumerator GetKey() {
-        yield return new WaitForSeconds(GetKeyWaitTime);
+        yield return new WaitForSeconds(getKeyWaitTime);
 
-        LeftKey = InputsManager.Inputs.Left;
-        RightKey = InputsManager.Inputs.Right;
-        JumpKey = InputsManager.Inputs.Jump;
+        leftKey = inputsManagerScript.Inputs.Left;
+        rightKey = inputsManagerScript.Inputs.Right;
+        jumpKey = inputsManagerScript.Inputs.Jump;
 
-        DashKey = InputsManager.Inputs.Dash;
-             DashScript.DashKey = DashKey;
+        dashKey = inputsManagerScript.Inputs.Dash;
+             dashScript.DashKey = dashKey;
 
-        InhaleKey = InputsManager.Inputs.Inhale;
-            InhaleScript.InhaleKey = InhaleKey;
+        inhaleKey = inputsManagerScript.Inputs.Inhale;
+            inhaleScript.InhaleKey = inhaleKey;
 
-        SmashKey = InputsManager.Inputs.Smash;
-            SmashScript.SmashKey = SmashKey;
+        smashKey = inputsManagerScript.Inputs.Smash;
+            smashScript.SmashKey = smashKey;
     }
 }

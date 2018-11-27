@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Script that control the enemy movement
@@ -10,130 +8,130 @@ public class Enemy : MonoBehaviour {
     
     [Header ("Physics/Movement")]
     //Physic variables
-    [SerializeField] private float Speed;
-    [SerializeField] private float JumpForce;
-    [SerializeField] private float HeadBumpForce;
-    [SerializeField] private float CheckRadius;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float headBumpForce;
+    [SerializeField] private float checkRadius;
     [SerializeField] private bool isGrounded;
-    [SerializeField] private Transform GroundCheck;
-    [SerializeField] private LayerMask GroundLayer;
-    private Rigidbody2D Rigid;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    private Rigidbody2D rigid;
 
     [Header("Control")]
     //Controller variables
-    [SerializeField] private GameObject PlayerDetector;
-    [SerializeField] private GameObject LeftDetector, RightDetector;
-    private Transform Player;
-    private Transform Target;
-    private Vector3 ObjectScale;
-    private bool LeftDetect, RightDetect;
+    [SerializeField] private GameObject playerDetector;
+    [SerializeField] private GameObject leftDetector, rightDetector;
+    private Transform player;
+    private Transform target;
+    private Vector3 objectScale;
+    private bool leftDetect, rightDetect;
 
     [Header("FX")]
     //effects
-    [SerializeField] private GameObject Poof;
-    [SerializeField] private GameObject BloodParticles;
+    [SerializeField] private GameObject poof;
+    [SerializeField] private GameObject bloodParticles;
     //Player status
-    private bool PlayerDashing;
-    private bool PlayerInhaling;
+    private bool playerDashing;
+    private bool playerInhaling;
 
-    private const float JumpTimeStep = 0.2f;
+    private const float jumpTimeStep = 0.2f;
 
-    private PlayerDetector PlayerDetectorScript;
-    private EnemySideDetector LeftSideDetectorScript;
-    private EnemySideDetector RightSideDetectorScript;
-    private DashDamp DashDampScript;
-    private Inhale InhaleScript;
-    private Rigidbody2D PlayerRigidBody;
-    private EnemyHeadCollider EnemyHeadColliderScript;
-    private LifeSystem PlayerLifeSystem;
+    private PlayerDetector playerDetectorScript;
+    private EnemySideDetector leftSideDetectorScript;
+    private EnemySideDetector rightSideDetectorScript;
+    private DashDamp dashDampScript;
+    private Inhale inhaleScript;
+    private Rigidbody2D playerRigidBody;
+    private EnemyHeadCollider enemyHeadColliderScript;
+    private LifeSystem playerLifeSystem;
 
     private void Start() {
-        //Asign components to variables
-        Rigid = GetComponent<Rigidbody2D>();
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
-        PlayerDetectorScript = PlayerDetector.GetComponent<PlayerDetector>();
-        RightSideDetectorScript = RightDetector.GetComponent<EnemySideDetector>();
-        LeftSideDetectorScript = LeftDetector.GetComponent<EnemySideDetector>();
-        DashDampScript = Player.GetComponent<DashDamp>();
-        InhaleScript = Player.GetComponent<Inhale>();
-        PlayerRigidBody = Player.GetComponent<Rigidbody2D>();
-        EnemyHeadColliderScript = GetComponentInChildren<EnemyHeadCollider>();
-        PlayerLifeSystem = Player.GetComponent<LifeSystem>();
+        //Assign components to variables
+        rigid = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerDetectorScript = playerDetector.GetComponent<PlayerDetector>();
+        rightSideDetectorScript = rightDetector.GetComponent<EnemySideDetector>();
+        leftSideDetectorScript = leftDetector.GetComponent<EnemySideDetector>();
+        dashDampScript = player.GetComponent<DashDamp>();
+        inhaleScript = player.GetComponent<Inhale>();
+        playerRigidBody = player.GetComponent<Rigidbody2D>();
+        enemyHeadColliderScript = GetComponentInChildren<EnemyHeadCollider>();
+        playerLifeSystem = player.GetComponent<LifeSystem>();
 
         //Get the Scale of the Object;
-        ObjectScale = transform.localScale;
+        objectScale = transform.localScale;
 
         //Invoke the Jump method
-        InvokeRepeating("Jump", 0, JumpTimeStep);
+        InvokeRepeating("Jump", 0, jumpTimeStep);
     }
 
     private void FixedUpdate() {
         //If the player is in range (From the PlayerDetector Script) 
-        if (PlayerDetectorScript.playerInRange) {
-            Target = Player; //Asign the Player as the target
+        if (playerDetectorScript.PlayerInRange) {
+            target = player; //Asign the Player as the target
         }
         else {
-            Target = transform; //Asign itself as the target 
+            target = transform; //Asign itself as the target 
         }
 
         //Check if the enemy is grounded
-        isGrounded = Physics2D.OverlapCircle(GroundCheck.position, CheckRadius, GroundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
 
         //Asign detector values to variables
-        RightDetect = RightSideDetectorScript.Detected;
-        LeftDetect = LeftSideDetectorScript.Detected;
-        PlayerDashing = DashDampScript.IsDashing;
-        PlayerInhaling = InhaleScript.DoInhale;
+        rightDetect = rightSideDetectorScript.Detected;
+        leftDetect = leftSideDetectorScript.Detected;
+        playerDashing = dashDampScript.IsDashing;
+        playerInhaling = inhaleScript.DoInhale;
 
         //Asign the Orientation to a vector
-        Vector3 Orientation = transform.position - Player.position;
-        float oriX = Orientation.x; //Get the X value of the orientation
+        Vector3 orientation = transform.position - player.position;
+        float oriX = orientation.x; //Get the X value of the orientation
 
 
         //Move the enemy towards the player only if it's not colliding with a wall
-        if (!RightDetect || !LeftDetect) { 
-            transform.position = Vector2.MoveTowards(transform.position, new Vector3(Target.position.x, transform.position.y, Target.position.z), Speed);
+        if (!rightDetect || !leftDetect) { 
+            transform.position = Vector2.MoveTowards(transform.position, new Vector3(target.position.x, transform.position.y, target.position.z), speed);
         }
 
         //FLip the object acording to the orientation
         if (oriX > 0) {
-            gameObject.transform.localScale = new Vector3(-ObjectScale.x, ObjectScale.y, ObjectScale.z);
+            gameObject.transform.localScale = new Vector3(-objectScale.x, objectScale.y, objectScale.z);
         }
         else if (oriX < 0) {
-            gameObject.transform.localScale = new Vector3(ObjectScale.x, ObjectScale.y, ObjectScale.z);
+            gameObject.transform.localScale = new Vector3(objectScale.x, objectScale.y, objectScale.z);
         }
     }
 
     void Jump() {
         //If the player is grounded and is touching a wall, Make it jump
-        if ((RightDetect || LeftDetect) && isGrounded) {
-            Rigid.velocity = Vector2.up * JumpForce;
+        if ((rightDetect || leftDetect) && isGrounded) {
+            rigid.velocity = Vector2.up * jumpForce;
         }
     }
 
     public void Kill() {
-        Instantiate(Poof, transform.position, Quaternion.identity);
-        Instantiate(BloodParticles, transform.position, Quaternion.identity);
+        Instantiate(poof, transform.position, Quaternion.identity);
+        Instantiate(bloodParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     public void KillHeadBump() {
-        Instantiate(Poof, transform.position, Quaternion.identity);
-        PlayerRigidBody.velocity = Vector2.up * HeadBumpForce;
+        Instantiate(poof, transform.position, Quaternion.identity);
+        playerRigidBody.velocity = Vector2.up * headBumpForce;
         Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Player") {
             //If the Player isn't dashing and isn't colliding with the head collider...
-            if (!PlayerDashing && !EnemyHeadColliderScript.HeadBump) {
-                if (!PlayerInhaling) {
+            if (!playerDashing && !enemyHeadColliderScript.HeadBump) {
+                if (!playerInhaling) {
                     //...and he is not using the Inhale power, lower is life
-                    PlayerLifeSystem.LowerLife();
+                    playerLifeSystem.LowerLife();
                 }
                 else {
                     //...and he is using the Inhale power, rise is life 
-                    PlayerLifeSystem.RiseLife();
+                    playerLifeSystem.RiseLife();
 
                 }
             }
