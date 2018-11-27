@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Script to use the smash power
+/// </summary>
 public class Smash : MonoBehaviour {
     [SerializeField] private string smashKey;
     public string SmashKey

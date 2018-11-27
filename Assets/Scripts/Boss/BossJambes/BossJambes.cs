@@ -11,6 +11,7 @@ public class BossJambes : MonoBehaviour
         set { isWalking = value; }
     }
 
+    [SerializeField] private GameObject popup;
     [SerializeField] private Transform leftPos;
     [SerializeField] private Transform rightPos;
     [SerializeField] private GameObject rightDamageZone, leftDamageZone;
@@ -43,6 +44,7 @@ public class BossJambes : MonoBehaviour
         playerRigidbody = player.GetComponent<Rigidbody2D>();
         playerMovementScript = player.GetComponent<PlayerMovement>();
         dashZoneScript = dashZone.GetComponent<DashZone>();
+        popup.SetActive(true);
 
         StartCoroutine("States", "Start");
     }

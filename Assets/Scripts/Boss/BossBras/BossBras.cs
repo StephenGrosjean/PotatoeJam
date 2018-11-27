@@ -13,22 +13,25 @@ public class BossBras : MonoBehaviour {
     private BossBrasClap bossBrasClapScript;
     private BossBrasSmash bossBrasSmashScript;
 
+    private const float timeWait = 1.5f;
+
 
     private void Start() {
         bossBrasClapScript = brasClap.GetComponent<BossBrasClap>();
         bossBrasSmashScript = brasSmash.GetComponent<BossBrasSmash>();
         
-        popup.SetActive(true);
+        popup.SetActive(true); //Enable the tip popup
 
         TurnSequence();
 
     }
 
     void TurnSequence() {
-        StartCoroutine("UpdateTurn");
+        StartCoroutine("UpdateTurn"); 
         StartCoroutine("TurnSelector");
     }
 
+    //Switch the stage of the boss
     IEnumerator UpdateTurn () {
         switch (turn) {
             case "Smash":
@@ -36,7 +39,7 @@ public class BossBras : MonoBehaviour {
                 if (brasClap.activeSelf) {
                     bossBrasClapScript.InvokeState("Exit");
                 }
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(timeWait);
 
                 brasSmash.SetActive(true);
                 break;
@@ -46,7 +49,7 @@ public class BossBras : MonoBehaviour {
                     bossBrasSmashScript.InvokeState("Exit");
                 }
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(timeWait);
                 brasClap.SetActive(true);
 
                 break;

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// Check if the particle is grounded
+/// </summary>
 public class BloodGrounded : MonoBehaviour {
     [SerializeField] private float checkRadius;
     [SerializeField] private Transform groundCheckLeft;

@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+/// <summary>
+/// Scale object over time
+/// </summary>
 public class ZoomOverTime : MonoBehaviour {
     [SerializeField] private float minimumScale;
     [SerializeField] private float speed;
@@ -13,7 +13,6 @@ public class ZoomOverTime : MonoBehaviour {
     }
 
     void Update() {
-        //  transform.Rotate(new Vector3(0, 0, speed * Time.deltaTime * direction));
         transform.localScale = new Vector3(transform.localScale.x - Time.deltaTime * direction, transform.localScale.y - Time.deltaTime*direction, transform.localScale.z);
         if (transform.localScale.x <= minimumScale) {
             direction *= -1;

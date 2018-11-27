@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Pause controls
+/// </summary>
 public class PauseControls : MonoBehaviour {
     [Header ("Button")]
     [SerializeField] private Button continueButton;

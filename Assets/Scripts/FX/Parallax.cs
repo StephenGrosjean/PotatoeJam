@@ -1,21 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 /// <summary>
-/// PARALAX SCRIPT (NOT IMPLEMENTED)
+/// Paralax script
 /// </summary>
 public class Parallax : MonoBehaviour {
+    [SerializeField] private GameObject player;
+    [SerializeField] private float speed;
 
-   // private float MoveInput;
-    //private GameObject Player;
-	// Use this for initialization
+    private Rigidbody2D playerRigidbody;
+    private float playerVelocity;
+    private Tilemap tilemapComponent;
+
 	void Start () {
-       // Player = GameObject.FindGameObjectWithTag("Player");
+        playerRigidbody = player.GetComponent<Rigidbody2D>();
+        tilemapComponent = GetComponent<Tilemap>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-        //MoveInput = -Player.GetComponent<PlayerMovement>().MoveInput/10;
-        //transform.Translate(MoveInput, transform.position.y, transform.position.z);
-	}
+        playerVelocity = playerRigidbody.velocity.x; //Get player velocity
+        float offset = tilemapComponent.tileAnchor.x; //Get tile anchor x
+
+        if (playerVelocity > 0) {
+            tilemapComponent.tileAnchor = new Vector3(offset - Time.deltaTime * speed, 0, 0); //set the new offset 
+        }
+
+        if (playerVelocity < 0) {
+            tilemapComponent.tileAnchor = new Vector3(offset + Time.deltaTime * speed, 0, 0); //set the new offset
+        }
+    }
 }

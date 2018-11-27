@@ -4,8 +4,7 @@ using UnityEngine;
 /// Script that manage the Dash Physics
 /// </summary>
 public class Dash : MonoBehaviour {
-   [SerializeField] private string dashKey;
-
+    [SerializeField] private string dashKey;
     public string DashKey
     {
         get { return dashKey; }
@@ -20,6 +19,7 @@ public class Dash : MonoBehaviour {
     [SerializeField] private float dashDamp;
     [SerializeField] private bool dashing;
     [SerializeField] private bool charging;
+    [SerializeField] private AudioClip dashSound;
 
     private bool isXboxControls;
     private PlayerMovement playerMovementScript;
@@ -27,6 +27,8 @@ public class Dash : MonoBehaviour {
     private Rigidbody2D rb;
     private GameObject inputManager;
     private InputManager inputManagerScript;
+    private DashDamp dashDampScript;
+    private AudioSource audioSourceComponent;
 
 
     void Start () {
@@ -35,6 +37,8 @@ public class Dash : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         animatorNames = GetComponent<AnimatorNames>();
         playerMovementScript = GetComponent<PlayerMovement>();
+        dashDampScript = GetComponent<DashDamp>();
+        audioSourceComponent = GetComponent<AudioSource>();
         dashTime = startDashTime;
 	}
 	
@@ -86,6 +90,7 @@ public class Dash : MonoBehaviour {
                     if (isXboxControls) {
                         if (Input.GetButton("X360_Dash")) {
                             animatorNames.PlayAnimations("Dash");
+                            audioSourceComponent.PlayOneShot(dashSound);
 
                             if (!dashing) {
                                 if (direction == 1) {
@@ -96,7 +101,7 @@ public class Dash : MonoBehaviour {
                                     rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
                                 }
 
-                                GetComponent<DashDamp>().StartDashing();
+                                dashDampScript.StartDashing();
                                 direction = 0;
                                 dashTime = startDashTime;
                             }
@@ -105,17 +110,17 @@ public class Dash : MonoBehaviour {
                     else {
                         if (Input.GetKey(DashKey)) {
                             animatorNames.PlayAnimations("Dash");
+                            audioSourceComponent.PlayOneShot(dashSound);
 
                             if (!dashing) {
                                 if (direction == 1) {
                                     rb.AddForce(Vector2.left * dashSpeed, ForceMode2D.Impulse);
-
                                 }
                                 else if (direction == 2) {
                                     rb.AddForce(Vector2.right * dashSpeed, ForceMode2D.Impulse);
                                 }
 
-                                GetComponent<DashDamp>().StartDashing();
+                                dashDampScript.StartDashing();
                                 direction = 0;
                                 dashTime = startDashTime;
                             }
@@ -141,6 +146,6 @@ public class Dash : MonoBehaviour {
         charging = true;
         yield return new WaitForSeconds(0.35f);
         charging = false;
-        
+
     }
 }

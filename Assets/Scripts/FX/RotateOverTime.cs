@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+/// <summary>
+/// Rotate over time
+/// </summary>
 public class RotateOverTime : MonoBehaviour {
     [SerializeField] private float speed;
     [SerializeField] private float changeDirectionTime;

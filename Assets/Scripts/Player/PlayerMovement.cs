@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 
 public class PlayerMovement : MonoBehaviour{
+    [SerializeField] private GameObject inhaleZone;
     [SerializeField] private float speed;
     [SerializeField] private float moveInput;
     [SerializeField] private Transform groundCheck;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour{
     private Smash smashScript;
     private InputManager inputsManagerScript;
     private Animator animatorComponent;
+    private AreaEffector2D areaEffectorInhale;
 
     void Start () {
         animatorComponent = GetComponent<Animator>();
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour{
         inhaleScript = GetComponent<Inhale>();
         smashScript = GetComponent<Smash>();
         inputsManagerScript = inputs.GetComponent<InputManager>();
+        areaEffectorInhale = inhaleZone.GetComponent<AreaEffector2D>();
         
 
         StartCoroutine("GetKey");
@@ -145,6 +148,12 @@ public class PlayerMovement : MonoBehaviour{
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+        if(areaEffectorInhale.forceMagnitude == -500) {
+            areaEffectorInhale.forceMagnitude = 500;
+        }
+        else {
+            areaEffectorInhale.forceMagnitude = -500;
+        }
     }
 
     //Get all inputs from the Json

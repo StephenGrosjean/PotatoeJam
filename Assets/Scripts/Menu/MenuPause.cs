@@ -18,22 +18,19 @@ public class MenuPause : MonoBehaviour {
     }
 
     public void Continue() {
-        Time.timeScale = normalTimeScale;
+        Time.timeScale = normalTimeScale; //Make the time flow normaly
         gameObject.SetActive(false);
     }
 
     public void BackToMenu() {
-        Time.timeScale = normalTimeScale;
+        Time.timeScale = normalTimeScale; //Make the time flow normaly
         SceneManager.LoadScene("MainMenu");
     }
 
     public void NewGame() {
-        Time.timeScale = normalTimeScale;
+        Time.timeScale = normalTimeScale; //Make the time flow normaly
         SceneManager.LoadScene("NewGame");
 
     }
 
-    public void InputLayout() {
-        
-    }
 }

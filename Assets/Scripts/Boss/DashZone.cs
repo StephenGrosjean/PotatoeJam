@@ -26,8 +26,12 @@ public class DashZone : MonoBehaviour {
         if(collision.gameObject.tag == "Player") {
             if (isDashing) {
                 //If the player is dashing and colliding with the boss DashZone, make damages to the Boss
-                bossLifeScript.TakeDamage();
+                TakeDamage();
             }
         }
+    }
+
+    public void TakeDamage() {
+        bossLifeScript.TakeDamage();
     }
 }

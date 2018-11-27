@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// play the poof sound
+/// </summary>
 public class PoofCloud : MonoBehaviour {
     [SerializeField] private AudioClip poofSound;
 
-	// Use this for initialization
 	void Awake () {
         GetComponent<AudioSource>().clip = poofSound;
         GetComponent<AudioSource>().Play();

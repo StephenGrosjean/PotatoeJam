@@ -1,10 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// Make a button selectable with keyboard and controller input
+/// </summary>
 public class Selected : MonoBehaviour {
-    [SerializeField] private GameObject up, down, left, right;
+    [SerializeField] private AudioClip clickOkSound, clickNoSound;
+    [SerializeField] private GameObject up, down, left, right; //what is the next button to activate?
     [SerializeField] private string activeZone;
     [SerializeField] private GameObject menu;
     [SerializeField] private Image selectedImage;
@@ -15,6 +17,13 @@ public class Selected : MonoBehaviour {
         set { isSelected = value; }
     }
 
+    [SerializeField] private bool canCallEvent = true;
+    public bool CanCallEvent {
+        get { return canCallEvent; }
+        set { canCallEvent = value; }
+
+    }
+
     private Selected upSelectedScript, downSelectedScript, leftSelectedScript, rightSelectedScript;
     private bool canSelect = true;
     private bool previousState, currentState;
@@ -23,6 +32,7 @@ public class Selected : MonoBehaviour {
     private InputManager inputManagerScript;
     private Menu menuScript;
     public bool wasEnabled;
+    private AudioSource audioSourceComponent;
 
     private void OnDisable() {
         wasEnabled = currentState;
@@ -37,6 +47,7 @@ public class Selected : MonoBehaviour {
     }
 
     void Start () {
+        audioSourceComponent = GetComponent<AudioSource>();
         ButtonScript = GetComponent<Button>();
         InputManager = GameObject.Find("InputManager");
         inputManagerScript = InputManager.GetComponent<InputManager>();
@@ -44,7 +55,7 @@ public class Selected : MonoBehaviour {
 
         menuScript = menu.GetComponent<Menu>();
 
-        if(up != null) {
+        if (up != null) {
             upSelectedScript = up.GetComponent<Selected>();
         }
         if(down != null) {
@@ -105,7 +116,13 @@ public class Selected : MonoBehaviour {
                         }
                     }
                     if (Input.GetButtonDown("X360_Jump")) {
-                        ButtonScript.onClick.Invoke();
+                        if (CanCallEvent) {
+                            ButtonScript.onClick.Invoke();
+                            audioSourceComponent.PlayOneShot(clickOkSound);
+                        }
+                        else {
+                            audioSourceComponent.PlayOneShot(clickNoSound);
+                        }
                     }
                 }
             }
@@ -136,7 +153,13 @@ public class Selected : MonoBehaviour {
                         }
                     }
                     if (Input.GetKeyDown(KeyCode.Return)) {
-                        ButtonScript.onClick.Invoke();
+                        if (CanCallEvent) {
+                            ButtonScript.onClick.Invoke();
+                            audioSourceComponent.PlayOneShot(clickOkSound);
+                        }
+                        else {
+                            audioSourceComponent.PlayOneShot(clickNoSound);
+                        }
                     }
                 }
             }

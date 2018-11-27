@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Cinemachine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Game Manager script
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour {
         set { bossLegsDead = value; }
     }
 
+    [SerializeField] private GameObject background, trees;
     [SerializeField] private int Currentcheckpoint;
     [SerializeField] private GameObject powerScreen;
     [SerializeField] private GameObject popUpFirstBoss, popUpSecondBoss;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject wallB11, wallB12, wallB21, wallB22;
     [SerializeField] private GameObject[] lifeBoss1;
     [SerializeField] private GameObject[] lifeBoss2;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Transform legsUpgradePosition;
 
     [Header("SmashPower")]
     [SerializeField] private GameObject uiSmash;
@@ -65,6 +69,8 @@ public class GameManager : MonoBehaviour {
     private CinemachineVirtualCamera camCinemachineMainVirtualCamera, camCinemachineLock1VirtualCamera, camCinemachineLock2VirtualCamera;
     private GameObject inputManager;
     private InputManager inputManagerScript;
+    private EndGame endGameScript;
+    private Parallax backgroundParallax, treesParallax;
 
 
     void Start () {
@@ -81,8 +87,11 @@ public class GameManager : MonoBehaviour {
         camCinemachineMainVirtualCamera = camCinemachineMain.GetComponent<CinemachineVirtualCamera>();
         camCinemachineLock1VirtualCamera = camCinemachineLock1.GetComponent<CinemachineVirtualCamera>();
         camCinemachineLock2VirtualCamera = camCinemachineLock2.GetComponent<CinemachineVirtualCamera>();
+        endGameScript = GetComponent<EndGame>();
+        backgroundParallax = background.GetComponent<Parallax>();
+        treesParallax = trees.GetComponent<Parallax>();
 
-        camAudioSource.volume = PlayerPrefs.GetFloat("Volume") / volumeScale;
+        mixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("Volume") / volumeScale);
 
         if(PlayerPrefs.GetInt("CheckPoint") == 0) {
             player.transform.position = cp0.position;
@@ -102,6 +111,7 @@ public class GameManager : MonoBehaviour {
             wallB21.SetActive(true);
             BossArmsDead = true;
             BossLegsDead = true;
+            endGameScript.enabled = true;
             Destroy(boss1);
             Destroy(boss2);
             camCinemachineMainVirtualCamera.Priority = cameraHighPrority;
@@ -122,8 +132,9 @@ public class GameManager : MonoBehaviour {
 
         //If the camera as passed the boss 1 room center
         if (cam.transform.position.x >= limitBoss1 && !BossArmsDead && !BossLegsDead) {
-            
-            camAudioSource.pitch = bossMusicPitch;
+            treesParallax.enabled = false;
+            backgroundParallax.enabled = false;
+            mixer.SetFloat("MusicPitch", bossMusicPitch);
             lifeSystemScript.ActiveCamera = camCinemachineLock1;
 
             //Change Virtual Camera
@@ -142,13 +153,14 @@ public class GameManager : MonoBehaviour {
         }
         //Check if the Boss 1 is dead
         else if(BossArmsDead && PlayerPrefs.GetInt("CheckPoint") == 0) {
+            treesParallax.enabled = true;
+            backgroundParallax.enabled = true;
             Save(1); //Set the checkpoint 
             powerScreenAnimator.Play("PowerScreen");
             popUpFirstBoss.SetActive(true);
 
             UpgradePlayer(2);
-
-            camAudioSource.pitch = normalMusicPitch;
+            mixer.SetFloat("MusicPitch", normalMusicPitch);
             lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
@@ -166,7 +178,9 @@ public class GameManager : MonoBehaviour {
 
         //Check if camera as passed the boss 2 room center, the first boss is dead and the second not
         if(cam.transform.position.x >= limitBoss2 && BossArmsDead && !BossLegsDead) {
-            camAudioSource.pitch = bossMusicPitch;
+            treesParallax.enabled = false;
+            backgroundParallax.enabled = false;
+            mixer.SetFloat("MusicPitch", bossMusicPitch);
             lifeSystemScript.ActiveCamera = camCinemachineLock2;
 
             //Change Virtual Camera
@@ -187,11 +201,14 @@ public class GameManager : MonoBehaviour {
         }
         //Check if the checkpoint is 1, the first boss and the second are dead
         else if (BossLegsDead && PlayerPrefs.GetInt("CheckPoint") == 1 && BossArmsDead) {
+            treesParallax.enabled = true;
+            backgroundParallax.enabled = true;
             Save(2); //Set the checkpoint 
             UpgradePlayer(3);
             EnableLegs();
+            endGameScript.enabled = true;
 
-            camAudioSource.pitch = normalMusicPitch;
+            mixer.SetFloat("MusicPitch", normalMusicPitch);
             lifeSystemScript.ActiveCamera = camCinemachineMain;
 
             //Change Virtual Camera
@@ -254,7 +271,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void EnableLegs() {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 10, transform.position.z);
+        player.transform.position = legsUpgradePosition.position;
         legs.SetActive(true);
         body.SetActive(false);
         player.GetComponent<BoxCollider2D>().enabled = true;

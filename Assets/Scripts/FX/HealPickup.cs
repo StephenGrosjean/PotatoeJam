@@ -5,8 +5,9 @@
 
 public class HealPickup : MonoBehaviour {
     [SerializeField] private GameObject poof;
-
+    [SerializeField] private int maxLife = 4;
     private LifeSystem lifeSystemScript;
+
 
     //Check if the player as collided with the object
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -15,7 +16,7 @@ public class HealPickup : MonoBehaviour {
             lifeSystemScript = collision.GetComponent<LifeSystem>();
 
             //Check if he is not full life
-            if(lifeSystemScript.Life < 4) {
+            if(lifeSystemScript.Life < maxLife) {
                 //Rise his life
                 lifeSystemScript.RiseLife();
             }

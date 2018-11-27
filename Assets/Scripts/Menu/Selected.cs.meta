@@ -3,7 +3,15 @@ guid: 1e582f7b5b8f8ad4aa87007c797aae5e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - up: {instanceID: 0}
+  - down: {instanceID: 0}
+  - left: {instanceID: 0}
+  - right: {instanceID: 0}
+  - menu: {instanceID: 0}
+  - selectedImage: {instanceID: 0}
+  - clickOkSound: {fileID: 8300000, guid: 2e60e40898200584cbd4ef4df9301e7d, type: 3}
+  - clickNoSound: {fileID: 8300000, guid: e24a784025913b945bedb28728a64ebc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

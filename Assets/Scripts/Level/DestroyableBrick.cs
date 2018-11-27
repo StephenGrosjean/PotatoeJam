@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Script to make some bricks "Special"
+/// </summary>
 public class DestroyableBrick : MonoBehaviour {
     private bool isInDestroyProcess;
     public bool IsInDestroyProcess {
@@ -59,10 +61,10 @@ public class DestroyableBrick : MonoBehaviour {
 
     public void DestroySequenceTNT() {
         Instantiate(poof, transform.position, Quaternion.identity);
-        Debug.Log("Destroyed" + gameObject.name);
         Destroy(gameObject);
     }
 
+    //Destroy bricks dash
     IEnumerator DestroySequenceDash() {
         rigid.bodyType = RigidbodyType2D.Dynamic;
         rigid.velocity = normal*50;
@@ -72,20 +74,21 @@ public class DestroyableBrick : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    //Destroy bricks Smash
     IEnumerator DestroyTNT() {
-
         Instantiate(poof, transform.position, Quaternion.identity);
         spriteRendererComponent.enabled = false;
         col.isTrigger = true;
 
+        //add bricks to array
         for (int i = 0; i < otherBricks.Length; i ++) {
             if (otherBricks[i] != null) {
                 otherBricksList.Add(otherBricks[i]);
             }
         }
 
+        //Destroy all bricks
         foreach(GameObject brick in otherBricksList) {
-            Debug.Log("destroy : " + brick.name);
             if (!brick.GetComponent<DestroyableBrick>().IsInDestroyProcess) {
                 brick.GetComponent<DestroyableBrick>().DestroySequenceTNT();
             }

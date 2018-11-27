@@ -16,6 +16,7 @@ public class Popup : MonoBehaviour {
     private void OnEnable() {
         currentAnimation = System.Enum.GetName(typeof(Animation), animName);
         animatorComponent = GetComponent<Animator>();
+
         if (animName == Animation.Pop) {
             waitTimeUntilDestruction = PopDuration;
         }
@@ -27,7 +28,6 @@ public class Popup : MonoBehaviour {
     }
 
     private void Pop() {
-        Debug.Log(currentAnimation);
        animatorComponent.Play(currentAnimation.ToString());
         StartCoroutine("Kill");
     }

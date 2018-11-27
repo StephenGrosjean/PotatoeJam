@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour {
     }
     public Keys Inputs;
 
+    private string[] baseKeys = { "a", "d", "space", "f", "r", "e" };
     private string json;
 
     [Serializable]
@@ -36,6 +37,13 @@ public class InputManager : MonoBehaviour {
     }
 
     void Start () {
+        if (PlayerPrefs.GetString("ControlLayout") == "") {
+            PlayerPrefs.SetString("ControlLayout", "Keyboard");
+        }
+        if (!File.Exists(Application.dataPath + "/Input.json")) {
+            Debug.Log("NEW FILE");
+            WriteJson(baseKeys);
+        }
         Invoke("ReadJson", 0.1f);
 	}
 

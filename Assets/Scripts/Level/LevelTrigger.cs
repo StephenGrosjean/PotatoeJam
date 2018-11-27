@@ -24,9 +24,11 @@ public class LevelTrigger : MonoBehaviour {
     }
 
     void ActivateObjects() {
+
         foreach(GameObject obj in objectsToActivate) {
+            Debug.Log("EEE");
             obj.SetActive(true);
         }
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

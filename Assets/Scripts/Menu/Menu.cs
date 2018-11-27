@@ -6,7 +6,6 @@ using TMPro;
 /// </summary>
 
 public class Menu : MonoBehaviour {
-
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject panelDetector;
     [SerializeField] private GameObject xboxPanel;
@@ -43,12 +42,9 @@ public class Menu : MonoBehaviour {
         CurrentPanel = panelDetectorScript.CurrentPanel;
 
         if(previousPanel != currentPanel) {
-            Debug.Log("Enable");
             EnableMainButton();
         }
     }
-
-
 
     public void Play() {
         SceneManager.LoadScene("Game");
@@ -56,7 +52,7 @@ public class Menu : MonoBehaviour {
 
     public void NewGame() {
         PlayerPrefs.SetInt("CheckPoint", 0); //Reset the player progression 
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void PlayPanel() {
@@ -162,5 +158,4 @@ public class Menu : MonoBehaviour {
                 break;
         }
     }
-
 }

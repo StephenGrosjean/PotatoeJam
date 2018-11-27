@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// Script to check if the particle hit the ground or a wall and spawn a particle 
+/// </summary>
 
 public class BloodSplat : MonoBehaviour {
 
@@ -33,6 +36,8 @@ public class BloodSplat : MonoBehaviour {
         Vector3 intersectPos = particleCollisionEvent.intersection;
         Vector3 bloodPos = new Vector3(intersectPos.x, intersectPos.y-offset, intersectPos.z);
         Vector3 normal = particleCollisionEvent.normal;
+
+        //Check if the normal is at a right angle (approximatly) 
         if(normal.y > 0.9f) {
             GameObject blood = Instantiate(bloodFlaque, bloodPos, Quaternion.identity);
             blood.transform.SetParent(bloodContainer.transform);

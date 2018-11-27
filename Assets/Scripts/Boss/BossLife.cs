@@ -25,6 +25,7 @@ public class BossLife : MonoBehaviour {
 
     private bool canTakeDamage = true;
 
+    private const float animationDuration = 1.367f;
 
     private void OnEnable() {
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -80,7 +81,7 @@ public class BossLife : MonoBehaviour {
     IEnumerator JambesDefeat() {
         bossJambesScript.enabled = false;
         bossAnimator.Play("Defeat");
-        yield return new WaitForSeconds(1.367f);
+        yield return new WaitForSeconds(animationDuration);
         KillBoss();
     }
 
@@ -106,9 +107,6 @@ public class BossLife : MonoBehaviour {
             GM.BossLegsDead = true;
         }
         
-        foreach(Image heart in hearts) {
-            heart.enabled = false;
-        }
         hearts[0].sprite = goodHeart;
         hearts[1].sprite = goodHeart;
         hearts[2].sprite = goodHeart;

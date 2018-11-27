@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// Script to detect which panel are we in to later activate respective buttons
+/// </summary>
 public class PanelDetector : MonoBehaviour {
     [SerializeField] private Transform mainPanel;
     [SerializeField] private string currentPanel;

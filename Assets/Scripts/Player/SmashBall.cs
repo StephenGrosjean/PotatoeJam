@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+/// <summary>
+/// Script to check the smashball collisions
+/// </summary>
 public class SmashBall : MonoBehaviour {
 
     [SerializeField] private float force;
@@ -20,9 +22,13 @@ public class SmashBall : MonoBehaviour {
         else if(collision.gameObject.tag == "Ground"){
             Destroy(gameObject);
             
-        }else if(collision.gameObject.tag == "SpecialBrick") {
-            collision.gameObject.GetComponent<DestroyableBrick>().DestroySequenceSmash();
+        }
+        else if(collision.gameObject.tag == "SpecialBrick") {
+            collision.gameObject.GetComponent<DestroyableBrick>().DestroySequenceSmash(); //Get the destroyable brick script
             Destroy(gameObject);
+        }
+        else if(collision.gameObject.tag == "DashZone") {
+            collision.gameObject.GetComponent<DashZone>().TakeDamage(); //Get the dashzone script from the boss
         }
     }
 

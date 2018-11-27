@@ -105,7 +105,9 @@ public class AnimatorNames : MonoBehaviour {
                 break;
 
             case "Jump":
-                anim.Play(jumpLegs);
+                if (Stages == 3) {
+                    anim.Play(jumpLegs);
+                }
                 break;
             
             case "Kick":

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+/// <summary>
+/// Check if the mouse is moving to disable all button keyboard or controller control
+/// </summary>
 public class MouveMove : MonoBehaviour {
 
     [SerializeField] private GameObject[] Buttons;
@@ -49,14 +51,24 @@ public class MouveMove : MonoBehaviour {
 
     void disableScripts() {
         foreach (GameObject obj in Buttons) {
-            obj.GetComponent<Selected>().enabled = false;
+            if(SceneManager.GetActiveScene().name == "MainMenu") {
+                obj.GetComponent<Selected>().enabled = false;
+            }
+            else {
+                obj.GetComponent<SelectedTutorial>().enabled = false;
+            }
         }
         StartCoroutine("enableDamp");
     }
 
     void enableScripts() {
         foreach (GameObject obj in Buttons) {
-            obj.GetComponent<Selected>().enabled = true;
+            if (SceneManager.GetActiveScene().name == "MainMenu") {
+                obj.GetComponent<Selected>().enabled = true;
+            }
+            else {
+                obj.GetComponent<SelectedTutorial>().enabled = true;
+            }
         }
     }
 
